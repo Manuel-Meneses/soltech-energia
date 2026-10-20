@@ -1,637 +1,202 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-28T03:22:00.307863+00:00",
-  "title": "Design System: Lumager Energía Solar",
+  "generatedAt": "2026-10-20T16:31:57.882050+00:00",
+  "title": "Design System: El Pibe del Aire",
   "extensions": {
     "colorMeta": {
       "ink": {
         "role": "neutral",
-        "displayName": "Tinta Obra",
-        "canonical": "#1b1d1c",
+        "displayName": "Azul Noche",
+        "canonical": "#0e2240",
         "tonalRamp": [
-          "oklch(0.15 0.004 165)",
-          "oklch(0.26 0.004 165)",
-          "oklch(0.37 0.004 165)",
-          "oklch(0.48 0.004 165)",
-          "oklch(0.60 0.004 165)",
-          "oklch(0.72 0.004 165)",
-          "oklch(0.84 0.004 165)",
-          "oklch(0.95 0.004 165)"
+          "oklch(0.15 0.063 258)",
+          "oklch(0.26 0.063 258)",
+          "oklch(0.37 0.063 258)",
+          "oklch(0.48 0.063 258)",
+          "oklch(0.60 0.063 258)",
+          "oklch(0.72 0.063 258)",
+          "oklch(0.84 0.063 258)",
+          "oklch(0.95 0.063 258)"
         ]
       },
-      "graphite": {
+      "ink-2": {
         "role": "neutral",
-        "displayName": "Grafito",
-        "canonical": "#303533",
+        "displayName": "Azul Noche Claro",
+        "canonical": "#163158",
         "tonalRamp": [
-          "oklch(0.15 0.008 170)",
-          "oklch(0.26 0.008 170)",
-          "oklch(0.37 0.008 170)",
-          "oklch(0.48 0.008 170)",
-          "oklch(0.60 0.008 170)",
-          "oklch(0.72 0.008 170)",
-          "oklch(0.84 0.008 170)",
-          "oklch(0.95 0.008 170)"
+          "oklch(0.15 0.078 258)",
+          "oklch(0.26 0.078 258)",
+          "oklch(0.37 0.078 258)",
+          "oklch(0.48 0.078 258)",
+          "oklch(0.60 0.078 258)",
+          "oklch(0.72 0.078 258)",
+          "oklch(0.84 0.078 258)",
+          "oklch(0.95 0.078 258)"
         ]
       },
       "paper": {
         "role": "neutral",
-        "displayName": "Papel Frío",
-        "canonical": "#f3f4f1",
+        "displayName": "Papel Celeste",
+        "canonical": "#edf4fa",
         "tonalRamp": [
-          "oklch(0.15 0.004 122)",
-          "oklch(0.26 0.004 122)",
-          "oklch(0.37 0.004 122)",
-          "oklch(0.48 0.004 122)",
-          "oklch(0.60 0.004 122)",
-          "oklch(0.72 0.004 122)",
-          "oklch(0.84 0.004 122)",
-          "oklch(0.95 0.004 122)"
+          "oklch(0.15 0.011 244)",
+          "oklch(0.26 0.011 244)",
+          "oklch(0.37 0.011 244)",
+          "oklch(0.48 0.011 244)",
+          "oklch(0.60 0.011 244)",
+          "oklch(0.72 0.011 244)",
+          "oklch(0.84 0.011 244)",
+          "oklch(0.95 0.011 244)"
         ]
       },
       "paper-2": {
         "role": "neutral",
         "displayName": "Papel Hondo",
-        "canonical": "#e8eae5",
+        "canonical": "#dde9f4",
         "tonalRamp": [
-          "oklch(0.15 0.007 124)",
-          "oklch(0.26 0.007 124)",
-          "oklch(0.37 0.007 124)",
-          "oklch(0.48 0.007 124)",
-          "oklch(0.60 0.007 124)",
-          "oklch(0.72 0.007 124)",
-          "oklch(0.84 0.007 124)",
-          "oklch(0.95 0.007 124)"
+          "oklch(0.15 0.020 246)",
+          "oklch(0.26 0.020 246)",
+          "oklch(0.37 0.020 246)",
+          "oklch(0.48 0.020 246)",
+          "oklch(0.60 0.020 246)",
+          "oklch(0.72 0.020 246)",
+          "oklch(0.84 0.020 246)",
+          "oklch(0.95 0.020 246)"
         ]
       },
       "line": {
         "role": "neutral",
         "displayName": "Junta",
-        "canonical": "#d5d8d2",
+        "canonical": "#c5d6e6",
         "tonalRamp": [
-          "oklch(0.15 0.009 129)",
-          "oklch(0.26 0.009 129)",
-          "oklch(0.37 0.009 129)",
-          "oklch(0.48 0.009 129)",
-          "oklch(0.60 0.009 129)",
-          "oklch(0.72 0.009 129)",
-          "oklch(0.84 0.009 129)",
-          "oklch(0.95 0.009 129)"
+          "oklch(0.15 0.029 247)",
+          "oklch(0.26 0.029 247)",
+          "oklch(0.37 0.029 247)",
+          "oklch(0.48 0.029 247)",
+          "oklch(0.60 0.029 247)",
+          "oklch(0.72 0.029 247)",
+          "oklch(0.84 0.029 247)",
+          "oklch(0.95 0.029 247)"
         ]
       },
       "muted": {
         "role": "neutral",
         "displayName": "Gris Nota",
-        "canonical": "#585d5a",
+        "canonical": "#4a5e76",
         "tonalRamp": [
-          "oklch(0.15 0.008 160)",
-          "oklch(0.26 0.008 160)",
-          "oklch(0.37 0.008 160)",
-          "oklch(0.48 0.008 160)",
-          "oklch(0.60 0.008 160)",
-          "oklch(0.72 0.008 160)",
-          "oklch(0.84 0.008 160)",
-          "oklch(0.95 0.008 160)"
+          "oklch(0.15 0.046 253)",
+          "oklch(0.26 0.046 253)",
+          "oklch(0.37 0.046 253)",
+          "oklch(0.48 0.046 253)",
+          "oklch(0.60 0.046 253)",
+          "oklch(0.72 0.046 253)",
+          "oklch(0.84 0.046 253)",
+          "oklch(0.95 0.046 253)"
         ]
       },
       "on-dark": {
         "role": "neutral",
-        "displayName": "Papel sobre Grafito",
-        "canonical": "#f3f4f1",
+        "displayName": "Papel sobre Noche",
+        "canonical": "#eef4fa",
         "tonalRamp": [
-          "oklch(0.15 0.004 122)",
-          "oklch(0.26 0.004 122)",
-          "oklch(0.37 0.004 122)",
-          "oklch(0.48 0.004 122)",
-          "oklch(0.60 0.004 122)",
-          "oklch(0.72 0.004 122)",
-          "oklch(0.84 0.004 122)",
-          "oklch(0.95 0.004 122)"
+          "oklch(0.15 0.010 248)",
+          "oklch(0.26 0.010 248)",
+          "oklch(0.37 0.010 248)",
+          "oklch(0.48 0.010 248)",
+          "oklch(0.60 0.010 248)",
+          "oklch(0.72 0.010 248)",
+          "oklch(0.84 0.010 248)",
+          "oklch(0.95 0.010 248)"
         ]
       },
       "on-dark-muted": {
         "role": "neutral",
-        "displayName": "Gris Nota Oscuro",
-        "canonical": "#b4b9b5",
+        "displayName": "Gris Nota sobre Noche",
+        "canonical": "#a9bcd3",
         "tonalRamp": [
-          "oklch(0.15 0.008 152)",
-          "oklch(0.26 0.008 152)",
-          "oklch(0.37 0.008 152)",
-          "oklch(0.48 0.008 152)",
-          "oklch(0.60 0.008 152)",
-          "oklch(0.72 0.008 152)",
-          "oklch(0.84 0.008 152)",
-          "oklch(0.95 0.008 152)"
+          "oklch(0.15 0.039 253)",
+          "oklch(0.26 0.039 253)",
+          "oklch(0.37 0.039 253)",
+          "oklch(0.48 0.039 253)",
+          "oklch(0.60 0.039 253)",
+          "oklch(0.72 0.039 253)",
+          "oklch(0.84 0.039 253)",
+          "oklch(0.95 0.039 253)"
         ]
       },
       "dark-line": {
         "role": "neutral",
         "displayName": "Junta Oscura",
-        "canonical": "#3d4240",
+        "canonical": "#2a4670",
         "tonalRamp": [
-          "oklch(0.15 0.007 170)",
-          "oklch(0.26 0.007 170)",
-          "oklch(0.37 0.007 170)",
-          "oklch(0.48 0.007 170)",
-          "oklch(0.60 0.007 170)",
-          "oklch(0.72 0.007 170)",
-          "oklch(0.84 0.007 170)",
-          "oklch(0.95 0.007 170)"
+          "oklch(0.15 0.079 258)",
+          "oklch(0.26 0.079 258)",
+          "oklch(0.37 0.079 258)",
+          "oklch(0.48 0.079 258)",
+          "oklch(0.60 0.079 258)",
+          "oklch(0.72 0.079 258)",
+          "oklch(0.84 0.079 258)",
+          "oklch(0.95 0.079 258)"
         ]
       },
-      "orange": {
+      "sky": {
+        "role": "secondary",
+        "displayName": "Celeste Cielo",
+        "canonical": "#6fb6e8",
+        "tonalRamp": [
+          "oklch(0.15 0.102 241)",
+          "oklch(0.26 0.102 241)",
+          "oklch(0.37 0.102 241)",
+          "oklch(0.48 0.102 241)",
+          "oklch(0.60 0.102 241)",
+          "oklch(0.72 0.102 241)",
+          "oklch(0.84 0.102 241)",
+          "oklch(0.95 0.102 241)"
+        ]
+      },
+      "sky-deep": {
+        "role": "secondary",
+        "displayName": "Celeste Hondo",
+        "canonical": "#1d6fa8",
+        "tonalRamp": [
+          "oklch(0.15 0.117 245)",
+          "oklch(0.26 0.117 245)",
+          "oklch(0.37 0.117 245)",
+          "oklch(0.48 0.117 245)",
+          "oklch(0.60 0.117 245)",
+          "oklch(0.72 0.117 245)",
+          "oklch(0.84 0.117 245)",
+          "oklch(0.95 0.117 245)"
+        ]
+      },
+      "gold": {
         "role": "primary",
-        "displayName": "Naranja Lumager",
-        "canonical": "#ff8900",
+        "displayName": "Dorado Sobrio",
+        "canonical": "#e3a53c",
         "tonalRamp": [
-          "oklch(0.15 0.181 57)",
-          "oklch(0.26 0.181 57)",
-          "oklch(0.37 0.181 57)",
-          "oklch(0.48 0.181 57)",
-          "oklch(0.60 0.181 57)",
-          "oklch(0.72 0.181 57)",
-          "oklch(0.84 0.181 57)",
-          "oklch(0.95 0.181 57)"
+          "oklch(0.15 0.138 77)",
+          "oklch(0.26 0.138 77)",
+          "oklch(0.37 0.138 77)",
+          "oklch(0.48 0.138 77)",
+          "oklch(0.60 0.138 77)",
+          "oklch(0.72 0.138 77)",
+          "oklch(0.84 0.138 77)",
+          "oklch(0.95 0.138 77)"
         ]
       },
-      "orange-hover": {
+      "gold-hover": {
         "role": "primary",
-        "displayName": "Naranja Encendido",
-        "canonical": "#ff9d2e",
+        "displayName": "Dorado Sobrio, hover",
+        "canonical": "#ecb85e",
         "tonalRamp": [
-          "oklch(0.15 0.163 63)",
-          "oklch(0.26 0.163 63)",
-          "oklch(0.37 0.163 63)",
-          "oklch(0.48 0.163 63)",
-          "oklch(0.60 0.163 63)",
-          "oklch(0.72 0.163 63)",
-          "oklch(0.84 0.163 63)",
-          "oklch(0.95 0.163 63)"
-        ]
-      },
-      "green": {
-        "role": "secondary",
-        "displayName": "Verde del Logo",
-        "canonical": "#2e8b3a",
-        "tonalRamp": [
-          "oklch(0.15 0.147 145)",
-          "oklch(0.26 0.147 145)",
-          "oklch(0.37 0.147 145)",
-          "oklch(0.48 0.147 145)",
-          "oklch(0.60 0.147 145)",
-          "oklch(0.72 0.147 145)",
-          "oklch(0.84 0.147 145)",
-          "oklch(0.95 0.147 145)"
-        ]
-      },
-      "green-live": {
-        "role": "secondary",
-        "displayName": "Verde Vivo",
-        "canonical": "#5cc46d",
-        "tonalRamp": [
-          "oklch(0.15 0.157 147)",
-          "oklch(0.26 0.157 147)",
-          "oklch(0.37 0.157 147)",
-          "oklch(0.48 0.157 147)",
-          "oklch(0.60 0.157 147)",
-          "oklch(0.72 0.157 147)",
-          "oklch(0.84 0.157 147)",
-          "oklch(0.95 0.157 147)"
-        ]
-      },
-      "plan": {
-        "role": "tertiary",
-        "displayName": "Celda de Plano",
-        "canonical": "#e8edf3",
-        "tonalRamp": [
-          "oklch(0.15 0.010 253)",
-          "oklch(0.26 0.010 253)",
-          "oklch(0.37 0.010 253)",
-          "oklch(0.48 0.010 253)",
-          "oklch(0.60 0.010 253)",
-          "oklch(0.72 0.010 253)",
-          "oklch(0.84 0.010 253)",
-          "oklch(0.95 0.010 253)"
-        ]
-      },
-      "plan-2": {
-        "role": "tertiary",
-        "displayName": "Celda de Plano Honda",
-        "canonical": "#d9e1ea",
-        "tonalRamp": [
-          "oklch(0.15 0.015 251)",
-          "oklch(0.26 0.015 251)",
-          "oklch(0.37 0.015 251)",
-          "oklch(0.48 0.015 251)",
-          "oklch(0.60 0.015 251)",
-          "oklch(0.72 0.015 251)",
-          "oklch(0.84 0.015 251)",
-          "oklch(0.95 0.015 251)"
-        ]
-      },
-      "plan-paper": {
-        "role": "tertiary",
-        "displayName": "Hoja de Plano",
-        "canonical": "#fbfcfd",
-        "tonalRamp": [
-          "oklch(0.15 0.002 248)",
-          "oklch(0.26 0.002 248)",
-          "oklch(0.37 0.002 248)",
-          "oklch(0.48 0.002 248)",
-          "oklch(0.60 0.002 248)",
-          "oklch(0.72 0.002 248)",
-          "oklch(0.84 0.002 248)",
-          "oklch(0.95 0.002 248)"
-        ]
-      },
-      "plan-dc": {
-        "role": "tertiary",
-        "displayName": "Corriente Continua",
-        "canonical": "#d96a00",
-        "tonalRamp": [
-          "oklch(0.15 0.166 52)",
-          "oklch(0.26 0.166 52)",
-          "oklch(0.37 0.166 52)",
-          "oklch(0.48 0.166 52)",
-          "oklch(0.60 0.166 52)",
-          "oklch(0.72 0.166 52)",
-          "oklch(0.84 0.166 52)",
-          "oklch(0.95 0.166 52)"
-        ]
-      },
-      "plan-dc-label": {
-        "role": "tertiary",
-        "displayName": "Rótulo de Continua",
-        "canonical": "#a34d00",
-        "tonalRamp": [
-          "oklch(0.15 0.135 51)",
-          "oklch(0.26 0.135 51)",
-          "oklch(0.37 0.135 51)",
-          "oklch(0.48 0.135 51)",
-          "oklch(0.60 0.135 51)",
-          "oklch(0.72 0.135 51)",
-          "oklch(0.84 0.135 51)",
-          "oklch(0.95 0.135 51)"
-        ]
-      },
-      "plan-ac-label": {
-        "role": "tertiary",
-        "displayName": "Rótulo de Alterna",
-        "canonical": "#23702d",
-        "tonalRamp": [
-          "oklch(0.15 0.126 145)",
-          "oklch(0.26 0.126 145)",
-          "oklch(0.37 0.126 145)",
-          "oklch(0.48 0.126 145)",
-          "oklch(0.60 0.126 145)",
-          "oklch(0.72 0.126 145)",
-          "oklch(0.84 0.126 145)",
-          "oklch(0.95 0.126 145)"
-        ]
-      },
-      "leaf-soft": {
-        "role": "tertiary",
-        "displayName": "Lámina Hoja",
-        "canonical": "#dcebd5",
-        "tonalRamp": [
-          "oklch(0.15 0.033 136)",
-          "oklch(0.26 0.033 136)",
-          "oklch(0.37 0.033 136)",
-          "oklch(0.48 0.033 136)",
-          "oklch(0.60 0.033 136)",
-          "oklch(0.72 0.033 136)",
-          "oklch(0.84 0.033 136)",
-          "oklch(0.95 0.033 136)"
-        ]
-      },
-      "sand-soft": {
-        "role": "tertiary",
-        "displayName": "Lámina Arena",
-        "canonical": "#ece2cf",
-        "tonalRamp": [
-          "oklch(0.15 0.028 84)",
-          "oklch(0.26 0.028 84)",
-          "oklch(0.37 0.028 84)",
-          "oklch(0.48 0.028 84)",
-          "oklch(0.60 0.028 84)",
-          "oklch(0.72 0.028 84)",
-          "oklch(0.84 0.028 84)",
-          "oklch(0.95 0.028 84)"
-        ]
-      },
-      "steel-soft": {
-        "role": "tertiary",
-        "displayName": "Lámina Acero",
-        "canonical": "#dde3ec",
-        "tonalRamp": [
-          "oklch(0.15 0.014 258)",
-          "oklch(0.26 0.014 258)",
-          "oklch(0.37 0.014 258)",
-          "oklch(0.48 0.014 258)",
-          "oklch(0.60 0.014 258)",
-          "oklch(0.72 0.014 258)",
-          "oklch(0.84 0.014 258)",
-          "oklch(0.95 0.014 258)"
-        ]
-      },
-      "sky-dawn": {
-        "role": "tertiary",
-        "displayName": "Amanecer",
-        "canonical": "#f4dcc5",
-        "tonalRamp": [
-          "oklch(0.15 0.041 66)",
-          "oklch(0.26 0.041 66)",
-          "oklch(0.37 0.041 66)",
-          "oklch(0.48 0.041 66)",
-          "oklch(0.60 0.041 66)",
-          "oklch(0.72 0.041 66)",
-          "oklch(0.84 0.041 66)",
-          "oklch(0.95 0.041 66)"
-        ]
-      },
-      "sky-morning": {
-        "role": "tertiary",
-        "displayName": "Mañana",
-        "canonical": "#e2eaee",
-        "tonalRamp": [
-          "oklch(0.15 0.010 229)",
-          "oklch(0.26 0.010 229)",
-          "oklch(0.37 0.010 229)",
-          "oklch(0.48 0.010 229)",
-          "oklch(0.60 0.010 229)",
-          "oklch(0.72 0.010 229)",
-          "oklch(0.84 0.010 229)",
-          "oklch(0.95 0.010 229)"
-        ]
-      },
-      "sky-noon": {
-        "role": "tertiary",
-        "displayName": "Mediodía",
-        "canonical": "#cfe3f3",
-        "tonalRamp": [
-          "oklch(0.15 0.031 242)",
-          "oklch(0.26 0.031 242)",
-          "oklch(0.37 0.031 242)",
-          "oklch(0.48 0.031 242)",
-          "oklch(0.60 0.031 242)",
-          "oklch(0.72 0.031 242)",
-          "oklch(0.84 0.031 242)",
-          "oklch(0.95 0.031 242)"
-        ]
-      },
-      "sky-afternoon": {
-        "role": "tertiary",
-        "displayName": "Tarde",
-        "canonical": "#f2d4a1",
-        "tonalRamp": [
-          "oklch(0.15 0.074 81)",
-          "oklch(0.26 0.074 81)",
-          "oklch(0.37 0.074 81)",
-          "oklch(0.48 0.074 81)",
-          "oklch(0.60 0.074 81)",
-          "oklch(0.72 0.074 81)",
-          "oklch(0.84 0.074 81)",
-          "oklch(0.95 0.074 81)"
-        ]
-      },
-      "sky-night": {
-        "role": "tertiary",
-        "displayName": "Noche Cuyana",
-        "canonical": "#142238",
-        "tonalRamp": [
-          "oklch(0.15 0.046 259)",
-          "oklch(0.26 0.046 259)",
-          "oklch(0.37 0.046 259)",
-          "oklch(0.48 0.046 259)",
-          "oklch(0.60 0.046 259)",
-          "oklch(0.72 0.046 259)",
-          "oklch(0.84 0.046 259)",
-          "oklch(0.95 0.046 259)"
-        ]
-      },
-      "news-masthead": {
-        "role": "secondary",
-        "displayName": "Verde Cabecera",
-        "canonical": "#123f1e",
-        "tonalRamp": [
-          "oklch(0.15 0.075 149)",
-          "oklch(0.26 0.075 149)",
-          "oklch(0.37 0.075 149)",
-          "oklch(0.48 0.075 149)",
-          "oklch(0.60 0.075 149)",
-          "oklch(0.72 0.075 149)",
-          "oklch(0.84 0.075 149)",
-          "oklch(0.95 0.075 149)"
-        ]
-      },
-      "news-obras-soft": {
-        "role": "tertiary",
-        "displayName": "Obras, tinte",
-        "canonical": "#ffe9cf",
-        "tonalRamp": [
-          "oklch(0.15 0.042 72)",
-          "oklch(0.26 0.042 72)",
-          "oklch(0.37 0.042 72)",
-          "oklch(0.48 0.042 72)",
-          "oklch(0.60 0.042 72)",
-          "oklch(0.72 0.042 72)",
-          "oklch(0.84 0.042 72)",
-          "oklch(0.95 0.042 72)"
-        ]
-      },
-      "news-obras-ink": {
-        "role": "tertiary",
-        "displayName": "Obras, tinta",
-        "canonical": "#8a4200",
-        "tonalRamp": [
-          "oklch(0.15 0.118 53)",
-          "oklch(0.26 0.118 53)",
-          "oklch(0.37 0.118 53)",
-          "oklch(0.48 0.118 53)",
-          "oklch(0.60 0.118 53)",
-          "oklch(0.72 0.118 53)",
-          "oklch(0.84 0.118 53)",
-          "oklch(0.95 0.118 53)"
-        ]
-      },
-      "news-clientes": {
-        "role": "tertiary",
-        "displayName": "Clientes, tono",
-        "canonical": "#34a046",
-        "tonalRamp": [
-          "oklch(0.15 0.161 146)",
-          "oklch(0.26 0.161 146)",
-          "oklch(0.37 0.161 146)",
-          "oklch(0.48 0.161 146)",
-          "oklch(0.60 0.161 146)",
-          "oklch(0.72 0.161 146)",
-          "oklch(0.84 0.161 146)",
-          "oklch(0.95 0.161 146)"
-        ]
-      },
-      "news-clientes-soft": {
-        "role": "tertiary",
-        "displayName": "Clientes, tinte",
-        "canonical": "#dcefd6",
-        "tonalRamp": [
-          "oklch(0.15 0.039 138)",
-          "oklch(0.26 0.039 138)",
-          "oklch(0.37 0.039 138)",
-          "oklch(0.48 0.039 138)",
-          "oklch(0.60 0.039 138)",
-          "oklch(0.72 0.039 138)",
-          "oklch(0.84 0.039 138)",
-          "oklch(0.95 0.039 138)"
-        ]
-      },
-      "news-clientes-ink": {
-        "role": "tertiary",
-        "displayName": "Clientes, tinta",
-        "canonical": "#1f6a2a",
-        "tonalRamp": [
-          "oklch(0.15 0.122 146)",
-          "oklch(0.26 0.122 146)",
-          "oklch(0.37 0.122 146)",
-          "oklch(0.48 0.122 146)",
-          "oklch(0.60 0.122 146)",
-          "oklch(0.72 0.122 146)",
-          "oklch(0.84 0.122 146)",
-          "oklch(0.95 0.122 146)"
-        ]
-      },
-      "news-prensa": {
-        "role": "tertiary",
-        "displayName": "Prensa, tono",
-        "canonical": "#1f9a96",
-        "tonalRamp": [
-          "oklch(0.15 0.101 191)",
-          "oklch(0.26 0.101 191)",
-          "oklch(0.37 0.101 191)",
-          "oklch(0.48 0.101 191)",
-          "oklch(0.60 0.101 191)",
-          "oklch(0.72 0.101 191)",
-          "oklch(0.84 0.101 191)",
-          "oklch(0.95 0.101 191)"
-        ]
-      },
-      "news-prensa-soft": {
-        "role": "tertiary",
-        "displayName": "Prensa, tinte",
-        "canonical": "#d3eeec",
-        "tonalRamp": [
-          "oklch(0.15 0.028 191)",
-          "oklch(0.26 0.028 191)",
-          "oklch(0.37 0.028 191)",
-          "oklch(0.48 0.028 191)",
-          "oklch(0.60 0.028 191)",
-          "oklch(0.72 0.028 191)",
-          "oklch(0.84 0.028 191)",
-          "oklch(0.95 0.028 191)"
-        ]
-      },
-      "news-prensa-ink": {
-        "role": "tertiary",
-        "displayName": "Prensa, tinta",
-        "canonical": "#145f5c",
-        "tonalRamp": [
-          "oklch(0.15 0.069 191)",
-          "oklch(0.26 0.069 191)",
-          "oklch(0.37 0.069 191)",
-          "oklch(0.48 0.069 191)",
-          "oklch(0.60 0.069 191)",
-          "oklch(0.72 0.069 191)",
-          "oklch(0.84 0.069 191)",
-          "oklch(0.95 0.069 191)"
-        ]
-      },
-      "news-diario": {
-        "role": "tertiary",
-        "displayName": "Diario, tono",
-        "canonical": "#e0a332",
-        "tonalRamp": [
-          "oklch(0.15 0.141 78)",
-          "oklch(0.26 0.141 78)",
-          "oklch(0.37 0.141 78)",
-          "oklch(0.48 0.141 78)",
-          "oklch(0.60 0.141 78)",
-          "oklch(0.72 0.141 78)",
-          "oklch(0.84 0.141 78)",
-          "oklch(0.95 0.141 78)"
-        ]
-      },
-      "news-diario-soft": {
-        "role": "tertiary",
-        "displayName": "Diario, tinte",
-        "canonical": "#f6e6c4",
-        "tonalRamp": [
-          "oklch(0.15 0.048 86)",
-          "oklch(0.26 0.048 86)",
-          "oklch(0.37 0.048 86)",
-          "oklch(0.48 0.048 86)",
-          "oklch(0.60 0.048 86)",
-          "oklch(0.72 0.048 86)",
-          "oklch(0.84 0.048 86)",
-          "oklch(0.95 0.048 86)"
-        ]
-      },
-      "news-diario-ink": {
-        "role": "tertiary",
-        "displayName": "Diario, tinta",
-        "canonical": "#6e4a0e",
-        "tonalRamp": [
-          "oklch(0.15 0.086 74)",
-          "oklch(0.26 0.086 74)",
-          "oklch(0.37 0.086 74)",
-          "oklch(0.48 0.086 74)",
-          "oklch(0.60 0.086 74)",
-          "oklch(0.72 0.086 74)",
-          "oklch(0.84 0.086 74)",
-          "oklch(0.95 0.086 74)"
-        ]
-      },
-      "news-empresa": {
-        "role": "tertiary",
-        "displayName": "Empresa, tono",
-        "canonical": "#5a67b0",
-        "tonalRamp": [
-          "oklch(0.15 0.115 274)",
-          "oklch(0.26 0.115 274)",
-          "oklch(0.37 0.115 274)",
-          "oklch(0.48 0.115 274)",
-          "oklch(0.60 0.115 274)",
-          "oklch(0.72 0.115 274)",
-          "oklch(0.84 0.115 274)",
-          "oklch(0.95 0.115 274)"
-        ]
-      },
-      "news-empresa-soft": {
-        "role": "tertiary",
-        "displayName": "Empresa, tinte",
-        "canonical": "#e1e4f4",
-        "tonalRamp": [
-          "oklch(0.15 0.022 277)",
-          "oklch(0.26 0.022 277)",
-          "oklch(0.37 0.022 277)",
-          "oklch(0.48 0.022 277)",
-          "oklch(0.60 0.022 277)",
-          "oklch(0.72 0.022 277)",
-          "oklch(0.84 0.022 277)",
-          "oklch(0.95 0.022 277)"
-        ]
-      },
-      "news-empresa-ink": {
-        "role": "tertiary",
-        "displayName": "Empresa, tinta",
-        "canonical": "#353f7a",
-        "tonalRamp": [
-          "oklch(0.15 0.100 274)",
-          "oklch(0.26 0.100 274)",
-          "oklch(0.37 0.100 274)",
-          "oklch(0.48 0.100 274)",
-          "oklch(0.60 0.100 274)",
-          "oklch(0.72 0.100 274)",
-          "oklch(0.84 0.100 274)",
-          "oklch(0.95 0.100 274)"
+          "oklch(0.15 0.123 79)",
+          "oklch(0.26 0.123 79)",
+          "oklch(0.37 0.123 79)",
+          "oklch(0.48 0.123 79)",
+          "oklch(0.60 0.123 79)",
+          "oklch(0.72 0.123 79)",
+          "oklch(0.84 0.123 79)",
+          "oklch(0.95 0.123 79)"
         ]
       },
       "error": {
@@ -648,94 +213,279 @@
           "oklch(0.84 0.178 29)",
           "oklch(0.95 0.178 29)"
         ]
+      },
+      "roof-far": {
+        "role": "tertiary",
+        "displayName": "Techo Lejano",
+        "canonical": "#12294c",
+        "tonalRamp": [
+          "oklch(0.15 0.071 259)",
+          "oklch(0.26 0.071 259)",
+          "oklch(0.37 0.071 259)",
+          "oklch(0.48 0.071 259)",
+          "oklch(0.60 0.071 259)",
+          "oklch(0.72 0.071 259)",
+          "oklch(0.84 0.071 259)",
+          "oklch(0.95 0.071 259)"
+        ]
+      },
+      "roof-near": {
+        "role": "tertiary",
+        "displayName": "Techo Cercano",
+        "canonical": "#173360",
+        "tonalRamp": [
+          "oklch(0.15 0.087 259)",
+          "oklch(0.26 0.087 259)",
+          "oklch(0.37 0.087 259)",
+          "oklch(0.48 0.087 259)",
+          "oklch(0.60 0.087 259)",
+          "oklch(0.72 0.087 259)",
+          "oklch(0.84 0.087 259)",
+          "oklch(0.95 0.087 259)"
+        ]
+      },
+      "roof-house": {
+        "role": "tertiary",
+        "displayName": "La Casa",
+        "canonical": "#1c3d72",
+        "tonalRamp": [
+          "oklch(0.15 0.099 259)",
+          "oklch(0.26 0.099 259)",
+          "oklch(0.37 0.099 259)",
+          "oklch(0.48 0.099 259)",
+          "oklch(0.60 0.099 259)",
+          "oklch(0.72 0.099 259)",
+          "oklch(0.84 0.099 259)",
+          "oklch(0.95 0.099 259)"
+        ]
+      },
+      "night-deep": {
+        "role": "tertiary",
+        "displayName": "Plano de Noche",
+        "canonical": "#0b1d38",
+        "tonalRamp": [
+          "oklch(0.15 0.058 258)",
+          "oklch(0.26 0.058 258)",
+          "oklch(0.37 0.058 258)",
+          "oklch(0.48 0.058 258)",
+          "oklch(0.60 0.058 258)",
+          "oklch(0.72 0.058 258)",
+          "oklch(0.84 0.058 258)",
+          "oklch(0.95 0.058 258)"
+        ]
+      },
+      "field": {
+        "role": "neutral",
+        "displayName": "Blanco de Campo",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "oklch(0.15 0.000 90)",
+          "oklch(0.26 0.000 90)",
+          "oklch(0.37 0.000 90)",
+          "oklch(0.48 0.000 90)",
+          "oklch(0.60 0.000 90)",
+          "oklch(0.72 0.000 90)",
+          "oklch(0.84 0.000 90)",
+          "oklch(0.95 0.000 90)"
+        ]
+      },
+      "day-dawn": {
+        "role": "tertiary",
+        "displayName": "Amanecer",
+        "canonical": "#f5ddc9",
+        "tonalRamp": [
+          "oklch(0.15 0.038 62)",
+          "oklch(0.26 0.038 62)",
+          "oklch(0.37 0.038 62)",
+          "oklch(0.48 0.038 62)",
+          "oklch(0.60 0.038 62)",
+          "oklch(0.72 0.038 62)",
+          "oklch(0.84 0.038 62)",
+          "oklch(0.95 0.038 62)"
+        ]
+      },
+      "day-morning": {
+        "role": "tertiary",
+        "displayName": "Mañana",
+        "canonical": "#dcebf6",
+        "tonalRamp": [
+          "oklch(0.15 0.022 239)",
+          "oklch(0.26 0.022 239)",
+          "oklch(0.37 0.022 239)",
+          "oklch(0.48 0.022 239)",
+          "oklch(0.60 0.022 239)",
+          "oklch(0.72 0.022 239)",
+          "oklch(0.84 0.022 239)",
+          "oklch(0.95 0.022 239)"
+        ]
+      },
+      "day-noon": {
+        "role": "tertiary",
+        "displayName": "Mediodía",
+        "canonical": "#c9e2f5",
+        "tonalRamp": [
+          "oklch(0.15 0.037 241)",
+          "oklch(0.26 0.037 241)",
+          "oklch(0.37 0.037 241)",
+          "oklch(0.48 0.037 241)",
+          "oklch(0.60 0.037 241)",
+          "oklch(0.72 0.037 241)",
+          "oklch(0.84 0.037 241)",
+          "oklch(0.95 0.037 241)"
+        ]
+      },
+      "day-afternoon": {
+        "role": "tertiary",
+        "displayName": "Tarde",
+        "canonical": "#f3d9ae",
+        "tonalRamp": [
+          "oklch(0.15 0.063 80)",
+          "oklch(0.26 0.063 80)",
+          "oklch(0.37 0.063 80)",
+          "oklch(0.48 0.063 80)",
+          "oklch(0.60 0.063 80)",
+          "oklch(0.72 0.063 80)",
+          "oklch(0.84 0.063 80)",
+          "oklch(0.95 0.063 80)"
+        ]
+      },
+      "day-dawn-ink": {
+        "role": "tertiary",
+        "displayName": "Tinta del Amanecer",
+        "canonical": "#4d4a55",
+        "tonalRamp": [
+          "oklch(0.15 0.018 298)",
+          "oklch(0.26 0.018 298)",
+          "oklch(0.37 0.018 298)",
+          "oklch(0.48 0.018 298)",
+          "oklch(0.60 0.018 298)",
+          "oklch(0.72 0.018 298)",
+          "oklch(0.84 0.018 298)",
+          "oklch(0.95 0.018 298)"
+        ]
+      },
+      "day-noon-ink": {
+        "role": "tertiary",
+        "displayName": "Tinta del Mediodía",
+        "canonical": "#3f5470",
+        "tonalRamp": [
+          "oklch(0.15 0.053 256)",
+          "oklch(0.26 0.053 256)",
+          "oklch(0.37 0.053 256)",
+          "oklch(0.48 0.053 256)",
+          "oklch(0.60 0.053 256)",
+          "oklch(0.72 0.053 256)",
+          "oklch(0.84 0.053 256)",
+          "oklch(0.95 0.053 256)"
+        ]
+      },
+      "day-afternoon-ink": {
+        "role": "tertiary",
+        "displayName": "Tinta de la Tarde",
+        "canonical": "#554a3c",
+        "tonalRamp": [
+          "oklch(0.15 0.027 74)",
+          "oklch(0.26 0.027 74)",
+          "oklch(0.37 0.027 74)",
+          "oklch(0.48 0.027 74)",
+          "oklch(0.60 0.027 74)",
+          "oklch(0.72 0.027 74)",
+          "oklch(0.84 0.027 74)",
+          "oklch(0.95 0.027 74)"
+        ]
       }
     },
     "typographyMeta": {
       "display": {
         "displayName": "Display",
-        "purpose": "Titular del hero, en dos líneas. Archivo expandida (wdth 125)."
+        "purpose": "El titular del hero, en dos líneas."
       },
       "headline": {
         "displayName": "Headline",
-        "purpose": "Título de cada capítulo, balanceado; nunca más de 6rem."
+        "purpose": "El título de cada capítulo, con text-wrap: balance."
       },
       "title": {
         "displayName": "Title",
-        "purpose": "Títulos de tarjetas, obras, notas y pestañas (wdth 118)."
+        "purpose": "Pasos, servicios, celdas de la hoja del hero y respuestas de la ficha."
       },
       "figure": {
         "displayName": "Figure",
-        "purpose": "Cifras de hojas de datos y contadores, con números tabulares."
+        "purpose": "Cifras de la calculadora, tabulares."
       },
       "lead": {
         "displayName": "Lead",
-        "purpose": "Bajadas de sección, de 46 a 58ch."
+        "purpose": "Bajadas de sección, de 38 a 56ch."
       },
       "body": {
         "displayName": "Body",
-        "purpose": "Texto corrido, de 65 a 70ch, con espacio entre palabras de 0.04em."
+        "purpose": "Texto corrido y respuestas."
       },
       "label": {
         "displayName": "Label",
-        "purpose": "Etiquetas de sección, rótulos de datos y duraciones (wdth 112)."
+        "purpose": "Rótulos de campos, de la ficha y de los canales."
       },
       "button": {
         "displayName": "Button",
-        "purpose": "Botones y celdas de acción (wdth 110)."
+        "purpose": "Rótulos de botones y de la celda de contacto."
       }
     },
     "shadows": [
       {
         "name": "modulo-flotante",
-        "value": "0 10px 30px rgb(10 12 11 / 0.18)",
-        "purpose": "La cabecera flotando sobre el hero."
+        "value": "0 10px 30px rgb(6 16 32 / 0.2)",
+        "purpose": "La cabecera módulo sobre el hero."
       },
       {
-        "name": "modulo-solido",
-        "value": "0 12px 34px rgb(10 12 11 / 0.3)",
-        "purpose": "La cabecera al bajar, casi opaca."
+        "name": "modulo-flotante-solido",
+        "value": "0 12px 34px rgb(6 16 32 / 0.32)",
+        "purpose": "La cabecera al bajar."
       },
       {
         "name": "hoja-de-plano",
-        "value": "0 1px 0 rgb(16 42 76 / 0.04), 0 18px 40px -16px rgb(16 42 76 / 0.22)",
-        "purpose": "Hojas apoyadas sobre el panel del plano."
+        "value": "0 1px 0 rgb(6 16 32 / 0.06), 0 18px 40px -16px rgb(6 16 32 / 0.35)",
+        "purpose": "El formulario apoyado sobre el campo celeste del cierre."
       },
       {
-        "name": "panel-emergente",
-        "value": "0 24px 60px rgb(10 12 11 / 0.45)",
-        "purpose": "Panel abierto de Instagram en el noticiero."
+        "name": "barra-flotante",
+        "value": "0 10px 30px -8px rgb(6 16 32 / 0.45)",
+        "purpose": "La barra de contacto en celular."
       }
     ],
     "motion": [
       {
-        "name": "lx-ease",
+        "name": "ease",
         "value": "cubic-bezier(0.23, 1, 0.32, 1)",
-        "purpose": "Ease-out fuerte para todo: estados, entradas y transiciones."
+        "purpose": "Ease-out fuerte para todo estado y entrada."
       },
       {
-        "name": "estado",
-        "value": "200ms a 300ms",
-        "purpose": "Hover, foco, color y borde."
+        "name": "press",
+        "value": "scale(0.97), 160ms",
+        "purpose": "Botones y celdas al presionar."
       },
       {
-        "name": "entrada",
-        "value": "700ms a 1400ms",
-        "purpose": "Entradas de sección, subida del hero y trazado de filetes."
+        "name": "arrow",
+        "value": "translateX(4px), 220ms",
+        "purpose": "La flecha avanza al pasar el mouse."
       },
       {
-        "name": "intro-delay",
-        "value": "950ms",
-        "purpose": "Espera de la intro del logo antes de que suba el hero."
+        "name": "rise",
+        "value": "translateY(0.5em) + opacity, 1000ms, 90ms entre piezas",
+        "purpose": "Entrada del hero, después de la intro (950ms)."
       },
       {
-        "name": "celda-de-panel",
-        "value": "480ms, 28ms por diagonal (tope 900ms)",
-        "purpose": "La entrada en panel que destapa cada sección; solo transform y opacidad."
+        "name": "sun",
+        "value": "transform 1800ms",
+        "purpose": "El sol del hero llega a su altura real."
       },
       {
-        "name": "regla-gpu",
-        "value": "transform, opacity",
-        "purpose": "Únicas propiedades animadas al cargar o con el scroll; nada de blur."
+        "name": "pv-in",
+        "value": "scale(0.8) + opacity, 420ms, 35ms entre módulos",
+        "purpose": "Los paneles de la calculadora aparecen de a uno."
+      },
+      {
+        "name": "intro",
+        "value": "< 1800ms",
+        "purpose": "El módulo que se destapa; se omite con movimiento reducido."
       }
     ],
     "breakpoints": [
@@ -754,6 +504,10 @@
       {
         "name": "xl",
         "value": "1280px"
+      },
+      {
+        "name": "phone",
+        "value": "479px"
       }
     ]
   },
@@ -762,130 +516,144 @@
       "name": "Botón principal",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "La acción de contacto: naranja con texto en tinta.",
-      "html": "<button class=\"ds-btn-primary\">Contanos tu proyecto <svg width=\"16\" height=\"16\" viewBox=\"0 0 256 256\" aria-hidden=\"true\"><path fill=\"currentColor\" d=\"M221.66 133.66l-72 72a8 8 0 0 1-11.32-11.32L196.69 136H40a8 8 0 0 1 0-16h156.69l-58.35-58.34a8 8 0 0 1 11.32-11.32l72 72a8 8 0 0 1 0 11.32Z\"/></svg></button>",
-      "css": ".ds-btn-primary{display:inline-flex;align-items:center;gap:.6rem;height:3.25rem;padding:0 1.5rem;border:0;border-radius:0;font-family: Archivo, system-ui, sans-serif;font-weight:600;font-size:.95rem;font-variation-settings:\"wdth\" 110;cursor:pointer;transition:background-color 220ms cubic-bezier(.23,1,.32,1),transform 160ms cubic-bezier(.23,1,.32,1);background:#ff8900;color:#1b1d1c}.ds-btn-primary svg{transition:transform 220ms cubic-bezier(.23,1,.32,1)}.ds-btn-primary:hover{background:#ff9d2e}.ds-btn-primary:hover svg{transform:translateX(4px)}.ds-btn-primary:active{transform:scale(.97)}.ds-btn-primary:focus-visible{outline:2px solid #ff8900;outline-offset:3px}"
+      "description": "La acción: dorado sobrio con texto en azul noche.",
+      "html": "<button class=\"ds-btn-gold\">Pedí una visita <svg width=\"16\" height=\"16\" viewBox=\"0 0 256 256\" aria-hidden=\"true\"><path fill=\"currentColor\" d=\"M221.66 133.66l-72 72a8 8 0 0 1-11.32-11.32L196.69 136H40a8 8 0 0 1 0-16h156.69l-58.35-58.34a8 8 0 0 1 11.32-11.32l72 72a8 8 0 0 1 0 11.32Z\"/></svg></button>",
+      "css": ".ds-btn-gold{display:inline-flex;align-items:center;gap:.6rem;height:3.25rem;padding:0 1.5rem;border:0;border-radius:0;font-family:Archivo, system-ui, sans-serif;font-weight:600;font-size:.95rem;font-variation-settings:\"wdth\" 110;cursor:pointer;transition:background-color 220ms cubic-bezier(.23,1,.32,1),transform 160ms cubic-bezier(.23,1,.32,1);background:#e3a53c;color:#0e2240}.ds-btn-gold svg{transition:transform 220ms cubic-bezier(.23,1,.32,1)}.ds-btn-gold:hover{background:#ecb85e}.ds-btn-gold:hover svg{transform:translateX(4px)}.ds-btn-gold:active{transform:scale(.97)}.ds-btn-gold:focus-visible{outline:2px solid #e3a53c;outline-offset:3px}"
     },
     {
-      "name": "Botón tinta",
+      "name": "Botón azul noche",
       "kind": "button",
       "refersTo": "button-ink",
-      "description": "Acción secundaria sobre papel.",
-      "html": "<button class=\"ds-btn-ink\">Ver todas las obras</button>",
-      "css": ".ds-btn-ink{display:inline-flex;align-items:center;gap:.6rem;height:3.25rem;padding:0 1.5rem;border:0;border-radius:0;font-family: Archivo, system-ui, sans-serif;font-weight:600;font-size:.95rem;font-variation-settings:\"wdth\" 110;cursor:pointer;transition:background-color 220ms cubic-bezier(.23,1,.32,1),transform 160ms cubic-bezier(.23,1,.32,1);background:#1b1d1c;color:#f3f4f1}.ds-btn-ink:hover{background:#303533}.ds-btn-ink:active{transform:scale(.97)}.ds-btn-ink:focus-visible{outline:2px solid #ff8900;outline-offset:3px}"
+      "description": "Acción secundaria sobre papel: enviar el formulario.",
+      "html": "<button class=\"ds-btn-ink\">Armar el mensaje <svg width=\"16\" height=\"16\" viewBox=\"0 0 256 256\" aria-hidden=\"true\"><path fill=\"currentColor\" d=\"M221.66 133.66l-72 72a8 8 0 0 1-11.32-11.32L196.69 136H40a8 8 0 0 1 0-16h156.69l-58.35-58.34a8 8 0 0 1 11.32-11.32l72 72a8 8 0 0 1 0 11.32Z\"/></svg></button>",
+      "css": ".ds-btn-ink{display:inline-flex;align-items:center;gap:.6rem;height:3.25rem;padding:0 1.5rem;border:0;border-radius:0;font-family:Archivo, system-ui, sans-serif;font-weight:600;font-size:.95rem;font-variation-settings:\"wdth\" 110;cursor:pointer;transition:background-color 220ms cubic-bezier(.23,1,.32,1),transform 160ms cubic-bezier(.23,1,.32,1);background:#0e2240;color:#eef4fa}.ds-btn-ink svg{transition:transform 220ms cubic-bezier(.23,1,.32,1)}.ds-btn-ink:hover{background:#163158}.ds-btn-ink:hover svg{transform:translateX(4px)}.ds-btn-ink:active{transform:scale(.97)}.ds-btn-ink:focus-visible{outline:2px solid #e3a53c;outline-offset:3px}"
     },
     {
       "name": "Botón de línea",
       "kind": "button",
       "refersTo": "button-line",
-      "description": "Borde del color del texto; tinte del 10% al pasar el mouse.",
-      "html": "<button class=\"ds-btn-line\">Consultar esta línea</button>",
-      "css": ".ds-btn-line{display:inline-flex;align-items:center;gap:.6rem;height:3.25rem;padding:0 1.5rem;border:0;border-radius:0;font-family: Archivo, system-ui, sans-serif;font-weight:600;font-size:.95rem;font-variation-settings:\"wdth\" 110;cursor:pointer;transition:background-color 220ms cubic-bezier(.23,1,.32,1),transform 160ms cubic-bezier(.23,1,.32,1);background:transparent;color:#1b1d1c;border:1px solid currentColor}.ds-btn-line:hover{background:color-mix(in srgb,currentColor 10%,transparent)}.ds-btn-line:focus-visible{outline:2px solid #ff8900;outline-offset:3px}"
+      "description": "Filete de 1px del color del texto; tinte del 10% al pasar el mouse.",
+      "html": "<button class=\"ds-btn-line\">Volver al formulario</button>",
+      "css": ".ds-btn-line{display:inline-flex;align-items:center;gap:.6rem;height:3.25rem;padding:0 1.5rem;border:0;border-radius:0;font-family:Archivo, system-ui, sans-serif;font-weight:600;font-size:.95rem;font-variation-settings:\"wdth\" 110;cursor:pointer;transition:background-color 220ms cubic-bezier(.23,1,.32,1),transform 160ms cubic-bezier(.23,1,.32,1);background:transparent;color:#0e2240;border:1px solid currentColor}.ds-btn-line:hover{background:color-mix(in srgb,currentColor 10%,transparent)}.ds-btn-line:active{transform:scale(.97)}.ds-btn-line:focus-visible{outline:2px solid #e3a53c;outline-offset:3px}"
     },
     {
       "name": "Cabecera módulo",
       "kind": "nav",
       "refersTo": "header-cell",
-      "description": "La barra es un módulo fotovoltaico: celdas grafito densas (sin desenfoque) con busbars, junta de 2px y la celda de contacto en naranja.",
-      "html": "<nav class=\"ds-module\"><a class=\"ds-cell ds-logo\">Lumager</a><a class=\"ds-cell\" data-on=\"true\"><span class=\"ds-mark\"></span>Clientes</a><a class=\"ds-cell\"><span class=\"ds-mark\"></span>Servicios</a><a class=\"ds-cell\"><span class=\"ds-mark\"></span>Noticias</a><a class=\"ds-cell ds-cta\">Contanos tu proyecto</a></nav>",
-      "css": ".ds-module{display:flex;gap:2px;padding:2px;height:4rem;background:rgb(96 102 99/.9);box-shadow:0 12px 34px rgb(10 12 11/.3);font-family: Archivo, system-ui, sans-serif;}.ds-cell{display:flex;align-items:center;gap:.65rem;padding:0 1.25rem;background-color:rgb(27 29 28/.95);background-image:linear-gradient(90deg,transparent calc(25% - .5px),rgb(255 255 255/.05) calc(25% - .5px) calc(25% + .5px),transparent calc(25% + .5px) calc(50% - .5px),rgb(255 255 255/.05) calc(50% - .5px) calc(50% + .5px),transparent calc(50% + .5px) calc(75% - .5px),rgb(255 255 255/.05) calc(75% - .5px) calc(75% + .5px),transparent calc(75% + .5px));color:rgb(243 244 241/.82);font-size:.95rem;white-space:nowrap;text-decoration:none;cursor:pointer;transition:background-color 300ms cubic-bezier(.23,1,.32,1)}.ds-cell:hover{background-color:rgb(48 53 51/.85);color:#f3f4f1}.ds-logo{font-weight:700;color:#f3f4f1;font-variation-settings:\"wdth\" 125}.ds-mark{width:7px;height:7px;background:#ff8900;transform:scale(0);transition:transform 300ms cubic-bezier(.23,1,.32,1)}.ds-cell[data-on=\"true\"]{color:#f3f4f1;background-image:linear-gradient(to top,rgb(255 137 0/.2),transparent 70%)}.ds-cell[data-on=\"true\"] .ds-mark{transform:scale(1)}.ds-cta{background:#ff8900;color:#1b1d1c;font-weight:600}.ds-cta:hover{background:#ff9d2e;color:#1b1d1c}.ds-cell:focus-visible{outline:2px solid #ff8900;outline-offset:-3px}"
+      "description": "Barra fija que es un módulo fotovoltaico: celdas de vidrio azul noche, juntas de 2px, la sección actual en celeste y el contacto en dorado.",
+      "html": "<nav class=\"ds-module\"><a class=\"ds-cell ds-logo\">El Pibe <span>del</span> Aire</a><a class=\"ds-cell ds-link ds-on\"><i></i>Servicios</a><a class=\"ds-cell ds-link\"><i></i>Calculadora</a><a class=\"ds-cell ds-cta\">Pedí una visita</a></nav>",
+      "css": ".ds-module{display:flex;gap:2px;padding:2px;height:4rem;background:rgb(169 188 211 / .3);box-shadow:0 10px 30px rgb(6 16 32 / .2);color:#eef4fa;font-family:Archivo, system-ui, sans-serif}.ds-cell{display:flex;align-items:center;gap:.65rem;padding:0 1.25rem;text-decoration:none;color:inherit;background-color:rgb(14 34 64 / .78);background-image:linear-gradient(90deg,transparent calc(25% - .5px),rgb(255 255 255 / .05) calc(25% - .5px) calc(25% + .5px),transparent calc(25% + .5px) calc(50% - .5px),rgb(255 255 255 / .05) calc(50% - .5px) calc(50% + .5px),transparent calc(50% + .5px) calc(75% - .5px),rgb(255 255 255 / .05) calc(75% - .5px) calc(75% + .5px),transparent calc(75% + .5px));transition:background-color 300ms cubic-bezier(.23,1,.32,1)}.ds-logo{font-weight:700;font-variation-settings:\"wdth\" 125;white-space:nowrap}.ds-logo span{font-weight:400;font-variation-settings:\"wdth\" 100}.ds-link{flex:1;justify-content:center;padding:0 .75rem;font-size:.95rem;color:rgb(238 244 250 / .82)}.ds-link i{width:7px;height:7px;background:#6fb6e8;transform:scale(0);transition:transform 300ms cubic-bezier(.23,1,.32,1)}.ds-on{color:#eef4fa;background-image:linear-gradient(to top,rgb(111 182 232 / .22),transparent 70%)}.ds-on i{transform:scale(1)}.ds-link:hover{color:#eef4fa;background-color:rgb(22 49 88 / .9)}.ds-cta{padding:0 1.4rem;font-weight:600;font-size:.95rem;font-variation-settings:\"wdth\" 110;white-space:nowrap;background:#e3a53c;color:#0e2240}.ds-cta:hover{background:#ecb85e}.ds-cell:focus-visible{outline:2px solid #e3a53c;outline-offset:-3px}"
     },
     {
       "name": "Campo de formulario",
       "kind": "input",
       "refersTo": "field",
-      "description": "Papel, junta de 1px, cursor naranja y foco en tinta.",
-      "html": "<label class=\"ds-label\">Localidad<input class=\"ds-field\" placeholder=\"Pocito, San Juan\"></label>",
-      "css": ".ds-label{display:block;font-family: Archivo, system-ui, sans-serif;font-size:.9rem;font-weight:600;color:#1b1d1c}.ds-field{display:block;width:100%;margin-top:.5rem;padding:.8rem 1rem;font:inherit;font-weight:400;font-size:1rem;background:#f3f4f1;color:#1b1d1c;border:1px solid #d5d8d2;border-radius:0;caret-color:#ff8900;transition:border-color 200ms cubic-bezier(.23,1,.32,1)}.ds-field::placeholder{color:#6f7470}.ds-field:hover{border-color:#959b97}.ds-field:focus-visible{outline:2px solid #1b1d1c;outline-offset:1px}"
+      "description": "Campo blanco a escuadra sobre la hoja de plano; foco azul noche, error en rojo.",
+      "html": "<label class=\"ds-label\">Tu nombre<input class=\"ds-field\" placeholder=\"Cómo te llamás\"></label>",
+      "css": ".ds-label{display:block;font-family:Archivo, system-ui, sans-serif;font-size:.875rem;font-weight:600;color:#0e2240}.ds-field{display:block;width:100%;margin-top:.5rem;padding:.8rem 1rem;font:inherit;font-size:1rem;font-weight:400;background:#fff;color:#0e2240;border:1px solid #c5d6e6;border-radius:0;caret-color:#1d6fa8;transition:border-color 200ms cubic-bezier(.23,1,.32,1)}.ds-field::placeholder{color:#5f7187}.ds-field:focus-visible{outline:2px solid #0e2240;outline-offset:1px}.ds-field[aria-invalid=true]{border-color:#b3261e}"
     },
     {
-      "name": "Etiqueta de sección",
+      "name": "Opción a escuadra",
       "kind": "chip",
-      "refersTo": "news-tag-obras",
-      "description": "Ficha teñida del noticiero: tinte de la sección, texto en su tinta y cuadrado de su tono.",
-      "html": "<span class=\"ds-tag\" style=\"--t:#ff8900;--s:#ffe9cf;--i:#8a4200\">Obras</span> <span class=\"ds-tag\" style=\"--t:#34a046;--s:#dcefd6;--i:#1f6a2a\">Clientes</span> <span class=\"ds-tag\" style=\"--t:#1f9a96;--s:#d3eeec;--i:#145f5c\">Prensa</span> <span class=\"ds-tag\" style=\"--t:#e0a332;--s:#f6e6c4;--i:#6e4a0e\">Diario de obra</span> <span class=\"ds-tag\" style=\"--t:#5a67b0;--s:#e1e4f4;--i:#353f7a\">Empresa</span>",
-      "css": ".ds-tag{display:inline-flex;align-items:center;gap:.45rem;height:1.5rem;padding:0 .55rem 0 .45rem;background:var(--s);color:var(--i);font-family: Archivo, system-ui, sans-serif;font-size:.78rem;font-weight:600;font-variation-settings:\"wdth\" 112}.ds-tag::before{content:\"\";width:.55rem;height:.55rem;background:var(--t)}"
+      "refersTo": "choice-selected",
+      "description": "Opciones del formulario; la elegida se llena de azul noche.",
+      "html": "<div class=\"ds-choices\"><label class=\"ds-choice\"><input type=\"radio\" name=\"l\" checked>Casa</label><label class=\"ds-choice\"><input type=\"radio\" name=\"l\">Comercio</label></div>",
+      "css": ".ds-choices{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;max-width:20rem;font-family:Archivo, system-ui, sans-serif}.ds-choice{display:flex;align-items:center;justify-content:center;min-height:3rem;padding:.5rem .9rem;border:1px solid #c5d6e6;background:#fff;color:#0e2240;font-weight:500;cursor:pointer;transition:background-color 200ms cubic-bezier(.23,1,.32,1),color 200ms cubic-bezier(.23,1,.32,1),border-color 200ms cubic-bezier(.23,1,.32,1)}.ds-choice input{position:absolute;opacity:0;pointer-events:none}.ds-choice:has(input:checked){background:#0e2240;border-color:#0e2240;color:#eef4fa}.ds-choice:not(:has(input:checked)):hover{border-color:#0e2240}.ds-choice:has(input:focus-visible){outline:2px solid #0e2240;outline-offset:2px}"
     },
     {
-      "name": "Portada de video",
+      "name": "A completar",
       "kind": "custom",
-      "refersTo": "video-play",
-      "description": "Portada local con play cuadrado naranja y duración tabular; YouTube carga al tocar.",
-      "html": "<button class=\"ds-video\"><span class=\"ds-play\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 256 256\" aria-hidden=\"true\"><path fill=\"currentColor\" d=\"M240 128a15.74 15.74 0 0 1-7.6 13.51L88.32 229.65a16 16 0 0 1-16.2.3A15.86 15.86 0 0 1 64 216.13V39.87a15.86 15.86 0 0 1 8.12-13.82 16 16 0 0 1 16.2.3l144.08 88.14A15.74 15.74 0 0 1 240 128Z\"/></svg></span><span class=\"ds-dur\">0:35</span></button>",
-      "css": ".ds-video{position:relative;display:block;width:22rem;aspect-ratio:16/9;border:0;border-radius:0;cursor:pointer;background:linear-gradient(to top,rgb(17 19 18/.55),transparent 38%),linear-gradient(160deg,#cfe3f3,#8fa6b8 55%,#3a3326);font-family: Archivo, system-ui, sans-serif;}.ds-play{position:absolute;left:50%;top:50%;display:grid;place-items:center;width:3.5rem;height:3.5rem;background:#ff8900;color:#1b1d1c;translate:-50% -50%;transition:transform 300ms cubic-bezier(.23,1,.32,1)}.ds-video:hover .ds-play{transform:scale(1.12)}.ds-video:focus-visible{outline:2px solid #ff8900;outline-offset:-4px}.ds-dur{position:absolute;right:.75rem;bottom:.9rem;font-size:.8rem;font-weight:600;color:#f3f4f1;font-variant-numeric:tabular-nums}"
+      "refersTo": "todo",
+      "description": "Lugar pendiente deliberado: lo que el cliente no entregó se muestra punteado, nunca se inventa.",
+      "html": "<span class=\"ds-todo\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 256 256\" aria-hidden=\"true\"><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"20\" stroke-linejoin=\"miter\" d=\"M92 216H48v-44L164 56l44 44ZM136 84l44 44M96 216h120\"/></svg>Precio</span> <span class=\"ds-todo\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 256 256\" aria-hidden=\"true\"><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"20\" stroke-linejoin=\"miter\" d=\"M92 216H48v-44L164 56l44 44ZM136 84l44 44M96 216h120\"/></svg>Foto a cargar</span>",
+      "css": ".ds-todo{display:inline-flex;align-items:center;gap:.4rem;min-height:1.75rem;padding:0 .6rem;font-family:Archivo, system-ui, sans-serif;font-size:.8rem;font-weight:600;font-variation-settings:\"wdth\" 108;white-space:nowrap;color:#1d6fa8;border:1px dashed color-mix(in srgb,#1d6fa8 70%,transparent);background:color-mix(in srgb,#6fb6e8 12%,transparent)}"
     },
     {
       "name": "Hoja de datos",
       "kind": "card",
       "refersTo": "data-sheet",
-      "description": "Cifras expandidas y tabulares, separadas por filetes, cada una con su color de trabajo.",
-      "html": "<dl class=\"ds-sheet\"><div><dd>+300</dd><dt>proyectos</dt></div><div><dd>+13.000 kW</dd><dt>instalados</dt></div><div><dd>11</dd><dt>provincias con obra</dt></div><div data-tone=\"green\"><dd>+7.000 t</dd><dt>de CO₂ evitadas por año</dt></div></dl>",
-      "css": ".ds-sheet{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:0;padding:1.75rem 2rem 2rem;background:#1b1d1c;color:#f3f4f1;font-family: Archivo, system-ui, sans-serif;}.ds-sheet>div{display:flex;flex-direction:column-reverse;gap:.4rem;padding:1rem 1.25rem 0;border-top:1px solid rgb(243 244 241/.24);border-left:1px solid #3d4240}.ds-sheet>div:first-child{padding-left:0;border-left:0}.ds-sheet dd{margin:0;font-size:1.85rem;font-weight:600;font-variation-settings:\"wdth\" 118;letter-spacing:-.01em;font-variant-numeric:tabular-nums}.ds-sheet dt{font-size:.9rem;color:#b4b9b5}.ds-sheet [data-tone=\"green\"]{border-top:2px solid #5cc46d}.ds-sheet [data-tone=\"green\"] dd{color:#5cc46d}"
+      "description": "Cifras de la calculadora: expandidas, tabulares, separadas por filetes; la primera en celeste.",
+      "html": "<dl class=\"ds-sheet\"><div><dd>8</dd><dt>paneles</dt></div><div><dd>3,6<small>kW</small></dd><dt>de potencia</dt></div><div><dd>80<small>%</small></dd><dt>menos en la factura</dt></div></dl>",
+      "css": ".ds-sheet{display:grid;grid-template-columns:repeat(3,1fr);margin:0;padding:1.5rem;background:#0e2240;color:#eef4fa;font-family:Archivo, system-ui, sans-serif}.ds-sheet>div{display:flex;flex-direction:column;padding:1rem 1rem 0 0;border-top:1px solid #2a4670}.ds-sheet>div+div{padding-left:1rem;border-left:1px solid #2a4670}.ds-sheet dd{order:1;margin:0;font-size:clamp(1.6rem,2.5vw,2.15rem);font-weight:600;line-height:1;letter-spacing:-.02em;font-variation-settings:\"wdth\" 125;font-variant-numeric:tabular-nums;white-space:nowrap}.ds-sheet dd small{margin-left:.2em;font-size:.5em;color:#a9bcd3}.ds-sheet div:first-child dd{color:#6fb6e8}.ds-sheet dt{order:2;margin-top:.4rem;font-size:.85rem;line-height:1.3;color:#a9bcd3}"
+    },
+    {
+      "name": "Paso del día",
+      "kind": "custom",
+      "description": "Un paso de \"Cómo trabajo\": tinte de su hora y el sol a su altura, sin rótulo de hora visible.",
+      "html": "<ol class=\"ds-day\"><li style=\"--bg:#f5ddc9;--t:#4d4a55\"><svg viewBox=\"0 0 120 120\"><line x1=\"0\" x2=\"120\" y1=\"104\" y2=\"104\"/><circle cx=\"60\" cy=\"92\" r=\"14\"/></svg><h3>Me escribís</h3><p>Me contás qué tenés y te respondo.</p></li><li style=\"--bg:#c9e2f5;--t:#3f5470\"><svg viewBox=\"0 0 120 120\"><line x1=\"0\" x2=\"120\" y1=\"104\" y2=\"104\"/><circle cx=\"60\" cy=\"20\" r=\"14\"/></svg><h3>Instalo</h3><p>Paneles, inversor y tablero.</p></li><li class=\"ds-night\"><svg viewBox=\"0 0 120 120\"><line x1=\"0\" x2=\"120\" y1=\"104\" y2=\"104\"/><circle cx=\"60\" cy=\"121\" r=\"14\"/></svg><h3>Vuelvo</h3><p>Mantenimiento y limpieza.</p></li></ol>",
+      "css": ".ds-day{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin:0;padding:0;list-style:none;font-family:Archivo, system-ui, sans-serif}.ds-day li{padding:1.5rem 1.4rem 2rem;background:var(--bg);color:#0e2240}.ds-day svg{width:4.5rem;height:4.5rem;overflow:visible}.ds-day line{stroke:currentColor;stroke-opacity:.5;stroke-width:2}.ds-day circle{fill:#e3a53c}.ds-day h3{margin:1.5rem 0 0;font-size:1.25rem;font-weight:600;line-height:1.375;font-variation-settings:\"wdth\" 118}.ds-day p{margin:.75rem 0 0;line-height:1.625;color:var(--t)}.ds-day .ds-night{--bg:#0e2240;--t:#a9bcd3;color:#eef4fa}.ds-night circle{fill:#6fb6e8;opacity:.4}"
     }
   ],
   "narrative": {
-    "northStar": "Plano y Módulo",
-    "overview": "Lumager se presenta como se presenta una obra bien hecha: con el plano sobre la mesa y el módulo a la vista. El sistema toma sus formas del material del rubro. La cabecera es un módulo fotovoltaico, con celdas de vidrio grafito separadas por juntas y busbars tenues. Las secciones se destapan como un panel que se enciende, celda por celda. La sección de servicios es un plano de ingeniería, con unifilar, corriente continua en naranja y alterna en verde. Las cifras van en hojas de datos con filetes. Todo es rectangular y a escuadra, sin una sola esquina redondeada.\n\nLa página alterna grafito profundo y papel frío por capítulos, para que cada pregunta del visitante se lea como un bloque. El naranja de la marca aparece poco y siempre con trabajo: marca la acción (contactar, reproducir, elegir) y lo que está vivo (la sección actual, el sol en el hero, la cinta de noticias). El resto del color también trabaja: el verde del logo es lo cumplido y lo sustentable, el plano azulado es la ingeniería y los tintes del cielo cuyano acompañan el paso del día.\n\nUna sola familia, Archivo, trabajada con su eje de ancho: expandida y semibold para titulares, como la rotulación de obra, y normal para leer. La fotografía es siempre de obras propias, a sangre y en bloques rectos. El movimiento es de ease-out fuerte. Cada sección tiene su propia entrada y todo respeta el movimiento reducido: el contenido nunca depende de una animación para verse.",
+    "northStar": "Plano y Módulo, bajo el cielo de Buenos Aires",
+    "overview": "**Creative North Star: \"Plano y Módulo, bajo el cielo de Buenos Aires\"**\n\nEs un sitio \"Plano y Módulo\" para un instalador solo que trabaja en techos porteños. Todo sale del material del rubro: la cabecera es un módulo fotovoltaico con celdas de vidrio azul noche, juntas de 2px y busbars tenues, las secciones se destapan como un panel que se enciende y las cifras van en hojas de datos con filetes. Como todavía no hay fotos, el mundo se dibuja: techos de Buenos Aires a escuadra (tanque de agua, medianeras, terrazas), el corte de una casa con sus piezas y un techo que se llena de módulos a medida que el vecino hace la cuenta. Ninguna esquina es redondeada.\n\nLa página alterna azul noche y papel celeste por capítulo y cierra en un campo celeste a pleno, el cielo de día, con el formulario apoyado encima como una hoja de plano. El celeste es el cielo y lo que está vivo: la sección actual, el panel que genera, la luz sobre el vidrio. El dorado es la acción, siempre con texto en azul noche encima. Es un dorado sobrio y no un amarillo: lo pidió el usuario para que se vea \"algo más profesional\". El sol que aparece en el hero es el de Buenos Aires en este momento, a su altura real.\n\nUna sola familia, Archivo, trabajada con su eje de ancho: expandida (125) y semibold en titulares, como un cartel de obra, y a ancho normal (100) para leer. Lo que falta del cliente se muestra como falta, en un recuadro punteado \"A completar\", y nunca se inventa. El movimiento usa un ease-out fuerte y anima solo transformación y opacidad. Todo respeta el movimiento reducido.",
     "keyCharacteristics": [
-      "Grafito y papel frío alternados por capítulos; el naranja solo para la acción y lo vivo.",
-      "Archivo con eje de ancho: expandida (wdth 118 a 125) en titulares y cifras, normal (wdth 100) para leer.",
-      "Cero radio en todo: botones, campos, tarjetas, videos, etiquetas y paneles.",
-      "Filetes de 1px y hojas de datos en lugar de tarjetas con sombra.",
-      "Motivos del rubro con función: módulo, celdas, busbars, plano unifilar, sol y tracker.",
-      "Fotografía y video de obras propias; nada de stock."
+      "Azul noche y papel celeste alternados por capítulo; el cierre es un campo celeste a pleno.",
+      "Celeste para el cielo y lo vivo; dorado sobrio solo para la acción, con texto en azul noche.",
+      "Archivo con eje de ancho: 125 en titulares y cifras, 118 en títulos, 100 para leer.",
+      "Cero radio, filetes de 1px y juntas de 2px; módulos con celdas y busbars.",
+      "Dibujos de línea a escuadra de techos porteños en lugar de fotos que no existen.",
+      "Lo que falta se marca \"A completar\" con borde punteado; nada se inventa.",
+      "Sin blur; la entrada y el scroll animan solo transformación y opacidad."
     ],
     "rules": [
       {
-        "name": "The Orange Works Rule",
-        "body": "El naranja marca la acción o lo que está vivo, y nada más. Un fondo, un título o un adorno en naranja es un error.",
+        "name": "The Gold Acts Rule",
+        "body": "El dorado marca la acción, y nada más que la acción (y el sol, que es el mismo color en el dibujo). Un fondo de sección, un título o un adorno en dorado es un error. Siempre lleva texto en azul noche.",
+        "section": "colors"
+      },
+      {
+        "name": "The Sky Lives Rule",
+        "body": "El celeste es lo que está vivo o es cielo: la sección actual, lo que genera, lo elegido en el dibujo y el cierre de día. No se usa para decorar.",
         "section": "colors"
       },
       {
         "name": "The Working Color Rule",
-        "body": "Todo color fuera de grafito, papel y naranja tiene un trabajo nombrado (lo cumplido, la ingeniería, la hora del día, la sección de una nota). Si no se puede decir qué identifica, no va.",
+        "body": "Todo color fuera de azul noche, papel, celeste y dorado tiene un trabajo nombrado (la hora del día o la profundidad de un techo). Si no se puede decir qué identifica, no va.",
         "section": "colors"
       },
       {
         "name": "The Width Axis Rule",
-        "body": "La jerarquía sale del eje de ancho y del peso, no de otra familia: expandida para ser vista y normal para ser leída. No se agrega una segunda tipografía ni monoespaciada de adorno.",
+        "body": "La jerarquía sale del eje de ancho y del peso, nunca de otra familia: expandida para ser vista, normal para ser leída.",
         "section": "typography"
       },
       {
         "name": "The Tabular Figures Rule",
-        "body": "Toda cifra que se compara o cuenta (kW, fechas, horas, duraciones) va con números tabulares.",
+        "body": "Toda cifra que se compara o cuenta (paneles, kW, ahorro, horas del sol, precios) va con números tabulares.",
         "section": "typography"
       },
       {
         "name": "The No Blur Rule",
-        "body": "Nada se desenfoca: ni `filter: blur` ni `backdrop-filter`, ni quietos ni animados, ni el `placeholder=\"blur\"` de las imágenes de Next (su filtro SVG a pantalla completa trababa la intro). Lo que flota sobre una foto usa un fondo más denso, y una foto que carga muestra el fondo liso de su contenedor. Es un pedido del cliente por fluidez en Chrome.",
+        "body": "Nada se desenfoca: ni `filter: blur` ni `backdrop-filter`. Lo que flota usa un fondo más denso (el vidrio de la cabecera, el velo del menú al 90%).",
         "section": "elevation"
       },
       {
         "name": "The Flat Sheet Rule",
-        "body": "Las tarjetas, las cifras y las listas no llevan sombra. Si algo necesita separarse, va un filete o un cambio de tono.",
+        "body": "Las tarjetas, las cifras, las tablas y las listas no llevan sombra. Si algo necesita separarse, va un filete, una junta o un cambio de tono.",
         "section": "elevation"
       }
     ],
     "dos": [
-      "Do alternar papel y grafito por capítulo, para que cada pregunta del visitante se lea como un bloque.",
-      "Do usar el naranja solo en la acción y en lo vivo, con texto en tinta encima.",
-      "Do titular con Archivo expandida (wdth 125, semibold, tracking -0.02em) y leer a ancho normal.",
-      "Do separar con filetes de 1px y juntas, y mostrar cifras en hojas de datos con números tabulares.",
-      "Do usar fotos y videos de obras propias, con el cliente nombrado cuando el video lo nombra.",
-      "Do darle a cada color secundario un trabajo que se pueda nombrar.",
-      "Do respetar el movimiento reducido: el contenido tiene que verse completo sin ninguna animación.",
-      "Do animar solo `transform` y `opacity` en todo lo que se mueve al cargar o con el scroll, para que la GPU lo resuelva aunque la página esté cargando JavaScript.",
-      "Do en celular, convertir las pilas largas de tarjetas en carriles horizontales (84% de ancho, con la siguiente asomando) y dar al menos 38px de alto de toque a los enlaces."
+      "**Do** alternar azul noche y papel celeste por capítulo, y cerrar en el campo celeste del día.",
+      "**Do** usar el dorado solo en la acción, con texto en azul noche encima.",
+      "**Do** usar el celeste para lo vivo y el cielo, y el celeste hondo cuando tiene que leerse sobre papel.",
+      "**Do** titular con Archivo expandida (wdth 125, semibold, tracking -0.02em) y leer a ancho normal.",
+      "**Do** separar con filetes de 1px y juntas de 2px, y mostrar las cifras en hojas de datos con números tabulares.",
+      "**Do** dibujar a escuadra lo que no tiene foto, y marcar como \"A completar\" lo que el cliente todavía no dio.",
+      "**Do** animar solo `transform` y `opacity` en lo que se mueve al cargar o con el scroll, y respetar el movimiento reducido.",
+      "**Do** en celular, pasar las pilas a carriles al 84% de ancho y dar alto de toque a los enlaces."
     ],
     "donts": [
-      "Don't redondear esquinas, en ningún componente.",
-      "Don't usar fotos de stock, íconos de adorno ni emojis en lugar de íconos.",
-      "Don't sumar una segunda familia tipográfica ni monoespaciada de disfraz técnico.",
-      "Don't usar sombras en tarjetas o listas; la profundidad es tonal.",
-      "Don't usar blur (`filter: blur` o `backdrop-filter`), ni animar colores de fondo en elementos grandes o repetidos.",
-      "Don't llenar fondos o títulos de naranja, ni usar degradés en el texto.",
-      "Don't armar la página con grillas de tarjetas iguales de ícono, título y texto.",
-      "Don't poner una etiqueta o antetítulo encima de un título."
+      "**Don't** redondear esquinas, en ningún componente.",
+      "**Don't** inventar fotos, precios, contactos ni testimonios; lo que falta va en \"A completar\".",
+      "**Don't** usar fotos de stock, íconos de adorno ni emojis en lugar de íconos.",
+      "**Don't** volver al amarillo: la acción es el dorado sobrio.",
+      "**Don't** llenar fondos o títulos de dorado, ni usar degradés en el texto.",
+      "**Don't** usar blur (`filter: blur` o `backdrop-filter`).",
+      "**Don't** poner sombras en tarjetas, tablas o listas; la profundidad es tonal.",
+      "**Don't** sumar una segunda familia tipográfica.",
+      "**Don't** armar la página con tres tarjetas iguales de ícono, título y texto.",
+      "**Don't** poner una etiqueta o antetítulo encima de un título, ni rótulos de hora visibles en los pasos del día."
     ]
   }
 }

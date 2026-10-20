@@ -1,15 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import { lumager } from "@/lib/lumager";
+import { pibe } from "@/lib/pibe";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next"
 
 export const metadata: Metadata = {
-  title: lumager.name,
-  description: lumager.description,
+  title: pibe.name,
+  description: pibe.description,
 };
 
 export const viewport: Viewport = {
-  themeColor: "#1b1d1c",
+  themeColor: "#0e2240",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 /*
- * Base global del proyecto. La identidad de Lumager vive en app/lumager/lumager.css (bajo .lx);
- * acá queda solo lo que comparten todas las páginas.
+ * Base global del proyecto. La identidad de El Pibe del Aire vive en app/pibe.css (bajo .pa);
+ * acá queda solo la base y la entrada de secciones en panel.
  */
 :root {
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);

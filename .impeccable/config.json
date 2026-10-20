@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "app/pibe.css"
+        ],
+        "createdAt": "2026-10-20T20:57:25.829Z",
+        "reason": "Claude triage: L1622 is a 3px top-edge active indicator on the 3D tabs (.pa-eq-tab::before, inset 0 0 auto), not a side border on a card; same top-bar idiom as the header's current-section light"
+      }
+    ]
+  }
+}

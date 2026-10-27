@@ -15,7 +15,10 @@ export const pibe = {
   zone: "Provincia de Buenos Aires",
   description:
     "Soltech Energía diseña, vende e instala sistemas fotovoltaicos a medida (conectados a la red, híbridos con baterías, aislados y móviles) en todo el país, con base en la Provincia de Buenos Aires. También respaldo con baterías para los cortes y climatización de piscinas.",
-  /** Quien está al frente: instalador de sistemas fotovoltaicos. */
+  /**
+   * Quien está al frente, solo como dato: el sitio no lo muestra. El cliente quiere que se lea como
+   * una empresa, no como una persona, así que la marca va adelante y habla en plural.
+   */
   owner: "Matías Moreira",
   /** Solo dígitos, con código de país (549 + área + número). Sin número, WhatsApp abre el mensaje para elegir a quién mandarlo. */
   whatsapp: "5491161875709" as string | null,
@@ -202,7 +205,7 @@ export const heroPhoto = {
   posMobile: "97% 50%",
 } as const;
 
-/** Un instalador trabajando: va en "Quiénes somos". */
+/** Una obra en curso: va en "Quiénes somos". La leyenda nombra a la empresa, no a quien instala. */
 export const portrait = {
   src: "/pibe/matias.jpg",
   alt: "Instalador conectando la caja de protecciones debajo de un inversor, en la pared de una casa.",

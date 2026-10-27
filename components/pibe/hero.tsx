@@ -11,7 +11,7 @@ const sheet = services.filter((s) => s.id !== "limpieza");
 
 /** Lo que respalda a Soltech, con los datos cargados en lib/pibe.ts: un dato sin cargar no sale. */
 const trust = [
-  pibe.license,
+  pibe.license && `Instalaciones con ${pibe.license.toLowerCase()}`,
   pibe.experience && `${pibe.experience} en el rubro`,
   `Equipos ${topBrands.slice(0, -1).join(", ")} y ${topBrands.at(-1)}`,
 ].filter((t): t is string => !!t);

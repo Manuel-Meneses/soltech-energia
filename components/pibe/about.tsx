@@ -3,7 +3,8 @@ import { brands, pibe, portrait } from "@/lib/pibe";
 
 /**
  * Quiénes somos. La empresa vende confianza con su forma de trabajar antes que con el
- * catálogo: un mismo equipo de punta a punta, quién instala y con qué marcas. Un dato sin
+ * catálogo: un mismo equipo de punta a punta y con qué marcas. Habla la empresa, no una persona:
+ * el cliente no quiere que se lea como un emprendimiento unipersonal. Un dato sin
  * cargar no sale en la ficha. Las marcas van en celdas blancas, para que cada logo vaya en sus
  * colores.
  */
@@ -11,7 +12,7 @@ export function About() {
   const sheet = [
     { label: "Zona", value: pibe.coverage },
     { label: "Trabajamos en", value: "Casas, empresas, campos y vehículos" },
-    { label: "Instalador", value: [pibe.owner, pibe.license?.toLowerCase()].filter(Boolean).join(", ") },
+    { label: "Instalaciones", value: pibe.license && `Con ${pibe.license.toLowerCase()}` },
     { label: "En el rubro", value: pibe.experience },
   ].filter((row): row is { label: string; value: string } => !!row.value);
 
@@ -32,12 +33,12 @@ export function About() {
             </h2>
             <div className="mt-7 max-w-[56ch] space-y-4 text-lg leading-relaxed">
               <p>
-                Al frente está {pibe.owner}, instalador de sistemas fotovoltaicos. Acompaña cada proyecto de principio a
-                fin: analiza tu consumo, dimensiona el equipo justo para lo que necesitás e instala con criterio técnico y
-                seguridad.
+                {pibe.name} diseña, vende e instala sistemas fotovoltaicos. Nuestro equipo técnico acompaña cada proyecto de
+                principio a fin: estudia tu consumo, dimensiona el sistema justo para lo que necesitás e instala con
+                criterio técnico y seguridad.
               </p>
               <p>
-                El que mira tu techo es el que arma el presupuesto y el que sube a instalar. Nada pasa de mano en mano.
+                El mismo equipo que releva tu techo arma el presupuesto y hace la instalación. Nada pasa de mano en mano.
               </p>
               <p className="text-[var(--pa-muted)]">
                 Si algo no anda, nos escribís y lo vemos. Y como volvemos a mantener y limpiar lo que instalamos, nos

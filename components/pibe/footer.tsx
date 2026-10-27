@@ -66,9 +66,7 @@ export function PibeFooter() {
         <div className="flex flex-col gap-2 pt-8 text-sm text-[var(--pa-on-dark-muted)] sm:flex-row sm:justify-between">
           <p>
             © {new Date().getFullYear()} {pibe.name}
-          </p>
-          <p>{pibe.license}</p>
-        </div>
+          </p>        </div>
       </div>
     </footer>
   );

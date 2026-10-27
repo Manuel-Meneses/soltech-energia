@@ -48,7 +48,6 @@ const localBusiness = {
   ...(pibe.instagram && { sameAs: [`https://instagram.com/${pibe.instagram}`] }),
   address: { "@type": "PostalAddress", addressRegion: pibe.zone, addressCountry: "AR" },
   areaServed: { "@type": "Country", name: "Argentina" },
-  ...(pibe.owner && { founder: { "@type": "Person", name: pibe.owner } }),
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "Servicios",

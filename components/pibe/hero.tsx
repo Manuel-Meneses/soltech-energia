@@ -75,7 +75,7 @@ export function PibeHero() {
             <ArrowRightIcon size={20} weight="bold" className="pa-arrow" aria-hidden="true" />
           </TrackedLink>
           <a href="#calculadora" className="pa-link pa-hero-link">
-            Calculá cuántos paneles necesitás
+            Calculá cuánto ahorrás con el sol
           </a>
         </div>
         <ul className="pa-rise pa-trust mt-10 mb-10" style={{ ["--i" as string]: 5 }} aria-label="Por qué Soltech">

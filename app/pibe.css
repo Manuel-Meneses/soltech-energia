@@ -1724,40 +1724,9 @@ body:has(.pa) {
     border-color: var(--pa-ink);
   }
 }
-/* Casas de referencia, para quien no tiene la factura a mano. */
-.pa-preset {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.1rem;
-  min-height: 3rem;
-  padding: 0.5rem 0.85rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  line-height: 1.2;
-  text-align: left;
-  background: #fff;
-  border: 1px solid var(--pa-line);
-  transition:
-    border-color 200ms var(--pa-ease),
-    box-shadow 200ms var(--pa-ease),
-    transform 160ms var(--pa-ease);
-}
-.pa-preset > span {
-  font-size: 0.8rem;
-  font-weight: 500;
-}
-.pa-preset[aria-pressed="true"] {
-  border-color: var(--pa-ink);
-  box-shadow: inset 0 0 0 1px var(--pa-ink);
-}
-.pa-preset:active {
-  transform: scale(0.97);
-}
-@media (hover: hover) and (pointer: fine) {
-  .pa-preset:hover {
-    border-color: var(--pa-ink);
-  }
+/* La factura en pesos: la cifra es más larga que un consumo en kWh. */
+.pa-money-input {
+  width: 9.5ch;
 }
 .pa-calc-big {
   margin-top: auto;
@@ -1768,6 +1737,32 @@ body:has(.pa) {
 }
 .pa-calc-out {
   padding: clamp(1.5rem, 3vw, 2.5rem);
+}
+/* El ahorro manda: es lo primero que se lee del resultado, en el color del sol. */
+.pa-calc-save {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.pa-calc-save-label {
+  font-weight: 600;
+  color: var(--pa-on-dark-muted);
+}
+.pa-calc-save-value {
+  font-size: clamp(2.75rem, 7vw, 5rem);
+  line-height: 0.95;
+  color: var(--pa-sun);
+  overflow-wrap: anywhere;
+}
+.pa-calc-save-more {
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: var(--pa-on-dark-muted);
+}
+.pa-calc-unit {
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--pa-on-dark-muted);
 }
 .pa-range {
   --fill: 0%;
@@ -1874,9 +1869,6 @@ body:has(.pa) {
   margin-left: 0.2em;
   font-size: 0.5em;
   color: var(--pa-on-dark-muted);
-}
-.pa-calc-figures > div:first-child dd {
-  color: var(--pa-sun);
 }
 @media (min-width: 640px) {
   .pa-calc-figures > div + div {

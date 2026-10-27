@@ -73,7 +73,7 @@ export default function PibeHome() {
           3. Qué hacen: qué sistema va con tu lugar (on-grid, híbrido, off-grid, móvil) y los demás servicios.
           4. El respaldo para los cortes, con la cuadra que se apaga.
           5. La pileta: bomba de calor o colectores solares, mes a mes.
-          6. ¿Cuánto necesito? La calculadora, con su factura.
+          6. ¿Cuánto ahorro? La calculadora, con lo que paga de luz.
           7. Cómo es el proceso, paso por paso.
           8. Quiénes son y con qué marcas trabajan.
           9. Lo que cambia para una empresa.

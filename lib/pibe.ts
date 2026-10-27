@@ -446,12 +446,18 @@ export const calc = {
   panelW: 550,
   /** Superficie de un panel de referencia, en m². */
   panelM2: 2.6,
-  /** Consumos de referencia para quien no tiene la factura a mano, en kWh por mes. */
-  presets: [
-    { label: "Casa chica", kwh: 200 },
-    { label: "Casa mediana", kwh: 350 },
-    { label: "Casa grande", kwh: 600 },
-  ],
+  /**
+   * Precio del kWh con impuestos, en pesos. Referencia: cargo variable residencial de Edenor y
+   * Edesur de octubre de 2026 (~$159 sin impuestos) más IVA y tasas. Actualizar cuando cambie el
+   * cuadro tarifario.
+   */
+  kwhPrice: 200,
+  /** Cargo fijo mensual con impuestos, en pesos: no baja con los paneles. */
+  fixedCharge: 2300,
+  /** Mes del cuadro tarifario de referencia, para la nota al pie. */
+  priceAsOf: "octubre de 2026",
+  /** Vida útil de los paneles, en años: el ahorro acumulado se cuenta sobre este plazo. */
+  lifeYears: 25,
 } as const;
 
 export type SystemId = "ongrid" | "hibrido" | "offgrid" | "movil";

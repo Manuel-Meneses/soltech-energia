@@ -1,41 +1,50 @@
 /*
- * El Pibe del Aire: "Plano y Módulo" con la paleta "Cielo y sol".
- * Azul noche y papel celeste alternados por capítulo; celeste = el cielo y lo vivo;
- * dorado = la acción. Archivo con eje de ancho, cero radio, filetes de 1px y juntas de 2px.
- * Todo vive bajo .pa.
+ * Soltech Energía: "Plano y Módulo" con la paleta azul acero (--color-50 a --color-950).
+ * Azul noche y papel celeste alternados por capítulo; el azul claro = el cielo y lo vivo;
+ * el ámbar = el sol, lo cálido que se destaca; el azul acero 600 = la acción, con texto
+ * blanco encima. Archivo con eje de ancho, cero
+ * radio, filetes de 1px y juntas de 2px. Todo vive bajo .pa.
  */
 .pa {
-  --pa-ink: #0e2240;
-  --pa-ink-2: #163158;
-  --pa-paper: #edf4fa;
-  --pa-paper-2: #dde9f4;
-  --pa-line: #c5d6e6;
-  --pa-muted: #4a5e76;
-  --pa-on-dark: #eef4fa;
-  --pa-on-dark-muted: #a9bcd3;
-  --pa-dark-line: #2a4670;
-  /* Celeste: el cielo y lo que está vivo (la sección actual, el sol que genera, lo elegido). */
-  --pa-sky: #6fb6e8;
-  --pa-sky-deep: #1d6fa8;
-  /* Dorado sobrio: la acción, con texto en azul noche encima. */
-  --pa-gold: #e3a53c;
-  --pa-gold-hover: #ecb85e;
+  --color-50: #eef2f7;
+  --color-100: #cedbe8;
+  --color-200: #afc4d9;
+  --color-300: #90accb;
+  --color-400: #6189b5;
+  --color-500: #527ead;
+  --color-600: #43678e;
+  --color-700: #34516f;
+  --color-800: #263a50;
+  --color-900: #172331;
+  --color-950: #080d11;
+  /* El sol del atardecer del hero: de la luz de mediodía al naranja del horizonte. */
+  --sun-200: #ffd99a;
+  --sun-300: #fcbf5a;
+  --sun-500: #ef8a32;
+  --sun-700: #a84a14;
+
+  --pa-ink: var(--color-900);
+  --pa-ink-2: var(--color-800);
+  --pa-paper: var(--color-50);
+  --pa-paper-2: var(--color-100);
+  --pa-line: var(--color-200);
+  --pa-muted: var(--color-700);
+  --pa-on-dark: var(--color-50);
+  --pa-on-dark-muted: var(--color-200);
+  --pa-dark-line: var(--color-700);
+  /* Azul claro: el cielo y lo que está vivo (la sección actual, el sol que genera, lo elegido). */
+  --pa-sky: var(--color-300);
+  --pa-sky-deep: var(--color-600);
+  /* Ámbar: el sol y lo que se destaca. Sobre papel, en su versión honda (AA sobre 50 y 100). */
+  --pa-sun: var(--sun-300);
+  --pa-sun-hot: var(--sun-500);
+  --pa-sun-deep: var(--sun-700);
+  /* La acción: azul acero con texto blanco encima. */
+  --pa-action: var(--color-600);
+  --pa-action-hover: var(--color-700);
+  --pa-on-action: #fff;
   --pa-error: #b3261e;
-  /* Un color por servicio, para reconocerlo en toda la página: el claro va sobre azul noche
-     y el hondo, sobre papel. Paneles = cielo, termotanque = agua caliente, mantenimiento =
-     equipo que anda, limpieza = agua. */
-  --pa-svc-paneles: #6fb6e8;
-  --pa-svc-paneles-deep: #1d6fa8;
-  --pa-svc-termotanque: #f08a5d;
-  --pa-svc-termotanque-deep: #b14d27;
-  --pa-svc-mantenimiento: #a3d36c;
-  --pa-svc-mantenimiento-deep: #47751d;
-  --pa-svc-limpieza: #4fd1c1;
-  --pa-svc-limpieza-deep: #117a6e;
   --pa-ease: cubic-bezier(0.23, 1, 0.32, 1);
-  --intro-delay: 950ms;
-  /* La entrada de secciones compartida (components/panel-entrance.tsx) destella con --sun. */
-  --sun: #6fb6e8;
 
   font-family: var(--font-archivo), system-ui, sans-serif;
   font-variation-settings: "wdth" 100;
@@ -45,31 +54,61 @@
 }
 html:has(.pa),
 body:has(.pa) {
-  background: #0e2240;
-}
-.pa [data-svc="paneles"] {
-  --svc: var(--pa-svc-paneles);
-  --svc-deep: var(--pa-svc-paneles-deep);
-}
-.pa [data-svc="termotanque"] {
-  --svc: var(--pa-svc-termotanque);
-  --svc-deep: var(--pa-svc-termotanque-deep);
-}
-.pa [data-svc="mantenimiento"] {
-  --svc: var(--pa-svc-mantenimiento);
-  --svc-deep: var(--pa-svc-mantenimiento-deep);
-}
-.pa [data-svc="limpieza"] {
-  --svc: var(--pa-svc-limpieza);
-  --svc-deep: var(--pa-svc-limpieza-deep);
+  background: #172331;
 }
 .pa ::selection {
-  background: var(--pa-gold);
+  background: var(--pa-sun);
   color: var(--pa-ink);
 }
+/* Dos secciones seguidas del mismo fondo forman un bloque: las separa un filete alineado
+   con el contenido, no un cambio de color. Va fuera de @layer para ganarle a las utilidades. */
+.pa {
+  --pa-gut: 1.25rem;
+}
+@media (min-width: 640px) {
+  .pa {
+    --pa-gut: 2rem;
+  }
+}
+@media (min-width: 1024px) {
+  .pa {
+    --pa-gut: 3rem;
+  }
+}
+.pa-dark + .pa-dark > :first-child,
+.pa-paper + .pa-paper > :first-child {
+  position: relative;
+}
+.pa-dark + .pa-dark > :first-child::before,
+.pa-paper + .pa-paper > :first-child::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  inset-inline: var(--pa-gut);
+  height: 1px;
+  background: var(--pa-line);
+}
+.pa-dark + .pa-dark > :first-child::before {
+  background: var(--pa-dark-line);
+}
 .pa :focus-visible {
-  outline: 2px solid var(--pa-gold);
+  outline: 2px solid var(--pa-sky);
   outline-offset: 3px;
+}
+/* Sobre papel el celeste no se ve: el anillo va en el azul hondo. Lo oscuro dentro de lo claro
+   (el resultado de la calculadora) vuelve al celeste. */
+.pa-paper :focus-visible,
+.pa-paper-2 :focus-visible {
+  outline-color: var(--pa-sky-deep);
+}
+.pa-dark :focus-visible {
+  outline-color: var(--pa-sky);
+}
+/* En celular la barra de contacto flota abajo: lo que se enfoca o se salta por ancla queda arriba de ella. */
+@media (max-width: 639px) {
+  html:has(.pa) {
+    scroll-padding-bottom: 5.5rem;
+  }
 }
 @layer components {
 .pa-dark {
@@ -81,7 +120,7 @@ body:has(.pa) {
   color: var(--pa-ink);
 }
 .pa-paper-2 {
-  --pa-muted: #435670;
+  --pa-muted: var(--color-700);
   background: var(--pa-paper-2);
   color: var(--pa-ink);
 }
@@ -176,8 +215,14 @@ body:has(.pa) {
     flex: none;
   }
 }
-.pa-btn-gold {
-  background: var(--pa-gold);
+.pa-btn-action {
+  background: var(--pa-action);
+  color: var(--pa-on-action);
+}
+/* Sobre azul noche la acción va en papel con texto azul noche: el contraste más fuerte que da
+   la paleta, para que el botón sea lo primero que se ve. */
+.pa-dark .pa-btn-action {
+  background: var(--pa-paper);
   color: var(--pa-ink);
 }
 .pa-btn-ink {
@@ -191,14 +236,17 @@ body:has(.pa) {
   transition: transform 220ms var(--pa-ease);
 }
 @media (hover: hover) and (pointer: fine) {
-  .pa-btn-gold:hover {
-    background: var(--pa-gold-hover);
+  .pa-btn-action:hover {
+    background: var(--pa-action-hover);
   }
   .pa-btn-ink:hover {
     background: var(--pa-ink-2);
   }
   .pa-btn-line:hover {
     background: color-mix(in srgb, currentColor 10%, transparent);
+  }
+  .pa-dark .pa-btn-action:hover {
+    background: var(--color-100);
   }
   .pa-btn:hover .pa-arrow,
   .pa-link:hover .pa-arrow {
@@ -214,7 +262,7 @@ body:has(.pa) {
 }
 @media (hover: hover) and (pointer: fine) {
   .pa-link:hover {
-    text-decoration-color: var(--pa-gold);
+    text-decoration-color: var(--pa-sky);
   }
   .pa-paper .pa-link:hover,
   .pa-sky .pa-link:hover {
@@ -227,50 +275,25 @@ body:has(.pa) {
   }
 }
 
-/* ---------- A completar ---------- */
-.pa-todo {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  min-height: 1.75rem;
-  padding: 0 0.6rem;
-  font-size: 0.8rem;
-  font-weight: 600;
-  font-variation-settings: "wdth" 108;
-  white-space: nowrap;
-  color: var(--pa-sky-deep);
-  border: 1px dashed color-mix(in srgb, var(--pa-sky-deep) 70%, transparent);
-  background: color-mix(in srgb, var(--pa-sky) 12%, transparent);
-}
-.pa-todo-dark {
-  color: var(--pa-sky);
-  border-color: color-mix(in srgb, var(--pa-sky) 60%, transparent);
-}
-.pa-todo-sky {
-  color: var(--pa-ink);
-  border-color: color-mix(in srgb, var(--pa-ink) 55%, transparent);
-  background: color-mix(in srgb, var(--pa-paper) 30%, transparent);
-}
-
 /* ---------- Cabecera: un módulo fotovoltaico azul noche ---------- */
 .pa-module {
-  --frame: rgb(169 188 211 / 0.3);
-  --cell: rgb(14 34 64 / 0.78);
+  --frame: rgb(175 196 217 / 0.3);
+  --cell: rgb(23 35 49 / 0.78);
   display: flex;
   gap: 2px;
   padding: 2px;
   height: 4rem;
   background: var(--frame);
-  box-shadow: 0 10px 30px rgb(6 16 32 / 0.2);
+  box-shadow: 0 10px 30px rgb(8 13 17 / 0.2);
   color: var(--pa-on-dark);
   transition:
     background-color 300ms var(--pa-ease),
     box-shadow 300ms var(--pa-ease);
 }
 .pa-module[data-solid="true"] {
-  --frame: rgb(80 104 140 / 0.9);
-  --cell: rgb(14 34 64 / 0.96);
-  box-shadow: 0 12px 34px rgb(6 16 32 / 0.32);
+  --frame: rgb(67 103 142 / 0.9);
+  --cell: rgb(23 35 49 / 0.96);
+  box-shadow: 0 12px 34px rgb(8 13 17 / 0.32);
 }
 .pa-module-menu {
   display: grid;
@@ -304,7 +327,7 @@ body:has(.pa) {
   position: absolute;
   inset: -40% -30%;
   z-index: -1;
-  background: linear-gradient(115deg, transparent 42%, rgb(226 240 252 / 0.16) 50%, transparent 58%);
+  background: linear-gradient(115deg, transparent 42%, rgb(238 242 247 / 0.16) 50%, transparent 58%);
   transform: translateX(-70%);
   transition: transform 700ms var(--pa-ease);
   pointer-events: none;
@@ -333,15 +356,15 @@ body:has(.pa) {
 .pa-cell-link[data-on="true"] {
   color: var(--pa-on-dark);
   background-image:
-    linear-gradient(to top, rgb(111 182 232 / 0.22), transparent 70%),
+    linear-gradient(to top, rgb(144 172 203 / 0.22), transparent 70%),
     linear-gradient(
       90deg,
       transparent calc(25% - 0.5px),
-      rgb(111 182 232 / 0.14) calc(25% - 0.5px) calc(25% + 0.5px),
+      rgb(144 172 203 / 0.14) calc(25% - 0.5px) calc(25% + 0.5px),
       transparent calc(25% + 0.5px) calc(50% - 0.5px),
-      rgb(111 182 232 / 0.14) calc(50% - 0.5px) calc(50% + 0.5px),
+      rgb(144 172 203 / 0.14) calc(50% - 0.5px) calc(50% + 0.5px),
       transparent calc(50% + 0.5px) calc(75% - 0.5px),
-      rgb(111 182 232 / 0.14) calc(75% - 0.5px) calc(75% + 0.5px),
+      rgb(144 172 203 / 0.14) calc(75% - 0.5px) calc(75% + 0.5px),
       transparent calc(75% + 0.5px)
     );
 }
@@ -356,12 +379,15 @@ body:has(.pa) {
   font-size: 0.95rem;
   font-variation-settings: "wdth" 110;
   white-space: nowrap;
-  background-color: var(--pa-gold);
+  background-color: var(--pa-paper);
   background-image: none;
   color: var(--pa-ink);
 }
 .pa-cell-cta::after {
-  background: linear-gradient(115deg, transparent 42%, rgb(255 255 255 / 0.35) 50%, transparent 58%);
+  background: linear-gradient(115deg, transparent 42%, rgb(144 172 203 / 0.45) 50%, transparent 58%);
+}
+.pa-cell-cta:focus-visible {
+  outline-color: var(--pa-ink);
 }
 .pa-cell-menu {
   flex: none;
@@ -394,26 +420,26 @@ body:has(.pa) {
   }
   .pa-cell-link:hover {
     color: var(--pa-on-dark);
-    background-color: rgb(22 49 88 / 0.9);
+    background-color: rgb(38 58 80 / 0.9);
   }
   .pa-cell-cta:hover {
-    background-color: var(--pa-gold-hover);
+    background-color: var(--color-100);
   }
   .pa-cell-cta:hover .pa-arrow {
     transform: translateX(4px);
   }
 }
 .pa-cell:active {
-  background-color: rgb(22 49 88 / 0.96);
+  background-color: rgb(38 58 80 / 0.96);
 }
 .pa-cell-cta:active {
-  background-color: var(--pa-gold);
+  background-color: var(--pa-paper);
 }
 .pa-cell:focus-visible {
   outline-offset: -3px;
 }
 .pa-menu-veil {
-  background: rgb(8 20 40 / 0.9);
+  background: rgb(8 13 17 / 0.9);
 }
 @media (max-width: 380px) {
   .pa-cell-logo .pa-wordmark {
@@ -449,7 +475,7 @@ body:has(.pa) {
   }
 }
 
-/* ---------- Hero: Matías en un techo y el sol de ahora ---------- */
+/* ---------- Hero: una instalación real ---------- */
 /* La foto, a pantalla completa y sin filtros. Encima, un degradé de azul noche del lado del
    texto: en escritorio de izquierda a derecha, en celular de arriba abajo. Con eso el
    titular y la bajada mantienen contraste AA sobre cualquier parte de la foto. */
@@ -466,7 +492,7 @@ body:has(.pa) {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgb(14 34 64 / 0.9) 0%, rgb(14 34 64 / 0.84) 38%, rgb(14 34 64 / 0.62) 66%, rgb(14 34 64 / 0.42) 100%);
+    linear-gradient(180deg, rgb(23 35 49 / 0.9) 0%, rgb(23 35 49 / 0.84) 38%, rgb(23 35 49 / 0.62) 66%, rgb(23 35 49 / 0.42) 100%);
 }
 @media (min-width: 768px) {
   .pa-hero-photo img {
@@ -474,44 +500,124 @@ body:has(.pa) {
   }
   .pa-hero-photo::after {
     background:
-      linear-gradient(90deg, rgb(14 34 64 / 0.94) 0%, rgb(14 34 64 / 0.86) 46%, rgb(14 34 64 / 0.4) 64%, rgb(14 34 64 / 0) 82%),
-      linear-gradient(180deg, rgb(14 34 64 / 0.55) 0%, rgb(14 34 64 / 0) 22%, rgb(14 34 64 / 0) 78%, rgb(14 34 64 / 0.5) 100%);
+      linear-gradient(90deg, rgb(23 35 49 / 0.9) 0%, rgb(23 35 49 / 0.8) 46%, rgb(23 35 49 / 0.55) 75%, rgb(23 35 49 / 0.4) 100%),
+      linear-gradient(180deg, rgb(23 35 49 / 0.55) 0%, rgb(23 35 49 / 0) 22%, rgb(23 35 49 / 0) 78%, rgb(23 35 49 / 0.5) 100%);
   }
 }
 @media (min-width: 1024px) {
   .pa-hero-photo::after {
     background:
-      linear-gradient(90deg, rgb(14 34 64 / 0.94) 0%, rgb(14 34 64 / 0.86) 34%, rgb(14 34 64 / 0.45) 54%, rgb(14 34 64 / 0) 72%),
-      linear-gradient(180deg, rgb(14 34 64 / 0.55) 0%, rgb(14 34 64 / 0) 22%, rgb(14 34 64 / 0) 78%, rgb(14 34 64 / 0.5) 100%);
+      linear-gradient(90deg, rgb(23 35 49 / 0.9) 0%, rgb(23 35 49 / 0.78) 40%, rgb(23 35 49 / 0.5) 70%, rgb(23 35 49 / 0.35) 100%),
+      linear-gradient(180deg, rgb(23 35 49 / 0.55) 0%, rgb(23 35 49 / 0) 22%, rgb(23 35 49 / 0) 78%, rgb(23 35 49 / 0.5) 100%);
   }
 }
-/* El sol de Buenos Aires ahora, en una placa de azul noche sobre la foto. */
-.pa-sun-now {
+/* El titular brutalista: mayúsculas, Archivo en su ancho máximo, interlineado apretado. Lo
+   limita el alto de la pantalla para que el hero entre en una laptop. */
+.pa-hero-title {
+  /* En columna flex los márgenes negativos de los renglones se suman en vez de colapsar. */
+  display: flex;
+  flex-direction: column;
+  font-size: clamp(2.2rem, min(7vw, 12.5svh), 7.5rem);
+  font-weight: 800;
+  font-variation-settings: "wdth" 125;
+  text-transform: uppercase;
+  letter-spacing: -0.035em;
+  line-height: 0.86;
+  word-spacing: normal;
+}
+/* En celular el titular parte en cuatro renglones y gana tamaño: "con el / sol." */
+@media (max-width: 639px) {
+  .pa-hero-title {
+    font-size: min(12vw, 7svh);
+  }
+}
+/* El sol del titular: la O de "SOL" es el disco azul claro del ícono, un poco más alto que las
+   mayúsculas. La caja vacía apoya su borde de abajo en la línea base, que hace de horizonte:
+   el disco sale desde ahí. */
+.pa-hero-sun {
+  position: relative;
+  display: inline-block;
+  width: 0.86em;
+  height: 0.78em;
+  vertical-align: baseline;
+  overflow: hidden;
+}
+.pa-hero-sun::before {
+  content: "";
+  position: absolute;
+  inset: 0 0.04em;
+  border-radius: 50%;
+  /* Un sol de atardecer: claro arriba, naranja hacia el horizonte. */
+  background: linear-gradient(180deg, var(--sun-200) 5%, var(--pa-sun) 45%, var(--pa-sun-hot) 100%);
+}
+/* Lo que gana el vecino, en una línea a ancho de lectura. */
+.pa-hero-lead {
+  max-width: 44ch;
+  margin-top: 1.75rem;
+  font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+  line-height: 1.55;
+  color: var(--pa-on-dark);
+}
+/* El botón del hero: el mismo de toda la página, un poco más grande. */
+.pa-hero-cta {
+  height: 3.75rem;
+  padding-inline: 1.75rem;
+  font-size: 1.05rem;
+}
+.pa-hero-link {
+  font-weight: 600;
+  text-decoration-thickness: 2px;
+}
+/* Lo que respalda a Soltech, en una placa de azul noche sobre la foto, con filetes entre datos. */
+.pa-trust {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: 0.25rem 0.9rem;
-  padding: 0.6rem 0.9rem;
-  font-size: 0.875rem;
   width: fit-content;
-  color: var(--pa-on-dark-muted);
-  background: rgb(14 34 64 / 0.9);
+  max-width: 100%;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--pa-on-dark);
+  background: rgb(23 35 49 / 0.9);
   border: 1px solid var(--pa-dark-line);
 }
-.pa-sun-now-icon {
-  color: var(--pa-gold);
+.pa-trust > li {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.65rem 1rem;
+}
+.pa-trust > li + li {
+  border-left: 1px solid var(--pa-dark-line);
+}
+.pa-trust-icon {
+  flex: none;
+  color: var(--pa-sun);
+}
+@media (max-width: 767px) {
+  .pa-trust {
+    flex-direction: column;
+    width: 100%;
+  }
+  .pa-trust > li {
+    padding-block: 0.55rem;
+  }
+  .pa-trust > li + li {
+    border-left: 0;
+    border-top: 1px solid var(--pa-dark-line);
+  }
 }
 
 /* La entrada del hero, un solo momento y sereno: el titular sube desde su renglón, el texto
-   y los botones aparecen, la foto se asienta y se dibujan las rayas de los servicios. Con
+   y los botones aparecen, la foto se asienta y se dibujan las rayas de la hoja. Con
    movimiento reducido, todo aparece solo con opacidad. */
-/* Recorta solo en vertical: el renglón nunca corta la palabra a lo ancho. */
+/* Recorta solo en vertical: el renglón nunca corta la palabra a lo ancho. Arriba deja lugar
+   para el acento de las mayúsculas (GENERÁ), que con este interlineado sale del renglón. */
 .pa-line {
   display: block;
   overflow-x: visible;
   overflow-y: clip;
-  padding-bottom: 0.1em;
-  margin-bottom: -0.1em;
+  padding-block: 0.2em 0.1em;
+  margin-block: -0.2em -0.1em;
 }
 .pa-line > span {
   display: block;
@@ -521,40 +627,40 @@ body:has(.pa) {
   position: absolute;
   inset: -1px 0 auto;
   height: 3px;
-  background: var(--svc);
+  background: var(--pa-sky);
   transform-origin: 0 50%;
 }
 @media (prefers-reduced-motion: no-preference) {
   .pa-line > span {
     animation: pa-line 1100ms var(--pa-ease) both;
-    animation-delay: calc(var(--i, 0) * 110ms + 150ms + var(--intro-delay));
+    animation-delay: calc(var(--i, 0) * 110ms + 150ms);
   }
   .pa-rise {
     animation: pa-rise 1000ms var(--pa-ease) both;
-    animation-delay: calc(var(--i, 0) * 90ms + 200ms + var(--intro-delay));
+    animation-delay: calc(var(--i, 0) * 90ms + 200ms);
   }
   .pa-hero-photo {
     animation: pa-fade 1400ms var(--pa-ease) both;
-    animation-delay: calc(100ms + var(--intro-delay));
+    animation-delay: 100ms;
   }
   .pa-hero-photo img {
     animation: pa-settle 2200ms var(--pa-ease) both;
-    animation-delay: calc(100ms + var(--intro-delay));
+    animation-delay: 100ms;
   }
-  .pa-sun-now {
-    animation: pa-rise 900ms var(--pa-ease) both;
-    animation-delay: calc(900ms + var(--intro-delay));
+  /* El sol sale cuando su renglón ya llegó. */
+  .pa-hero-sun::before {
+    animation: pa-sunrise 1600ms var(--pa-ease) both;
+    animation-delay: 750ms;
   }
   .pa-hero-cell::before {
     animation: pa-bar-in 900ms var(--pa-ease) both;
-    animation-delay: calc(var(--i, 0) * 90ms + 500ms + var(--intro-delay));
+    animation-delay: calc(var(--i, 0) * 90ms + 500ms);
   }
 }
 @media (prefers-reduced-motion: reduce) {
   .pa-line > span,
   .pa-rise,
-  .pa-hero-photo,
-  .pa-sun-now {
+  .pa-hero-photo {
     animation: pa-fade 700ms ease-out both;
     animation-delay: calc(var(--i, 0) * 80ms + 100ms);
   }
@@ -562,6 +668,11 @@ body:has(.pa) {
 @keyframes pa-line {
   from {
     transform: translateY(105%);
+  }
+}
+@keyframes pa-sunrise {
+  from {
+    transform: translateY(100%);
   }
 }
 @keyframes pa-rise {
@@ -604,7 +715,7 @@ body:has(.pa) {
   position: absolute;
   right: 0.9rem;
   top: 1.35rem;
-  color: var(--pa-gold);
+  color: var(--pa-sky);
 }
 .pa-hero-sheet > li:nth-child(even) .pa-hero-cell {
   padding-left: 1rem;
@@ -647,11 +758,11 @@ body:has(.pa) {
     transform: translateX(4px);
   }
   .pa-hero-cell:hover {
-    background: color-mix(in srgb, var(--svc) 12%, var(--pa-ink));
+    background: color-mix(in srgb, var(--pa-sky) 12%, var(--pa-ink));
   }
 }
 
-/* ---------- Quién te instala ---------- */
+/* ---------- Quiénes somos ---------- */
 .pa-portrait-photo {
   position: relative;
   aspect-ratio: 4 / 5;
@@ -660,7 +771,7 @@ body:has(.pa) {
   border: 1px solid var(--pa-line);
 }
 .pa-sheet {
-  border-top: 1px solid var(--pa-ink);
+  border-top: 2px solid var(--pa-sun-deep);
 }
 .pa-sheet-row {
   display: grid;
@@ -677,126 +788,890 @@ body:has(.pa) {
   }
 }
 
-/* ---------- Servicios: el corte de la casa ---------- */
-.pa-house-frame {
-  padding: clamp(1rem, 3vw, 2rem);
-  border: 1px solid var(--pa-dark-line);
-  background-color: #0b1d38;
-  background-image:
-    linear-gradient(rgb(111 182 232 / 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(111 182 232 / 0.06) 1px, transparent 1px);
-  background-size: 32px 32px;
+/* ---------- Servicios: un módulo de dos por dos ---------- */
+/* Cuatro celdas con juntas de 2px, como un panel visto de frente: foto de obra arriba, el
+   servicio abajo. Los termotanques van en la franja de abajo, a lo ancho. */
+.pa-svc-grid {
+  display: grid;
+  gap: 2px;
+  padding: 2px;
+  background: var(--pa-dark-line);
 }
-.pa-house {
-  overflow: visible;
+@media (min-width: 768px) {
+  .pa-svc-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
-.pa-house path,
-.pa-house rect,
-.pa-house polygon {
-  fill: none;
-  stroke-width: 2;
-  stroke-linejoin: miter;
-}
-.pa-house-shell path,
-.pa-house-shell rect {
-  stroke: rgb(169 188 211 / 0.5);
-}
-.pa-house-part {
-  --part: var(--svc, var(--pa-sky));
-  transition: opacity 400ms var(--pa-ease);
-}
-.pa-house-part path,
-.pa-house-part rect,
-.pa-house-part polygon {
-  stroke: var(--part);
-  transition: stroke 400ms var(--pa-ease);
-}
-.pa-house-part .pa-house-fill {
-  fill: color-mix(in srgb, var(--part) 22%, transparent);
-}
-.pa-house-wire,
-.pa-house-pipe {
-  stroke-dasharray: 6 5;
-}
-.pa-house-sweep {
-  stroke-dasharray: 2 8;
-}
-.pa-house-part[data-on="false"] {
-  opacity: 0.28;
-}
-.pa-house[data-active]:not([data-active="none"]) .pa-house-part[data-on="true"] .pa-house-fill {
-  fill: color-mix(in srgb, var(--part) 45%, transparent);
-}
-.pa-house-tag rect {
-  fill: var(--pa-ink);
-  stroke: var(--svc);
-}
-.pa-house-tag text {
-  fill: var(--pa-on-dark);
-  font-size: 15px;
-  font-weight: 600;
-  font-family: var(--font-archivo), system-ui, sans-serif;
-}
-.pa-house-tag[data-on="false"] {
-  opacity: 0.35;
-}
-.pa-house[data-active]:not([data-active="none"]) .pa-house-tag[data-on="true"] rect {
-  fill: var(--svc);
-  stroke: var(--svc);
-}
-.pa-house[data-active]:not([data-active="none"]) .pa-house-tag[data-on="true"] text {
-  fill: var(--pa-ink);
-}
-.pa-house-tag rect,
-.pa-house-tag text,
-.pa-house-tag {
-  transition:
-    fill 300ms var(--pa-ease),
-    stroke 300ms var(--pa-ease),
-    opacity 300ms var(--pa-ease);
-}
-.pa-service {
-  padding: 2rem 0;
-  border-top: 1px solid var(--pa-dark-line);
+.pa-svc {
+  display: flex;
+  flex-direction: column;
+  background: var(--pa-ink);
   scroll-margin-top: 6rem;
 }
-.pa-service:last-child {
-  border-bottom: 1px solid var(--pa-dark-line);
+.pa-svc-photo {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--color-950);
 }
-.pa-service-num {
-  display: inline-flex;
+.pa-svc-photo img {
+  transition: transform 900ms var(--pa-ease);
+}
+@media (hover: hover) and (pointer: fine) {
+  .pa-svc:hover .pa-svc-photo img {
+    transform: scale(1.03);
+  }
+}
+.pa-svc-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: clamp(1.5rem, 2.6vw, 2.25rem);
+}
+.pa-svc-title {
+  font-size: clamp(1.6rem, 2.6vw, 2.25rem);
+  font-weight: 700;
+  font-variation-settings: "wdth" 125;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  word-spacing: normal;
+  text-wrap: balance;
+}
+.pa-svc-text {
+  max-width: 50ch;
+  margin-top: 0.9rem;
+  line-height: 1.6;
+}
+.pa-svc-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.25rem;
+  margin-top: 1.1rem;
+  font-size: 0.9rem;
+  color: var(--pa-on-dark-muted);
+}
+.pa-svc-details > li {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  flex: none;
-  width: 1.75rem;
-  height: 1.75rem;
-  font-size: 0.85rem;
-  font-weight: 600;
-  border: 1px solid var(--svc);
-  color: var(--pa-on-dark);
-  transform: translateY(-0.2rem);
-  transition:
-    background-color 300ms var(--pa-ease),
-    border-color 300ms var(--pa-ease),
-    color 300ms var(--pa-ease);
+  gap: 0.5rem;
 }
-.pa-service[data-on="true"] .pa-service-num {
-  background: var(--svc);
-  border-color: var(--svc);
+.pa-svc-details > li::before {
+  --pa-sky: var(--pa-sun);
+  content: "";
+  flex: none;
+  width: 6px;
+  height: 6px;
+  background: var(--pa-sky);
+}
+.pa-svc-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+  margin-top: auto;
+  padding-top: 1.75rem;
+}
+/* La franja de los termotanques: la pregunta, el texto y el enlace en una línea. */
+.pa-svc-extra {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 1.5rem;
+  padding: 1.25rem clamp(1.5rem, 2.6vw, 2.25rem);
+  background: var(--pa-ink-2);
+  color: var(--pa-on-dark-muted);
+}
+@media (min-width: 768px) {
+  .pa-svc-extra {
+    grid-column: 1 / -1;
+  }
+}
+.pa-svc-extra-title {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-weight: 700;
+  font-variation-settings: "wdth" 118;
+  color: var(--pa-on-dark);
+}
+.pa-svc-extra-title::before {
+  content: "";
+  flex: none;
+  width: 0.7em;
+  height: 0.7em;
+  border-radius: 50%;
+  background: var(--pa-sun);
+}
+.pa-svc-extra > button {
+  margin-left: auto;
+  color: var(--pa-on-dark);
+}
+@media (max-width: 639px) {
+  .pa-svc-details {
+    display: none;
+  }
+}
+
+/* ---------- Sistemas: ¿qué sistema va con tu lugar? ---------- */
+/* Dos celdas unidas por juntas: a la izquierda las cuatro pestañas, cada una con lo que le pasa
+   al vecino y el nombre del sistema; la elegida se llena de azul claro. A la derecha el sistema:
+   su nombre en grande, el recorrido de la energía, la hoja de datos y lo que lleva. Al cambiar,
+   el panel entra de a una línea. */
+.pa-sys {
+  display: grid;
+  gap: 2px;
+  padding: 2px;
+  background: var(--pa-dark-line);
+  scroll-margin-top: 6rem;
+}
+/* Lado a lado recién desde 1200px: más angosto, el recorrido no entra en una línea. */
+@media (min-width: 1200px) {
+  .pa-sys {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  }
+}
+.pa-sys-pick,
+.pa-sys-panel {
+  padding: clamp(1.5rem, 2.8vw, 2.5rem);
+  background: var(--pa-ink);
+}
+.pa-sys-title {
+  max-width: 16ch;
+  font-size: clamp(1.6rem, 2.6vw, 2.25rem);
+  font-weight: 700;
+  font-variation-settings: "wdth" 125;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  text-wrap: balance;
+}
+.pa-sys-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2px;
+  margin-top: 1.75rem;
+  padding: 2px;
+  background: var(--pa-dark-line);
+}
+@media (min-width: 1200px) {
+  .pa-sys-tabs {
+    grid-template-columns: 1fr;
+  }
+}
+.pa-sys-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding: 1rem 1.1rem;
+  text-align: left;
+  background: var(--pa-ink-2);
+  color: var(--pa-on-dark);
+  transition: background-color 220ms var(--pa-ease);
+}
+.pa-sys-need {
+  font-size: 0.95rem;
+  line-height: 1.35;
+  color: var(--pa-on-dark-muted);
+}
+.pa-sys-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  font-variation-settings: "wdth" 125;
+  letter-spacing: -0.01em;
+}
+.pa-sys-tab[aria-selected="true"] {
+  background: var(--pa-sky);
   color: var(--pa-ink);
 }
-/* El cuadrito del color de cada servicio: hondo sobre papel, claro sobre noche y fotos. */
-.pa-swatch {
-  display: inline-block;
-  flex: none;
-  width: 0.6rem;
-  height: 0.6rem;
-  margin-right: 0.5rem;
-  background: var(--svc-deep);
+.pa-sys-tab[aria-selected="true"] .pa-sys-need {
+  color: var(--pa-ink);
 }
-.pa-dark .pa-swatch,
-.pa-work-caption .pa-swatch {
-  background: var(--svc);
+.pa-sys-tab:focus-visible {
+  outline-offset: -4px;
+}
+.pa-sys-tab[aria-selected="true"]:focus-visible {
+  outline-color: var(--pa-ink);
+}
+@media (hover: hover) and (pointer: fine) {
+  .pa-sys-tab[aria-selected="false"]:hover {
+    background: var(--color-700);
+  }
+}
+.pa-sys-panel {
+  display: flex;
+  flex-direction: column;
+}
+.pa-sys-tag {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--pa-sky);
+}
+.pa-sys-big {
+  margin-top: 0.4rem;
+  font-size: clamp(2.6rem, 5vw, 4.25rem);
+  font-weight: 800;
+  font-variation-settings: "wdth" 125;
+  letter-spacing: -0.03em;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+.pa-chain {
+  row-gap: 0.75rem;
+}
+.pa-sys-body {
+  max-width: 56ch;
+  margin-top: 1.5rem;
+  line-height: 1.6;
+}
+.pa-sys-traits {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 1.75rem;
+  border-block: 1px solid var(--pa-dark-line);
+}
+.pa-sys-traits > div {
+  padding: 0.9rem 0.75rem 0.9rem 0;
+}
+.pa-sys-traits > div + div {
+  padding-left: 1rem;
+  border-left: 1px solid var(--pa-dark-line);
+}
+.pa-sys-traits dt {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--pa-on-dark-muted);
+}
+.pa-sys-mark {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--pa-on-dark-muted);
+}
+.pa-sys-traits [data-yes] .pa-sys-mark {
+  --pa-sky: var(--pa-sun);
+  background: var(--pa-sky);
+  border-color: var(--pa-sky);
+}
+.pa-sys-traits dd {
+  margin-top: 0.35rem;
+  font-size: 1.35rem;
+  font-weight: 600;
+  font-variation-settings: "wdth" 125;
+  color: var(--pa-on-dark-muted);
+}
+.pa-sys-traits [data-yes] dd {
+  color: var(--pa-on-dark);
+}
+.pa-sys-kit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 1.25rem;
+  margin-top: 1.5rem;
+}
+.pa-sys-kit > p {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--pa-on-dark-muted);
+}
+.pa-sys-kit > ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.25rem;
+}
+.pa-sys-kit li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.pa-sys-kit li::before {
+  --pa-sky: var(--pa-sun);
+  content: "";
+  flex: none;
+  width: 6px;
+  height: 6px;
+  background: var(--pa-sky);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .pa-sys-in {
+    animation: pa-rise 700ms var(--pa-ease) both;
+    animation-delay: calc(var(--i, 0) * 55ms);
+  }
+}
+
+/* ---------- Respaldo: la cuadra que se apaga ---------- */
+/* Un módulo de dos celdas unidas por juntas: la escena en azul noche y la foto de obra. La escena
+   es una cuadra de casas hechas de ventanas, colgadas del cable de la red. Con data-power="off"
+   las ventanas de los vecinos parpadean y se apagan, el cable deja de llevar corriente, cae la
+   noche detrás y tu casa sigue igual: la batería se llena de azul claro y la casa se marca. */
+.pa-bk,
+.pa-pool {
+  display: grid;
+  gap: 2px;
+  padding: 2px;
+  background: var(--pa-dark-line);
+}
+@media (min-width: 1024px) {
+  .pa-bk,
+  .pa-pool {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  }
+}
+.pa-bk-scene {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  padding: clamp(1.25rem, 2.6vw, 2.25rem);
+  overflow: hidden;
+}
+.pa-bk-scene::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--color-950);
+  opacity: 0;
+  transition: opacity 700ms var(--pa-ease);
+}
+.pa-bk-scene[data-power="off"]::before {
+  opacity: 0.75;
+}
+.pa-bk-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+}
+.pa-bk-status {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 600;
+  font-variation-settings: "wdth" 110;
+}
+/* La luz de la cuadra: ámbar con luz; sin luz, la de la batería (celeste). */
+.pa-bk-dot {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  background: var(--pa-sun);
+}
+.pa-bk-scene[data-power="off"] .pa-bk-dot {
+  background: var(--pa-sky);
+}
+.pa-bk-switch {
+  min-width: 14.5rem;
+}
+/* La calle: el cable arriba, las casas paradas en el suelo y sus rótulos debajo. */
+.pa-bk-street {
+  --win: 0.95rem;
+  --win-h: 1.15rem;
+  --win-gap: 0.45rem;
+  position: relative;
+  height: clamp(13rem, 19vw, 15.5rem);
+  overflow: hidden;
+}
+.pa-bk-wire {
+  position: absolute;
+  inset: 0.5rem 0 auto;
+  height: 2px;
+  overflow: hidden;
+  background: var(--pa-dark-line);
+}
+.pa-bk-flow {
+  position: absolute;
+  inset: 0 -40px;
+  background: repeating-linear-gradient(90deg, var(--pa-sky) 0 14px, transparent 14px 40px);
+  transition: opacity 400ms var(--pa-ease);
+}
+.pa-bk-scene[data-power="off"] .pa-bk-flow {
+  opacity: 0;
+}
+.pa-bk-houses {
+  position: absolute;
+  inset: 0 0 2.25rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-inline: 0.25rem;
+  border-bottom: 2px solid var(--pa-dark-line);
+}
+.pa-bk-house {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--cols), var(--win));
+  gap: var(--win-gap);
+  padding: 0.6rem;
+  background: var(--pa-ink-2);
+  border: 1px solid var(--pa-dark-line);
+  border-bottom: 0;
+}
+/* La bajada del cable a cada casa; la caja de la calle la corta en el cable. */
+.pa-bk-house::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  width: 1px;
+  height: 20rem;
+  background: var(--pa-dark-line);
+}
+.pa-bk-house[data-yours] {
+  margin-right: 2.4rem;
+}
+.pa-bk-house[data-yours]::after {
+  content: "";
+  position: absolute;
+  inset: -1px -1px 0;
+  border: 2px solid var(--pa-sky);
+  border-bottom: 0;
+  opacity: 0;
+  transition: opacity 500ms var(--pa-ease) 300ms;
+}
+.pa-bk-scene[data-power="off"] .pa-bk-house[data-yours]::after {
+  opacity: 1;
+}
+/* Las ventanas con luz son cálidas, como de noche en la cuadra. */
+.pa-bk-win {
+  height: var(--win-h);
+  background: var(--pa-sun);
+}
+.pa-bk-house[data-yours] .pa-bk-win {
+  background: var(--sun-200);
+}
+.pa-bk-label,
+.pa-bk-battery-label {
+  position: absolute;
+  top: calc(100% + 0.6rem);
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.pa-bk-label {
+  left: 0;
+  color: var(--pa-sky);
+}
+.pa-bk-battery {
+  position: absolute;
+  bottom: 0;
+  left: calc(100% + 0.45rem);
+  width: 1.5rem;
+}
+.pa-bk-cells {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 2px;
+  height: 2.6rem;
+  padding: 2px;
+  border: 2px solid var(--pa-on-dark-muted);
+}
+.pa-bk-cells > i {
+  flex: 1;
+  background: var(--pa-sky);
+  opacity: 0.3;
+  transition: opacity 400ms var(--pa-ease);
+}
+.pa-bk-scene[data-power="off"] .pa-bk-cells > i {
+  opacity: 1;
+}
+.pa-bk-battery-label {
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--pa-on-dark-muted);
+}
+.pa-bk-keeps {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1rem;
+  font-size: 0.9rem;
+}
+.pa-bk-keeps > p {
+  color: var(--pa-on-dark-muted);
+}
+.pa-bk-keeps > ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.pa-bk-keeps li {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.7rem;
+  font-weight: 600;
+  border: 1px solid var(--pa-dark-line);
+}
+.pa-bk-keeps li::before {
+  --pa-sky: var(--pa-sun);
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--pa-sky);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .pa-bk-flow {
+    animation: pa-bk-flow 1.2s linear infinite paused;
+  }
+  .pa-bk-scene[data-inview][data-power="on"] .pa-bk-flow {
+    animation-play-state: running;
+  }
+  /* Con luz, la batería se carga: sus celdas se llenan de a una, mientras la escena se ve. */
+  .pa-bk-scene[data-power="on"] .pa-bk-cells > i {
+    animation: pa-bk-charge 2.4s ease-in-out infinite paused;
+    animation-delay: calc(var(--c) * 300ms);
+  }
+  .pa-bk-scene[data-inview][data-power="on"] .pa-bk-cells > i {
+    animation-play-state: running;
+  }
+  .pa-bk-scene[data-power="off"] .pa-bk-house:not([data-yours]) .pa-bk-win {
+    animation: pa-bk-out 700ms var(--d) both;
+  }
+  .pa-bk-scene[data-power="on"][data-toggled] .pa-bk-house:not([data-yours]) .pa-bk-win {
+    animation: pa-bk-in 450ms var(--d) both;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pa-bk-scene[data-power="off"] .pa-bk-house:not([data-yours]) .pa-bk-win {
+    opacity: 0.1;
+  }
+}
+@keyframes pa-bk-flow {
+  from {
+    transform: translateX(-40px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes pa-bk-charge {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  35%,
+  70% {
+    opacity: 1;
+  }
+}
+/* El parpadeo de una lamparita que se queda sin luz. */
+@keyframes pa-bk-out {
+  0% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 0.15;
+  }
+  45% {
+    opacity: 0.7;
+  }
+  60%,
+  100% {
+    opacity: 0.1;
+  }
+}
+@keyframes pa-bk-in {
+  from {
+    opacity: 0.1;
+  }
+  to {
+    opacity: 1;
+  }
+}
+/* En celular entran cinco casas, más chicas. */
+@media (max-width: 639px) {
+  .pa-bk-street {
+    --win: 0.6rem;
+    --win-h: 0.75rem;
+    --win-gap: 0.3rem;
+    height: 11.5rem;
+  }
+  .pa-bk-houses {
+    gap: 0.4rem;
+  }
+  .pa-bk-house {
+    padding: 0.4rem;
+  }
+  .pa-bk-house:first-child,
+  .pa-bk-house:last-child {
+    display: none;
+  }
+  .pa-bk-house[data-yours] {
+    margin-right: 2rem;
+  }
+  /* Al lado de "Tu casa" no entra centrado: el rótulo de la batería arranca en su borde. */
+  .pa-bk-battery-label {
+    left: 0;
+    transform: none;
+  }
+  .pa-bk-switch {
+    width: 100%;
+  }
+}
+/* Las fotos de obra de Respaldo y Piscinas: llenan su celda, con la leyenda al pie. */
+.pa-bk-photo,
+.pa-pool-photo {
+  position: relative;
+  min-height: 18rem;
+  margin: 0;
+  overflow: hidden;
+  background: var(--color-950);
+}
+@media (max-width: 1023px) {
+  .pa-bk-photo,
+  .pa-pool-photo {
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+  }
+}
+.pa-bk-photo figcaption,
+.pa-pool-photo figcaption {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 0.75rem 1rem;
+  font-size: 0.85rem;
+  background: rgb(23 35 49 / 0.9);
+  color: var(--pa-on-dark);
+}
+.pa-bk-facts {
+  display: grid;
+  gap: 2rem;
+}
+@media (min-width: 768px) {
+  .pa-bk-facts {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2.5rem;
+  }
+}
+.pa-bk-fact {
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--pa-line);
+}
+
+/* ---------- Piscinas: la temporada en meses ---------- */
+/* Una tira de doce meses por forma de climatizar, de julio a junio con el verano al medio. Los
+   meses que ya da el verano van en azul acero; los que suma cada equipo, en azul claro. Al entrar
+   (section-entrance), los meses se llenan desde el verano hacia afuera. */
+.pa-pool-season {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  padding: clamp(1.25rem, 2.6vw, 2.25rem);
+  background: var(--pa-ink);
+}
+.pa-pool-row {
+  display: grid;
+  gap: 0.6rem;
+}
+@media (min-width: 640px) {
+  .pa-pool-row {
+    grid-template-columns: 12.5rem minmax(0, 1fr);
+    align-items: center;
+    gap: 1.25rem;
+  }
+}
+.pa-pool-months {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--pa-on-dark-muted);
+}
+.pa-pool-months .pa-pool-cells > span {
+  text-align: center;
+}
+@media (max-width: 639px) {
+  .pa-pool-months > span:first-child {
+    display: none;
+  }
+}
+.pa-pool-label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
+}
+@media (min-width: 640px) {
+  .pa-pool-label {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+.pa-pool-n {
+  font-size: clamp(1.6rem, 2.5vw, 2.15rem);
+  font-weight: 600;
+  font-variation-settings: "wdth" 125;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.pa-pool-plus {
+  font-size: 0.55em;
+  color: var(--pa-sun);
+}
+.pa-pool-cells {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 2px;
+}
+.pa-pool-cell {
+  height: 2.75rem;
+  overflow: hidden;
+  background: var(--pa-ink-2);
+}
+@media (min-width: 640px) {
+  .pa-pool-cell {
+    height: 3.25rem;
+  }
+}
+.pa-pool-cell > span {
+  display: block;
+  height: 100%;
+  transform-origin: 50% 100%;
+}
+.pa-pool-cell[data-lit="base"] > span {
+  background: var(--color-600);
+}
+/* Los meses que suma cada equipo son calor ganado: van en ámbar. */
+.pa-pool-cell[data-lit="extra"] > span {
+  background: var(--pa-sun);
+}
+.pa-pool-row[data-enter] .pa-pool-cell > span {
+  transition: transform 700ms var(--pa-ease);
+  transition-delay: calc(var(--ei, 0) * 120ms + var(--k) * 50ms + 150ms);
+}
+.pa-pool-row[data-enter="armed"] .pa-pool-cell > span {
+  transform: scaleY(0);
+}
+.pa-pool-note {
+  max-width: 62ch;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--pa-on-dark-muted);
+}
+/* Las dos formas, lado a lado: en tablet y escritorio comparten las filas (subgrid), así cada
+   dato queda a la altura del mismo dato de la otra. */
+.pa-pool-methods {
+  display: grid;
+  gap: 2px;
+  padding: 2px;
+  background: var(--pa-dark-line);
+}
+.pa-pool-method {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.5rem, 2.6vw, 2.25rem);
+  background: var(--pa-ink);
+}
+@media (min-width: 768px) {
+  .pa-pool-methods {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .pa-pool-method {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 8;
+    row-gap: 0;
+  }
+  .pa-pool-facts {
+    display: contents;
+  }
+}
+.pa-chain {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.pa-chain > li {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.85rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1px solid var(--pa-dark-line);
+}
+/* El conector entre eslabones: una línea en azul claro con su punta. */
+.pa-chain > li + li {
+  margin-left: 2rem;
+}
+.pa-chain > li + li::before,
+.pa-chain > li + li::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  background: var(--pa-sky);
+}
+.pa-chain > li + li::before {
+  right: calc(100% + 0.5rem);
+  width: 1rem;
+  height: 1px;
+}
+.pa-chain > li + li::after {
+  right: calc(100% + 0.3rem);
+  width: 0.4rem;
+  height: 0.6rem;
+  transform: translateY(-50%);
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+@media (max-width: 479px) {
+  .pa-chain {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .pa-chain > li + li {
+    margin-top: 1.5rem;
+    margin-left: 0;
+  }
+  .pa-chain > li + li::before {
+    top: auto;
+    right: auto;
+    bottom: calc(100% + 0.35rem);
+    left: 1.25rem;
+    width: 1px;
+    height: 0.9rem;
+  }
+  .pa-chain > li + li::after {
+    top: auto;
+    right: auto;
+    bottom: calc(100% + 0.15rem);
+    left: calc(1.25rem - 0.3rem + 0.5px);
+    width: 0.6rem;
+    height: 0.4rem;
+    transform: none;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+  }
+}
+.pa-chain-icon {
+  flex: none;
+  color: var(--pa-sky);
+}
+.pa-chain-icon[data-sun] {
+  color: var(--pa-sun);
+}
+.pa-pool-facts > div {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: 1rem;
+  padding-block: 0.8rem;
+  border-bottom: 1px solid var(--pa-dark-line);
+}
+.pa-pool-facts > div:first-child {
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--pa-dark-line);
+}
+.pa-pool-facts dt {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--pa-on-dark-muted);
 }
 
 /* ---------- Calculadora ---------- */
@@ -808,8 +1683,88 @@ body:has(.pa) {
   min-width: 0;
 }
 .pa-calc-in {
+  display: flex;
+  flex-direction: column;
   padding: clamp(1.5rem, 3vw, 2.5rem);
   background: var(--pa-paper);
+}
+/* El consumo se escribe tal como dice la factura: un campo grande, con la cifra expandida. */
+.pa-kwh {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+.pa-kwh-input {
+  width: 5.5ch;
+  padding: 0.3rem 0.5rem;
+  font-size: clamp(1.75rem, 3vw, 2.4rem);
+  font-weight: 600;
+  font-variation-settings: "wdth" 125;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  text-align: right;
+  color: var(--pa-ink);
+  background: #fff;
+  border: 1px solid var(--pa-line);
+  caret-color: var(--pa-sky-deep);
+  appearance: textfield;
+  transition: border-color 200ms var(--pa-ease);
+}
+.pa-kwh-input::-webkit-inner-spin-button,
+.pa-kwh-input::-webkit-outer-spin-button {
+  appearance: none;
+  margin: 0;
+}
+.pa-kwh-input:focus-visible {
+  outline: 2px solid var(--pa-ink);
+  outline-offset: 1px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .pa-kwh-input:hover {
+    border-color: var(--pa-ink);
+  }
+}
+/* Casas de referencia, para quien no tiene la factura a mano. */
+.pa-preset {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.1rem;
+  min-height: 3rem;
+  padding: 0.5rem 0.85rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: left;
+  background: #fff;
+  border: 1px solid var(--pa-line);
+  transition:
+    border-color 200ms var(--pa-ease),
+    box-shadow 200ms var(--pa-ease),
+    transform 160ms var(--pa-ease);
+}
+.pa-preset > span {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+.pa-preset[aria-pressed="true"] {
+  border-color: var(--pa-ink);
+  box-shadow: inset 0 0 0 1px var(--pa-ink);
+}
+.pa-preset:active {
+  transform: scale(0.97);
+}
+@media (hover: hover) and (pointer: fine) {
+  .pa-preset:hover {
+    border-color: var(--pa-ink);
+  }
+}
+.pa-calc-big {
+  margin-top: auto;
+  padding-top: 2.25rem;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--pa-muted);
 }
 .pa-calc-out {
   padding: clamp(1.5rem, 3vw, 2.5rem);
@@ -835,7 +1790,7 @@ body:has(.pa) {
   width: 1.5rem;
   height: 1.5rem;
   margin-top: calc(2px - 0.75rem);
-  background: var(--pa-gold);
+  background: var(--pa-action);
   border: 2px solid var(--pa-ink);
   transition: transform 160ms var(--pa-ease);
 }
@@ -843,7 +1798,7 @@ body:has(.pa) {
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 0;
-  background: var(--pa-gold);
+  background: var(--pa-action);
   border: 2px solid var(--pa-ink);
 }
 .pa-range:active::-webkit-slider-thumb {
@@ -852,65 +1807,35 @@ body:has(.pa) {
 .pa-range:focus-visible {
   outline-offset: 2px;
 }
-.pa-stepper {
-  display: grid;
-  width: fit-content;
-  grid-template-columns: 3rem 3.5rem 3rem;
-  height: 3rem;
-  border: 1px solid var(--pa-line);
-  background: var(--pa-paper);
-}
-.pa-stepper > button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 200ms var(--pa-ease);
-}
-.pa-stepper > button:active {
-  background: var(--pa-paper-2);
-}
-@media (hover: hover) and (pointer: fine) {
-  .pa-stepper > button:hover {
-    background: var(--pa-paper-2);
-  }
-}
-.pa-stepper > output {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  font-size: 1.15rem;
-  border-inline: 1px solid var(--pa-line);
-}
 /* El techo con sus paneles: un módulo por panel, en filas, que aparecen de a uno. */
 .pa-roof-grid {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   gap: 3px;
   padding: 3px;
-  background: #2a4670;
+  background: var(--color-700);
 }
 .pa-pv-slot {
   aspect-ratio: 1 / 1.7;
-  background: #0b1d38;
-  outline: 1px dashed rgb(111 182 232 / 0.18);
+  background: var(--color-950);
+  outline: 1px dashed rgb(144 172 203 / 0.18);
   outline-offset: -4px;
 }
 .pa-pv {
   aspect-ratio: 1 / 1.7;
-  outline: 1px solid rgb(111 182 232 / 0.5);
+  outline: 1px solid rgb(144 172 203 / 0.5);
   outline-offset: -1px;
-  background-color: #10294d;
+  background-color: var(--color-800);
   background-image:
     linear-gradient(
       90deg,
       transparent calc(33% - 0.5px),
-      rgb(111 182 232 / 0.35) calc(33% - 0.5px) calc(33% + 0.5px),
+      rgb(144 172 203 / 0.35) calc(33% - 0.5px) calc(33% + 0.5px),
       transparent calc(33% + 0.5px) calc(66% - 0.5px),
-      rgb(111 182 232 / 0.35) calc(66% - 0.5px) calc(66% + 0.5px),
+      rgb(144 172 203 / 0.35) calc(66% - 0.5px) calc(66% + 0.5px),
       transparent calc(66% + 0.5px)
     ),
-    linear-gradient(160deg, rgb(111 182 232 / 0.4), transparent 60%);
+    linear-gradient(160deg, rgb(144 172 203 / 0.4), transparent 60%);
 }
 @media (prefers-reduced-motion: no-preference) {
   .pa-pv {
@@ -951,7 +1876,7 @@ body:has(.pa) {
   color: var(--pa-on-dark-muted);
 }
 .pa-calc-figures > div:first-child dd {
-  color: var(--pa-sky);
+  color: var(--pa-sun);
 }
 @media (min-width: 640px) {
   .pa-calc-figures > div + div {
@@ -969,52 +1894,60 @@ body:has(.pa) {
   }
 }
 
-/* ---------- Cómo trabajo: de sol a sol ---------- */
+/* ---------- Cómo trabajamos: de sol a sol ---------- */
+/* Cinco celdas de azul noche unidas por juntas: el número dice el orden y el sol, la hora. */
 .pa-day {
-  gap: 2px;
+  gap: 0.5rem;
+}
+@media (min-width: 640px) {
+  .pa-day {
+    gap: 2px;
+    padding: 2px;
+    background: var(--pa-dark-line);
+  }
 }
 .pa-day-step {
-  --pa-day-bg: #f5ddc9;
-  --pa-day-ink: #4d4a55;
   /* Contiene al texto oculto de la hora: sin esto se escapa del carril y ensancha la página. */
   position: relative;
   padding: 1.5rem 1.4rem 2rem;
-  background: var(--pa-day-bg);
-  color: var(--pa-ink);
+  background: var(--pa-ink);
 }
-.pa-day-step[data-hour="1"] {
-  --pa-day-bg: #dcebf6;
-  --pa-day-ink: var(--pa-muted);
+@media (max-width: 639px) {
+  .pa-day-step {
+    border: 1px solid var(--pa-dark-line);
+  }
 }
-.pa-day-step[data-hour="2"] {
-  --pa-day-bg: #c9e2f5;
-  --pa-day-ink: #3f5470;
-}
-.pa-day-step[data-hour="3"] {
-  --pa-day-bg: #f3d9ae;
-  --pa-day-ink: #554a3c;
-}
-.pa-day-step[data-hour="4"] {
-  --pa-day-bg: var(--pa-ink);
-  --pa-day-ink: var(--pa-on-dark-muted);
-  color: var(--pa-on-dark);
+.pa-day-n {
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-weight: 700;
+  font-variation-settings: "wdth" 125;
+  letter-spacing: -0.03em;
+  line-height: 0.9;
+  color: var(--pa-sky);
 }
 .pa-day-sun {
-  width: 4.5rem;
-  height: 4.5rem;
+  flex: none;
+  width: 3.5rem;
+  height: 3.5rem;
   overflow: visible;
 }
 .pa-day-sun line {
-  stroke: currentColor;
-  stroke-opacity: 0.5;
-  stroke-width: 2;
+  stroke: var(--pa-dark-line);
+  stroke-width: 3;
 }
+/* El sol cambia de color con la hora: naranja al salir y al ponerse, claro al mediodía. */
 .pa-day-sun circle {
-  fill: var(--pa-gold);
+  fill: var(--pa-sun);
 }
-.pa-day-step[data-hour="4"] .pa-day-sun circle {
-  fill: var(--pa-sky);
-  opacity: 0.4;
+.pa-day-step:first-child .pa-day-sun circle,
+.pa-day-step:last-child .pa-day-sun circle {
+  fill: var(--pa-sun-hot);
+}
+.pa-day-step:nth-child(3) .pa-day-sun circle {
+  fill: var(--sun-200);
+}
+.pa-day-step[data-night] .pa-day-sun circle {
+  opacity: 0.35;
 }
 @media (prefers-reduced-motion: no-preference) {
   .pa-day[data-reveal="armed"] .pa-day-step {
@@ -1036,136 +1969,265 @@ body:has(.pa) {
   }
 }
 
-/* ---------- Trabajos ---------- */
-/* Cinco fotos sin huecos, unidas por juntas: en escritorio, la primera ocupa un bloque de
-   2×2 y las otras cuatro van de a dos a su lado; en celular, la primera arriba y el resto de a dos. */
+/* ---------- Trabajos: la grilla de obras elegidas ---------- */
+/* Ocho fotos sin huecos, unidas por juntas de 2px: la primera ocupa un bloque de 2×2 y la
+   última va a lo ancho. Cada una abre el visor en esa foto. */
 .pa-works {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-areas:
-    "a a b c"
-    "a a d e";
-  grid-auto-rows: clamp(12rem, 18vw, 16rem);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: clamp(9rem, 40vw, 15rem);
   gap: 2px;
-  background: var(--pa-dark-line);
-  border: 2px solid var(--pa-dark-line);
+  padding: 2px;
+  background: var(--pa-ink);
 }
-.pa-work {
+.pa-works-cell:first-child {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+.pa-works-cell:last-child {
+  grid-column: span 2;
+}
+@media (min-width: 768px) {
+  .pa-works {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: clamp(11rem, 17vw, 16.5rem);
+  }
+}
+.pa-works-btn {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
-  background-color: var(--pa-ink);
+  text-align: left;
+  background: var(--color-950);
+  cursor: zoom-in;
 }
-.pa-work:nth-child(1) { grid-area: a; }
-.pa-work:nth-child(2) { grid-area: b; }
-.pa-work:nth-child(3) { grid-area: c; }
-.pa-work:nth-child(4) { grid-area: d; }
-.pa-work:nth-child(5) { grid-area: e; }
-.pa-work img {
-  transition: transform 0.7s var(--pa-ease);
+.pa-works-btn img {
+  transition: transform 900ms var(--pa-ease);
 }
-.pa-work-caption {
+/* La leyenda, sobre un degradé de azul noche (sin desenfoque). */
+.pa-works-cap {
   position: absolute;
   inset: auto 0 0;
-  padding: 2.5rem 1rem 0.9rem;
-  font-size: 0.9rem;
+  padding: 2.5rem 1rem 0.85rem;
+  font-size: 0.875rem;
+  font-weight: 600;
   line-height: 1.35;
-  text-wrap: pretty;
-  background: linear-gradient(to top, rgb(14 34 64 / 0.92), rgb(14 34 64 / 0.6) 55%, transparent);
+  color: var(--pa-on-dark);
+  background: linear-gradient(to top, rgb(8 13 17 / 0.85), rgb(8 13 17 / 0));
+}
+.pa-works-zoom {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  box-sizing: content-box;
+  padding: 0.4rem;
+  color: var(--pa-ink);
+  background: var(--pa-paper);
+  opacity: 0;
+  transform: scale(0.9);
+  transition:
+    opacity 200ms var(--pa-ease),
+    transform 260ms var(--pa-ease);
 }
 @media (hover: hover) and (pointer: fine) {
-  .pa-work:hover img {
+  .pa-works-btn:hover img {
     transform: scale(1.03);
   }
-}
-@media (prefers-reduced-motion: reduce) {
-  .pa-work img {
-    transition: none;
+  .pa-works-btn:hover .pa-works-zoom {
+    opacity: 1;
+    transform: none;
   }
 }
-@media (max-width: 767px) {
-  .pa-works {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-areas:
-      "a a"
-      "a a"
-      "b c"
-      "d e";
-    grid-auto-rows: 10rem;
-  }
-  .pa-work-caption {
-    padding: 2rem 0.75rem 0.7rem;
-    font-size: 0.8rem;
+.pa-works-btn:focus-visible {
+  outline-offset: -3px;
+}
+.pa-works-btn:focus-visible .pa-works-zoom {
+  opacity: 1;
+  transform: none;
+}
+/* En el celular las celdas chicas no tienen lugar para la leyenda: la lleva el visor. */
+@media (max-width: 639px) {
+  .pa-works-cell:not(:first-child):not(:last-child) .pa-works-cap {
+    display: none;
   }
 }
 
-/* ---------- Precios ---------- */
-.pa-prices {
-  width: 100%;
-  border-collapse: collapse;
-  border-top: 1px solid var(--pa-ink);
+/* El visor de todas las fotos: la foto entera sobre negro, sin recortes (las hay verticales y
+   apaisadas). Abajo, la barra con contador, leyenda y flechas, y la tira de miniaturas. Todo
+   pegado con juntas de 2px. El alto sale del ancho del visor (cqi), así la pista nunca queda
+   más angosta que el marco. */
+.pa-reel-works {
+  container-type: inline-size;
+  display: grid;
+  gap: 2px;
+  border: 2px solid var(--pa-ink);
+  background: var(--pa-dark-line);
 }
-.pa-prices thead th {
-  padding: 0.75rem 0;
-  font-size: 0.85rem;
-  font-weight: 600;
-  text-align: left;
-  color: var(--pa-muted);
-  border-bottom: 1px solid var(--pa-line);
+.pa-wr-track {
+  display: flex;
+  /* El visor entero (foto, barra y miniaturas) entra en una pantalla de notebook. */
+  height: min(68svh, 56.25cqi);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  background: var(--color-950);
 }
-.pa-prices tbody th,
-.pa-prices tbody td {
-  padding: 1.1rem 1rem 1.1rem 0;
-  text-align: left;
-  vertical-align: middle;
-  border-bottom: 1px solid var(--pa-line);
+.pa-wr-track::-webkit-scrollbar {
+  display: none;
 }
-.pa-prices tbody td:last-child,
-.pa-prices thead th:last-child {
-  padding-right: 0;
-  text-align: right;
+.pa-wr-track:focus-visible {
+  outline-offset: -4px;
 }
-@media (max-width: 559px) {
-  .pa-prices,
-  .pa-prices tbody {
-    display: block;
-  }
-  .pa-prices thead {
-    display: none;
-  }
-  .pa-prices tbody tr {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    padding: 1rem 0;
-    border-bottom: 1px solid var(--pa-line);
-  }
-  .pa-prices tbody th,
-  .pa-prices tbody td {
-    padding: 0;
-    border: 0;
-  }
-  .pa-prices tbody td:nth-child(2) {
-    grid-row: 2;
-    margin-top: 0.25rem;
-    font-size: 0.9rem;
-    color: var(--pa-muted);
-  }
-  .pa-prices tbody td:last-child {
-    grid-row: 1 / span 2;
-    grid-column: 2;
-    align-self: center;
+.pa-wr-slide {
+  position: relative;
+  flex: 0 0 100%;
+  margin: 0;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+}
+@media (max-width: 639px) {
+  .pa-wr-track {
+    height: min(70svh, 100cqi);
   }
 }
-.pa-pay {
-  padding: clamp(1.5rem, 3vw, 2rem);
-  background: var(--pa-paper-2);
-  border: 1px solid var(--pa-line);
+.pa-wr-bar {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 2px;
 }
-.pa-pay-row {
+.pa-wr-bar > * {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  min-height: 3rem;
-  border-bottom: 1px solid var(--pa-line);
+  min-height: 3.5rem;
+  background: var(--pa-ink);
+}
+.pa-wr-count {
+  padding: 0 1.25rem;
+  font-size: 1.35rem;
+  font-weight: 800;
+  font-variation-settings: "wdth" 125;
+  letter-spacing: -0.02em;
+}
+.pa-wr-count > span {
+  margin-left: 0.3rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--pa-on-dark-muted);
+}
+.pa-wr-caption {
+  padding: 0.6rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--pa-on-dark);
+}
+.pa-wr-arrows {
+  gap: 2px;
+  background: var(--pa-dark-line);
+}
+.pa-wr-arrows > button {
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 100%;
+  min-height: 3.5rem;
+  background: var(--pa-action);
+  color: var(--pa-on-action);
+  transition:
+    background-color 200ms var(--pa-ease),
+    transform 160ms var(--pa-ease);
+}
+.pa-wr-arrows > button:active {
+  transform: scale(0.94);
+}
+@media (hover: hover) and (pointer: fine) {
+  .pa-wr-arrows > button:hover {
+    background: var(--pa-action-hover);
+  }
+}
+@media (max-width: 639px) {
+  .pa-wr-bar {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+  .pa-wr-caption {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+  .pa-wr-arrows {
+    justify-content: flex-end;
+  }
+}
+/* La tira: todas las fotos en chico; la actual, encendida en celeste. */
+.pa-wr-thumbs {
+  display: flex;
+  gap: 2px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pa-dark-line) var(--pa-ink);
+  background: var(--pa-ink);
+}
+.pa-wr-thumbs > li {
+  flex: 0 0 auto;
+}
+.pa-wr-thumb {
+  position: relative;
+  display: block;
+  width: clamp(5.5rem, 9vw, 8rem);
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--color-950);
+  opacity: 0.45;
+  transition: opacity 200ms var(--pa-ease);
+}
+.pa-wr-thumb::after {
+  --pa-sky: var(--pa-sun);
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 0 3px var(--pa-sky);
+  opacity: 0;
+  transition: opacity 200ms var(--pa-ease);
+}
+.pa-wr-thumb[aria-current="true"] {
+  opacity: 1;
+}
+.pa-wr-thumb[aria-current="true"]::after {
+  opacity: 1;
+}
+@media (hover: hover) and (pointer: fine) {
+  .pa-wr-thumb:hover {
+    opacity: 0.85;
+  }
+}
+.pa-wr-thumb:focus-visible {
+  outline-offset: -3px;
+}
+
+/* ---------- Para empresas ---------- */
+/* Una obra para empresa a la vista y, al lado, lo que cambia en filas con filete. */
+.pa-biz-photo {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--color-950);
+  border: 1px solid var(--pa-dark-line);
+}
+@media (min-width: 1024px) {
+  .pa-biz-photo {
+    aspect-ratio: auto;
+    min-height: 30rem;
+  }
+}
+.pa-biz {
+  border-top: 2px solid var(--pa-sun);
+}
+.pa-biz-row {
+  padding: 1.35rem 0;
+  border-bottom: 1px solid var(--pa-dark-line);
 }
 
 /* ---------- Preguntas ---------- */
@@ -1190,6 +2252,7 @@ body:has(.pa) {
 }
 .pa-faq-icon {
   flex: none;
+  color: var(--pa-sun-deep);
   transition: transform 300ms var(--pa-ease);
 }
 .pa-faq[open] .pa-faq-icon {
@@ -1197,7 +2260,7 @@ body:has(.pa) {
 }
 @media (hover: hover) and (pointer: fine) {
   .pa-faq summary:hover .pa-faq-icon {
-    color: var(--pa-sky-deep);
+    color: var(--pa-ink);
   }
 }
 @media (prefers-reduced-motion: no-preference) {
@@ -1211,8 +2274,8 @@ body:has(.pa) {
 .pa-sheet-paper {
   background: var(--pa-paper);
   box-shadow:
-    0 1px 0 rgb(6 16 32 / 0.06),
-    0 18px 40px -16px rgb(6 16 32 / 0.35);
+    0 1px 0 rgb(8 13 17 / 0.06),
+    0 18px 40px -16px rgb(8 13 17 / 0.35);
 }
 .pa-channels > li {
   display: grid;
@@ -1242,7 +2305,7 @@ body:has(.pa) {
   transition: border-color 200ms var(--pa-ease);
 }
 .pa-field::placeholder {
-  color: #5f7187;
+  color: var(--color-600);
 }
 .pa-field:focus-visible {
   outline: 2px solid var(--pa-ink);
@@ -1306,7 +2369,7 @@ body:has(.pa) {
 @keyframes pa-field-flash {
   0%,
   25% {
-    background-color: color-mix(in srgb, var(--pa-gold) 24%, #fff);
+    background-color: color-mix(in srgb, var(--pa-action) 24%, #fff);
   }
 }
 @keyframes pa-choice-pop {
@@ -1330,7 +2393,7 @@ body:has(.pa) {
   bottom: calc(0.75rem + env(safe-area-inset-bottom));
   z-index: 35;
   display: grid;
-  box-shadow: 0 10px 30px -8px rgb(6 16 32 / 0.45);
+  box-shadow: 0 10px 30px -8px rgb(8 13 17 / 0.45);
   transform: translateY(calc(100% + 1.5rem));
   transition: transform 450ms var(--pa-ease);
 }
@@ -1345,8 +2408,8 @@ body:has(.pa) {
   min-height: 3.5rem;
   font-weight: 600;
   font-variation-settings: "wdth" 110;
-  background: var(--pa-gold);
-  color: var(--pa-ink);
+  background: var(--pa-action);
+  color: var(--pa-on-action);
   transition: transform 160ms var(--pa-ease);
 }
 .pa-mobile-cta-main:active {
@@ -1370,7 +2433,7 @@ body:has(.pa) {
   z-index: 35;
   display: grid;
   gap: 2px;
-  box-shadow: 0 10px 30px -8px rgb(6 16 32 / 0.45);
+  box-shadow: 0 10px 30px -8px rgb(8 13 17 / 0.45);
   transform: translateX(calc(100% + 1.5rem));
   transition: transform 450ms var(--pa-ease);
 }
@@ -1398,7 +2461,7 @@ body:has(.pa) {
   transform: scale(0.95);
 }
 .pa-social-btn:focus-visible {
-  outline: 2px solid var(--pa-gold);
+  outline: 2px solid var(--pa-action);
   outline-offset: 2px;
 }
 .pa-social-wa {
@@ -1507,6 +2570,12 @@ body:has(.pa) {
     background: var(--pa-sky-deep);
   }
 }
+.pa-dark .pa-swipe-hint {
+  color: var(--pa-on-dark-muted);
+}
+.pa-dark .pa-swipe-hint::after {
+  background: var(--pa-sky);
+}
 @media (min-width: 640px) and (max-width: 1023px) {
   .pa-day {
     grid-template-columns: repeat(2, 1fr);
@@ -1516,293 +2585,24 @@ body:has(.pa) {
   }
 }
 
-/* ---------- Animación de inicio: el módulo se destapa ---------- */
-.pa-intro {
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  pointer-events: none;
-  animation: pa-intro-done 0ms linear 1800ms forwards;
-}
-.pa-intro-grid {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: repeat(8, 1fr);
-  gap: 2px;
-}
-.pa-intro-grid > span {
-  background-color: var(--pa-ink);
-  background-image: linear-gradient(
-    90deg,
-    transparent calc(33% - 0.5px),
-    rgb(255 255 255 / 0.04) calc(33% - 0.5px) calc(33% + 0.5px),
-    transparent calc(33% + 0.5px) calc(66% - 0.5px),
-    rgb(255 255 255 / 0.04) calc(66% - 0.5px) calc(66% + 0.5px),
-    transparent calc(66% + 0.5px)
-  );
-  box-shadow: 0 0 0 1px #1d3558;
-  will-change: transform, opacity;
-  animation: pa-cell-out 560ms var(--pa-ease) calc(520ms + var(--d) * 38ms) both;
-}
-.pa-intro-mark {
-  will-change: transform, opacity;
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1.1rem;
-  color: var(--pa-on-dark);
-  animation: pa-mark-out 320ms var(--pa-ease) 560ms both;
-}
-.pa-intro-word {
-  font-size: clamp(1.5rem, 5vw, 2.25rem);
-  gap: 0.8rem;
-  animation: pa-logo-in 420ms var(--pa-ease) both;
-}
-.pa-intro-word .pa-wordmark-sun {
-  width: 1.4em;
-  height: 1.4em;
-}
-.pa-intro-bar {
-  width: 9rem;
-  height: 2px;
-  background: var(--pa-gold);
-  transform-origin: left;
-  will-change: transform;
-  animation: pa-bar 460ms var(--pa-ease) 80ms both;
-}
-@media (max-width: 767px) {
-  .pa-intro-grid {
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: repeat(12, 1fr);
-  }
-  .pa-intro-grid > span {
-    animation-delay: calc(520ms + var(--md) * 40ms);
-  }
-  .pa-intro-grid > span[data-m="off"] {
-    display: none;
-  }
-}
-@keyframes pa-cell-out {
-  0%,
-  30% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(0.82);
-  }
-}
-@keyframes pa-logo-in {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-}
-@keyframes pa-bar {
-  from {
-    transform: scaleX(0);
-  }
-}
-@keyframes pa-mark-out {
-  to {
-    opacity: 0;
-    transform: translateY(-6px);
-  }
-}
-@keyframes pa-intro-done {
-  to {
-    visibility: hidden;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .pa-intro {
-    display: none;
-  }
-}
 }
 
-/* ---------- Equipos en 3D ---------- */
-@layer components {
-/* Las pestañas son celdas de módulo unidas por juntas de 2px; la elegida se funde con el
-   escenario de abajo y lleva la luz celeste arriba, como la sección actual de la cabecera. */
-.pa-eq-tabs {
-  gap: 2px;
-  padding: 1px 1px 0;
-  background: var(--pa-dark-line);
-}
-.pa-eq-tab {
-  position: relative;
-  min-height: 4.25rem;
-  padding: 0.85rem 0.75rem 0.95rem;
-  text-align: left;
-  background: var(--pa-ink-2);
-  color: var(--pa-on-dark);
-  transition: background-color 220ms var(--pa-ease);
-}
-.pa-eq-tab::before {
-  content: "";
-  position: absolute;
-  inset: 0 0 auto;
-  height: 3px;
-  background: var(--pa-sky);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 300ms var(--pa-ease);
-}
-.pa-eq-tab[aria-selected="true"] {
-  background: #0b1d38;
-}
-.pa-eq-tab[aria-selected="true"]::before {
-  transform: scaleX(1);
-}
-.pa-eq-tab:focus-visible {
-  outline-offset: -4px;
-}
-@media (hover: hover) {
-  .pa-eq-tab[aria-selected="false"]:hover {
-    background: #1c3d72;
-  }
-}
-@media (min-width: 640px) {
-  .pa-eq-tab {
-    padding: 1.1rem 1.25rem 1.2rem;
-  }
-}
-
-/* Escenario y ficha: un solo marco con filete; la ficha va al costado en escritorio. */
-.pa-eq-stage {
-  background: #0b1d38;
-  border: 1px solid var(--pa-dark-line);
-  border-top: 0;
-}
-.pa-eq-sheet {
-  border: 1px solid var(--pa-dark-line);
-  border-top: 0;
-}
-@media (min-width: 1024px) {
-  .pa-eq-sheet {
-    border-left: 0;
-  }
-}
-.pa-eq-loading {
-  animation: pa-eq-pulse 1600ms var(--pa-ease) infinite alternate;
-}
-@keyframes pa-eq-pulse {
-  from {
-    opacity: 0.45;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .pa-eq-loading {
-    animation: none;
-  }
-}
-
-/* Puntos numerados sobre el modelo: cuadrados (el único círculo es el sol). */
-.pa-hotspot {
-  display: grid;
-  place-items: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--pa-on-dark);
-  background: var(--pa-ink);
-  border: 1px solid var(--pa-sky);
-  box-shadow: 0 0 0 3px rgb(14 34 64 / 0.45);
-  cursor: pointer;
+/* ---------- Entradas (components/section-entrance.tsx) ---------- */
+/* "armed": fuera de pantalla, esperando; "lit": entró. Solo transform y opacidad, con un
+   escalón por hermano (--ei). Sin JS o con movimiento reducido nunca se arma nada. */
+[data-enter] {
   transition:
-    background-color 200ms var(--pa-ease),
-    color 200ms var(--pa-ease),
-    transform 160ms var(--pa-ease);
+    opacity 700ms ease-out,
+    transform 900ms var(--pa-ease);
+  transition-delay: calc(var(--ei, 0) * 90ms);
 }
-.pa-hotspot:active {
-  transform: scale(0.94);
+[data-enter="armed"] {
+  opacity: 0;
+  transform: translateY(2.5rem);
 }
-.pa-hotspot[data-active="true"] {
-  background: var(--pa-gold);
-  border-color: var(--pa-gold);
-  color: var(--pa-ink);
-}
-@media (hover: hover) {
-  .pa-hotspot[data-active="false"]:hover {
-    background: var(--pa-ink-2);
-  }
-}
-@media (pointer: coarse) {
-  .pa-hotspot {
-    width: 2.75rem;
-    height: 2.75rem;
-  }
-}
-
-.pa-eq-ctrls {
-  gap: 1px;
-  background: var(--pa-dark-line);
-  border: 1px solid var(--pa-dark-line);
-}
-.pa-eq-ctrl {
-  display: grid;
-  place-items: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  background: var(--pa-ink);
-  color: var(--pa-on-dark);
-  transition: background-color 200ms var(--pa-ease);
-}
-@media (hover: hover) {
-  .pa-eq-ctrl:hover {
-    background: var(--pa-ink-2);
-  }
-}
-.pa-eq-ctrl:focus-visible {
-  outline-offset: -3px;
-}
-
-/* Lista de partes: misma marca que el número de servicio. */
-.pa-eq-part {
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-  width: 100%;
-  min-height: 3rem;
-  padding: 0.35rem 0;
-  text-align: left;
-  border-top: 1px solid var(--pa-dark-line);
-}
-li:last-child > .pa-eq-part {
-  border-bottom: 1px solid var(--pa-dark-line);
-}
-.pa-eq-part-n {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: none;
-  width: 1.75rem;
-  height: 1.75rem;
-  font-size: 0.85rem;
-  font-weight: 600;
-  border: 1px solid var(--pa-sky);
-  transition:
-    background-color 200ms var(--pa-ease),
-    color 200ms var(--pa-ease);
-}
-.pa-eq-part[aria-pressed="true"] .pa-eq-part-n {
-  background: var(--pa-gold);
-  border-color: var(--pa-gold);
-  color: var(--pa-ink);
-}
-@media (hover: hover) {
-  .pa-eq-part[aria-pressed="false"]:hover .pa-eq-part-n {
-    background: var(--pa-ink-2);
-  }
-}
+/* Los títulos suben más corto y más firme, como los del hero. */
+.pa-display[data-enter="armed"] {
+  transform: translateY(0.45em);
 }
 
 /* ---------- Marcas: un módulo de celdas blancas ---------- */
@@ -1839,6 +2639,18 @@ li:last-child > .pa-eq-part {
   padding: 0 1rem;
   background: #fff;
 }
+/* Sobre papel ("Quiénes somos") las juntas y los rótulos toman los tonos claros. */
+.pa-paper .pa-brands {
+  background: var(--pa-line);
+}
+.pa-paper .pa-brands-label {
+  background: var(--pa-paper-2);
+  color: var(--pa-ink);
+}
+/* En el celular van de a dos: si sobra una, ocupa la fila entera en vez de dejar un hueco. */
+.pa-brand:last-child:nth-child(odd) {
+  grid-column: span 2;
+}
 .pa-brand-logo {
   height: calc(var(--h) * 0.85);
   width: auto;
@@ -1846,8 +2658,12 @@ li:last-child > .pa-eq-part {
   object-fit: contain;
 }
 @media (min-width: 640px) {
+  /* --n: cuántas marcas tiene la fila, para que la llenen sin huecos. */
   .pa-brands-cells {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr));
+  }
+  .pa-brand:last-child:nth-child(odd) {
+    grid-column: auto;
   }
   .pa-brand {
     height: 6.5rem;

@@ -1,31 +1,32 @@
 "use client";
 
 import { useEffect, useId, useState } from "react";
-import { ArrowRightIcon, CheckIcon, EnvelopeSimpleIcon, InstagramLogoIcon, WhatsappLogoIcon } from "@phosphor-icons/react";
-import { pibe, PREFILL_EVENT, services, waLink, type ContactPrefill } from "@/lib/pibe";
-import { Todo } from "./todo";
+import { ArrowRightIcon, CheckIcon, EnvelopeSimpleIcon, InstagramLogoIcon, PhoneIcon, WhatsappLogoIcon } from "@phosphor-icons/react";
+import { mailLink, pibe, PREFILL_EVENT, services, telLink, waLink, type ContactPrefill } from "@/lib/pibe";
+import { trackConversion, type Conversion } from "@/lib/track";
 
-/* Sin backend: arma el mensaje y abre WhatsApp con los datos cargados. Los servicios y la
-   calculadora precargan el servicio y el mensaje (PREFILL_EVENT). */
+/* Sin backend: arma el mensaje y lo abre en WhatsApp o, con el segundo botón, en el programa de
+   mail con el asunto y el texto cargados. Los servicios y la calculadora precargan el servicio y
+   el mensaje (PREFILL_EVENT). */
 type Fields = { nombre: string; barrio: string; lugar: string; servicio: string; mensaje: string };
 type Errors = Partial<Record<keyof Fields, string>>;
+type Via = "wa" | "mail";
 
-const lugares = ["Casa", "Comercio"];
+const lugares = ["Casa", "Empresa"];
 const servicios = [...services.map((s) => s.title), "Otra consulta"];
 const empty: Fields = { nombre: "", barrio: "", lugar: "", servicio: "", mensaje: "" };
 
 function validate(f: Fields): Errors {
   const e: Errors = {};
   if (f.nombre.trim().length < 2) e.nombre = "Escribí tu nombre.";
-  if (f.barrio.trim().length < 2) e.barrio = "Contame en qué barrio o localidad es.";
+  if (f.barrio.trim().length < 2) e.barrio = "Contanos en qué barrio o localidad es.";
   if (!f.servicio) e.servicio = "Elegí qué necesitás.";
-  if (f.mensaje.trim().length < 5) e.mensaje = "Contame en una línea qué necesitás.";
   return e;
 }
 
 function message(f: Fields) {
   return [
-    `Hola ${pibe.firstName}, te escribo desde la página de ${pibe.name}.`,
+    `Hola, les escribo desde la página de ${pibe.name}.`,
     `Nombre: ${f.nombre.trim()}`,
     `Barrio: ${f.barrio.trim()}`,
     f.lugar ? `Es para: ${f.lugar}` : "",
@@ -40,7 +41,7 @@ export function PibeContact() {
   const id = useId();
   const [f, setF] = useState<Fields>(empty);
   const [errors, setErrors] = useState<Errors>({});
-  const [sent, setSent] = useState<string | null>(null);
+  const [sent, setSent] = useState<{ via: Via; url: string } | null>(null);
   // Cada precarga suma uno: remonta los campos precargados para que destellen.
   const [flash, setFlash] = useState(0);
 
@@ -72,9 +73,15 @@ export function PibeContact() {
     setErrors(found);
     const first = Object.keys(found)[0];
     if (first) return document.getElementById(`${id}-${first}`)?.focus();
-    const url = waLink(message(f));
-    setSent(url);
-    window.open(url, "_blank", "noopener,noreferrer");
+    const submitter = (e.nativeEvent as SubmitEvent).submitter as HTMLButtonElement | null;
+    const mail = submitter?.value === "mail" ? mailLink(`Consulta desde la página: ${f.servicio}`, message(f)) : null;
+    const via: Via = mail ? "mail" : "wa";
+    const url = mail ?? waLink(message(f));
+    trackConversion("formulario_enviado", { servicio: f.servicio, lugar: f.lugar || "sin decir", por: via });
+    setSent({ via, url });
+    // El mail abre el programa de correo en la misma pestaña; WhatsApp, en otra.
+    if (via === "mail") window.location.href = url;
+    else window.open(url, "_blank", "noopener,noreferrer");
   }
 
   const err = (k: keyof Fields) =>
@@ -126,18 +133,34 @@ export function PibeContact() {
     </fieldset>
   );
 
-  const channels = [
-    { icon: WhatsappLogoIcon, tone: "pa-social-wa", label: "WhatsApp", todo: "Número a cargar", value: pibe.whatsapp ? `+${pibe.whatsapp}` : null, href: waLink() },
+  const channels: {
+    icon: typeof WhatsappLogoIcon;
+    tone: string;
+    label: string;
+    value: string | null;
+    href: string | null;
+    event?: Conversion;
+  }[] = [
+    {
+      icon: WhatsappLogoIcon,
+      tone: "pa-social-wa",
+      label: "WhatsApp",
+      value: pibe.whatsappShown,
+      href: waLink(),
+      event: "whatsapp",
+    },
+    { icon: PhoneIcon, tone: "", label: "Teléfono", value: pibe.phoneShown, href: telLink, event: "llamada" },
     {
       icon: InstagramLogoIcon,
       tone: "pa-social-ig",
       label: "Instagram",
-      todo: "Usuario a cargar",
       value: pibe.instagram ? `@${pibe.instagram}` : null,
       href: pibe.instagram ? `https://instagram.com/${pibe.instagram}` : null,
+      event: "instagram",
     },
-    { icon: EnvelopeSimpleIcon, tone: "", label: "Email", todo: "Mail a cargar", value: pibe.email, href: pibe.email ? `mailto:${pibe.email}` : null },
+    { icon: EnvelopeSimpleIcon, tone: "", label: "Email", value: pibe.email, href: mailLink(), event: "email" },
   ];
+  const shownChannels = channels.filter((c) => c.value && c.href);
 
   // Sin la entrada de celdas: es el destino de cada acción y tiene que estar a la vista al llegar.
   return (
@@ -145,30 +168,34 @@ export function PibeContact() {
       <div className="mx-auto grid max-w-[88rem] gap-14 px-5 py-24 sm:px-8 sm:py-32 lg:grid-cols-12 lg:px-12">
         <div className="lg:col-span-5">
           <h2 id="pa-contact-title" className="pa-display text-[clamp(2.5rem,4.4vw,4.25rem)]">
-            Contame qué necesitás.
+            Contanos qué necesitás.
           </h2>
           <p className="mt-6 max-w-[38ch] text-lg leading-relaxed">
-            Con tu barrio y una línea alcanza para arrancar. Si tenés la factura de luz o una foto del techo, mandala por el
-            chat.
+            Con tu nombre, tu localidad y qué necesitás alcanza para arrancar. Si tenés la factura de luz o una foto del
+            techo, mandala por WhatsApp{pibe.email ? " o adjuntala en el mail" : ""}.
           </p>
 
           <ul className="pa-channels mt-10">
-            {channels.map((c) => (
-              <li key={c.label}>
-                <span className={`pa-channel-icon ${c.tone}`} aria-hidden="true">
-                  <c.icon size={18} weight={c.label === "WhatsApp" ? "fill" : "bold"} />
-                </span>
-                <span className="text-sm font-semibold">{c.label}</span>
-                {c.value && c.href ? (
-                  <a href={c.href} target="_blank" rel="noopener noreferrer" className="pa-link pa-num font-semibold">
+            {shownChannels.map((c) => {
+              const external = c.href!.startsWith("http");
+              return (
+                <li key={c.label}>
+                  <span className={`pa-channel-icon ${c.tone}`} aria-hidden="true">
+                    <c.icon size={18} weight={c.label === "WhatsApp" ? "fill" : "bold"} />
+                  </span>
+                  <span className="text-sm font-semibold">{c.label}</span>
+                  <a
+                    href={c.href!}
+                    {...(external && { target: "_blank", rel: "noopener noreferrer" })}
+                    onClick={() => c.event && trackConversion(c.event, { desde: "contacto" })}
+                    className="pa-link pa-num font-semibold"
+                  >
                     {c.value}
-                    <span className="sr-only"> (se abre en otra pestaña)</span>
+                    {external && <span className="sr-only"> (se abre en otra pestaña)</span>}
                   </a>
-                ) : (
-                  <Todo className="pa-todo-sky">{c.todo}</Todo>
-                )}
-              </li>
-            ))}
+                </li>
+              );
+            })}
           </ul>
         </div>
 
@@ -179,15 +206,35 @@ export function PibeContact() {
                 <CheckIcon size={24} weight="bold" aria-hidden="true" />
               </span>
               <h3 className="pa-wide mt-6 text-2xl font-semibold">Tu mensaje está listo.</h3>
-              <p className="mt-2 max-w-[44ch] text-[var(--pa-muted)]">
-                Abrí WhatsApp con tus datos cargados. Enviá el mensaje y, si la tenés, sumá la foto de la factura o del
-                techo.
-              </p>
+              {sent.via === "mail" ? (
+                <p className="mt-2 max-w-[44ch] text-[var(--pa-muted)]">
+                  Abrimos tu programa de mail con la consulta armada para {pibe.email}. Enviala y, si la tenés, adjuntá la
+                  foto de la factura o del techo.
+                </p>
+              ) : (
+                <p className="mt-2 max-w-[44ch] text-[var(--pa-muted)]">
+                  Abrí WhatsApp con tus datos cargados. Enviá el mensaje y, si la tenés, sumá la foto de la factura o del
+                  techo.
+                </p>
+              )}
               <div className="mt-8 flex flex-wrap gap-3">
-                <a href={sent} target="_blank" rel="noopener noreferrer" className="pa-btn pa-btn-gold">
-                  <WhatsappLogoIcon size={20} weight="fill" aria-hidden="true" />
-                  Abrir WhatsApp
-                </a>
+                {sent.via === "mail" ? (
+                  <a href={sent.url} onClick={() => trackConversion("email", { desde: "confirmacion" })} className="pa-btn pa-btn-action">
+                    <EnvelopeSimpleIcon size={20} weight="bold" aria-hidden="true" />
+                    Abrir el mail
+                  </a>
+                ) : (
+                  <a
+                    href={sent.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackConversion("whatsapp", { desde: "confirmacion" })}
+                    className="pa-btn pa-btn-action"
+                  >
+                    <WhatsappLogoIcon size={20} weight="fill" aria-hidden="true" />
+                    Abrir WhatsApp
+                  </a>
+                )}
                 <button type="button" onClick={() => setSent(null)} className="pa-btn pa-btn-line">
                   Editar datos
                 </button>
@@ -196,14 +243,14 @@ export function PibeContact() {
           ) : (
             <form key="form" noValidate onSubmit={submit} className="pa-swap grid gap-6 sm:grid-cols-2">
               {field("nombre", "Nombre", { autoComplete: "name" })}
-              {field("barrio", "Barrio o localidad", { autoComplete: "address-level2", placeholder: "Ej.: Caballito" })}
+              {field("barrio", "Barrio o localidad", { autoComplete: "address-level2", placeholder: "Ej.: Morón" })}
               <div key={`s${flash}`} className="sm:col-span-2" data-flash={flash > 0 || undefined}>
                 {choices("servicio", "¿Qué necesitás?", servicios, "grid-cols-2 sm:grid-cols-3")}
               </div>
               <div className="sm:col-span-2">{choices("lugar", "¿Para dónde es?", lugares, "grid-cols-2 sm:max-w-xs")}</div>
               <div className="sm:col-span-2">
                 <label htmlFor={`${id}-mensaje`} className="text-sm font-semibold">
-                  Contame un poco más
+                  Contanos un poco más <span className="font-normal text-[var(--pa-muted)]">(opcional)</span>
                 </label>
                 <textarea
                   id={`${id}-mensaje`}
@@ -211,20 +258,27 @@ export function PibeContact() {
                   rows={4}
                   value={f.mensaje}
                   onChange={(e) => set("mensaje", e.target.value)}
-                  aria-invalid={!!errors.mensaje}
-                  aria-describedby={errors.mensaje ? `${id}-mensaje-err` : undefined}
                   placeholder="Ej.: casa de dos plantas con terraza, gastamos unos 350 kWh por mes."
                   key={`m${flash}`}
                   className={`pa-field resize-y ${flash > 0 ? "pa-field-flash" : ""}`}
                 />
-                {err("mensaje")}
               </div>
               <div className="flex flex-col gap-4 sm:col-span-2 sm:flex-row sm:items-center sm:justify-between">
-                <p className="text-sm text-[var(--pa-muted)]">Se abre WhatsApp con tu mensaje armado.</p>
-                <button type="submit" className="pa-btn pa-btn-ink">
-                  Enviar por WhatsApp
-                  <ArrowRightIcon size={18} weight="bold" className="pa-arrow" aria-hidden="true" />
-                </button>
+                <p className="text-sm text-[var(--pa-muted)]">
+                  {pibe.email ? "Se abre WhatsApp o tu mail con el mensaje armado." : "Se abre WhatsApp con tu mensaje armado."}
+                </p>
+                <div className="flex flex-col gap-3 sm:flex-row-reverse">
+                  <button type="submit" value="wa" className="pa-btn pa-btn-ink">
+                    Enviar por WhatsApp
+                    <ArrowRightIcon size={18} weight="bold" className="pa-arrow" aria-hidden="true" />
+                  </button>
+                  {pibe.email && (
+                    <button type="submit" value="mail" className="pa-btn pa-btn-line">
+                      <EnvelopeSimpleIcon size={18} weight="bold" aria-hidden="true" />
+                      Enviar por mail
+                    </button>
+                  )}
+                </div>
               </div>
             </form>
           )}

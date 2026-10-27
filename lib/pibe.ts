@@ -1,25 +1,44 @@
 /**
- * El Pibe del Aire: el emprendimiento de Matías Moreira.
- * Lo confirmado (octubre 2026): nombre, servicios (paneles en casas y comercios,
- * termotanques solares, mantenimiento y limpieza) y zona (Buenos Aires).
- * Todo lo que vale `null` falta cargar: el sitio lo muestra como "A completar" y no
- * inventa nada en su lugar. No hay precios, clientes, testimonios ni cifras.
+ * Soltech Energía: empresa de energía solar para casas y empresas.
+ * Lo confirmado (octubre 2026): nombre, quien está al frente (Matías Moreira), servicios
+ * (sistemas fotovoltaicos on-grid, híbridos, off-grid y móviles, que diseña, vende e instala;
+ * sistemas de respaldo con batería e inversor sin paneles, climatización de piscinas con bomba
+ * de calor o con colectores solares, mantenimiento y limpieza) y zona (todo el país, con base en la Provincia de Buenos Aires). Los
+ * termotanques solares también los instala, pero el cliente los quiere en segundo plano:
+ * se nombran al pie de Servicios y en Preguntas, no se muestran como servicio.
+ * Todo lo que vale `null` falta cargar: el sitio no lo muestra y no inventa nada en su lugar.
+ * No hay precios (el cliente no los publica), testimonios, garantía ni cifras de obras.
  */
 
 export const pibe = {
-  name: "El Pibe del Aire",
-  person: "Matías Moreira",
-  firstName: "Matías",
-  zone: "Buenos Aires",
+  name: "Soltech Energía",
+  zone: "Provincia de Buenos Aires",
   description:
-    "Matías Moreira instala paneles solares y termotanques solares en casas y comercios de Buenos Aires, y los mantiene y limpia.",
+    "Soltech Energía diseña, vende e instala sistemas fotovoltaicos a medida (conectados a la red, híbridos con baterías, aislados y móviles) en todo el país, con base en la Provincia de Buenos Aires. También respaldo con baterías para los cortes y climatización de piscinas.",
+  /** Quien está al frente: instalador de sistemas fotovoltaicos. */
+  owner: "Matías Moreira",
   /** Solo dígitos, con código de país (549 + área + número). Sin número, WhatsApp abre el mensaje para elegir a quién mandarlo. */
-  whatsapp: null as string | null,
+  whatsapp: "5491161875709" as string | null,
+  /** El mismo número, como se lee. */
+  whatsappShown: "+54 9 11 6187-5709" as string | null,
   /** Usuario de Instagram, sin @. */
-  instagram: null as string | null,
-  email: null as string | null,
-  license: null as string | null,
-  since: null as string | null,
+  instagram: "matias.soltech" as string | null,
+  /** Teléfono para llamar, solo dígitos con código de país. Con número aparece "Llamar" en el contacto y el pie. */
+  phone: null as string | null,
+  /** El mismo teléfono, como se lee. */
+  phoneShown: null as string | null,
+  /** Mail de Matías. Aparece en el contacto y el pie, y el formulario puede mandar la consulta por acá. */
+  email: "matias.moreira@soltech-energia.com" as string | null,
+  /**
+   * Dirección del sitio publicado, con https y sin barra final (ej.: "https://soltechenergia.com.ar").
+   * Con dominio, Google indexa el sitio, se arma el sitemap y las vistas previas al compartir usan la
+   * dirección real. Sin dominio, el sitio queda como vista previa: no se indexa.
+   */
+  domain: "https://soltech-energia.com" as string | null,
+  license: "Electricista matriculado" as string | null,
+  experience: "Más de 8 años" as string | null,
+  /** Base en Provincia de Buenos Aires; llega a cualquier punto del país. */
+  coverage: "Todo el país, con base en la Provincia de Buenos Aires",
 } as const;
 
 /** Enlace de WhatsApp con el mensaje cargado; sin número, wa.me deja elegir el contacto. */
@@ -28,23 +47,39 @@ export function waLink(text?: string) {
   return `https://wa.me/${pibe.whatsapp ?? ""}${q}`;
 }
 
+/** Enlace de mail con el asunto y el mensaje cargados; sin mail cargado no hay enlace. */
+export function mailLink(subject?: string, body?: string) {
+  if (!pibe.email) return null;
+  const q = [subject && `subject=${encodeURIComponent(subject)}`, body && `body=${encodeURIComponent(body.replace(/\n/g, "\r\n"))}`]
+    .filter(Boolean)
+    .join("&");
+  return `mailto:${pibe.email}${q ? `?${q}` : ""}`;
+}
+
 export const pibeCta = { label: "Pedí una visita", href: "#contacto" } as const;
 
+/** Enlace para llamar; sin teléfono cargado no hay enlace. */
+export const telLink = pibe.phone ? `tel:+${pibe.phone}` : null;
+
 export const pibeLinks = [
+  { label: "Trabajos", href: "#trabajos" },
   { label: "Servicios", href: "#servicios" },
   { label: "Calculadora", href: "#calculadora" },
-  { label: "Cómo trabajo", href: "#como-trabajo" },
-  { label: "Trabajos", href: "#trabajos" },
-  { label: "Precios", href: "#precios" },
+  { label: "Cómo trabajamos", href: "#como-trabajo" },
+  { label: "Empresas", href: "#empresas" },
   { label: "Preguntas", href: "#preguntas" },
 ];
 
-/** Sitio de referencia del sol del hero: el Obelisco. */
-export const sunSite = { name: "Buenos Aires", lat: -34.6037, lon: -58.3816, utcOffset: -3 } as const;
+/** Lugar de referencia de la calculadora (horas de sol). */
+export const sunSite = { name: "Buenos Aires" } as const;
 
-export type ServiceId = "paneles" | "termotanque" | "mantenimiento" | "limpieza";
+export type ServiceId = "paneles" | "respaldo" | "piscinas" | "mantenimiento" | "limpieza";
 
-/** `part` es la pieza que se enciende en el dibujo de la casa (components/pibe/house-drawing.tsx). */
+/**
+ * Los cinco servicios, en la grilla de components/pibe/services.tsx. Todas las fotos son de obras
+ * propias (public/pibe/trabajos/); `pos` es su encuadre en la celda. `more` lleva a la sección
+ * propia del servicio (respaldo y piscinas): la hoja del hero salta ahí en vez de a la celda.
+ */
 export const services: {
   id: ServiceId;
   title: string;
@@ -52,162 +87,320 @@ export const services: {
   body: string;
   details: string[];
   ask: string;
+  photo: { src: string; alt: string; pos: string };
+  more?: { label: string; href: string };
 }[] = [
   {
     id: "paneles",
     title: "Paneles solares",
-    short: "Para casas y comercios",
-    body: "Paneles en el techo o la terraza, conectados a tu instalación. De día la casa o el local usa la energía del sol y le pide menos a la red.",
-    details: ["Casas, PH y terrazas", "Locales y comercios", "Inversor y tablero"],
+    short: "Casa, campo o ruta",
+    body: "Paneles en el techo o la terraza, conectados a tu instalación. De día la casa, el local o la planta usa la energía del sol y le pide menos a la red.",
+    details: ["Casas, PH y terrazas", "Comercios, galpones e industrias", "Inversor y tablero"],
     ask: "Quiero consultar por paneles solares.",
+    photo: {
+      src: "/pibe/trabajos/foto_14.jpeg",
+      alt: "Vista aérea de una terraza en la ciudad con tres filas de paneles.",
+      pos: "50% 55%",
+    },
+    more: { label: "Elegí tu sistema", href: "#sistemas" },
   },
   {
-    id: "termotanque",
-    title: "Termotanques solares",
-    short: "Agua caliente con el sol",
-    body: "Un termotanque en el techo que calienta el agua con el sol. Gastás menos gas o luz para bañarte y lavar.",
-    details: ["Elección de litros según la familia", "Instalación en techo o terraza", "Conexión al agua de la casa"],
-    ask: "Quiero consultar por un termotanque solar.",
+    id: "respaldo",
+    title: "Sistemas de respaldo",
+    short: "Luz en los cortes",
+    body: "Un inversor y una batería, sin paneles. Cuando se corta la luz, la casa o el local sigue andando con la batería; cuando vuelve, la batería se carga de la red.",
+    details: ["Inversor y batería", "No hacen falta paneles", "Paneles después, si querés"],
+    ask: "Quiero consultar por un sistema de respaldo con batería para los cortes de luz.",
+    photo: {
+      src: "/pibe/trabajos/foto_8.jpeg",
+      alt: "Sala con piso de ladrillo, un inversor, un rack de baterías y cajas de protecciones en la pared.",
+      pos: "50% 52%",
+    },
+    more: { label: "Mirá cómo funciona", href: "#respaldo" },
+  },
+  {
+    id: "piscinas",
+    title: "Climatización de piscinas",
+    short: "Bomba de calor o solar",
+    body: "Templamos el agua de la pileta sin gas, para que la uses más meses del año: con una bomba de calor, que calienta con cualquier clima, o con colectores solares, que usan el sol.",
+    details: ["Bomba de calor", "Colectores solares", "Casas y clubes"],
+    ask: "Quiero consultar por climatización de piscinas.",
+    photo: {
+      src: "/pibe/trabajos/fot_15.jpg",
+      alt: "Casa con pileta y una fila de paneles sobre el techo de tejas negras.",
+      pos: "50% 72%",
+    },
+    more: { label: "Bomba de calor o solar", href: "#piscinas" },
   },
   {
     id: "mantenimiento",
     title: "Mantenimiento",
     short: "Que siga rindiendo",
-    body: "Reviso paneles, conexiones, inversor y tablero para que el equipo rinda lo que tiene que rendir.",
-    details: ["Revisión de conexiones", "Control del inversor", "Termotanques solares"],
+    body: "Revisamos paneles, conexiones, inversor y tablero para que el equipo rinda lo que tiene que rendir.",
+    details: ["Revisión de conexiones", "Control del inversor", "Equipos de pileta"],
     ask: "Quiero consultar por mantenimiento de mi equipo solar.",
+    photo: {
+      src: "/pibe/trabajos/foto_9.jpeg",
+      alt: "Técnico conectando tres inversores azules montados en una pared blanca.",
+      pos: "50% 42%",
+    },
   },
   {
     id: "limpieza",
     title: "Limpieza de paneles",
     short: "Polvo, hollín y hojas",
-    body: "En la ciudad los paneles juntan polvo, hollín y hojas, y un panel sucio genera menos. Los limpio y te cuento cómo están.",
-    details: ["Techos y terrazas", "Vidrio, marco y bordes", "Revisión visual de cada panel"],
+    body: "Los paneles juntan polvo, tierra, hollín y hojas, y un panel sucio genera menos. Los limpiamos y te contamos cómo están.",
+    details: ["Techos, terrazas y campo", "Vidrio, marco y bordes", "Revisión de cada panel"],
     ask: "Quiero consultar por limpieza de paneles.",
+    photo: {
+      src: "/pibe/trabajos/foto_10.jpeg",
+      alt: "Larga fila de paneles sobre una terraza blanca, con árboles y cielo nublado de fondo.",
+      pos: "50% 72%",
+    },
   },
 ];
 
-/** Cómo trabaja, del primer mensaje a la vuelta. Cada paso toma una hora del día. */
+/** Cómo trabajamos, del primer mensaje a la vuelta. Cada paso toma una hora del día. */
 export const steps = [
   {
-    title: "Me escribís",
-    body: "Por WhatsApp, con una foto de tu factura de luz y, si podés, una del techo. Con eso ya me hago una idea.",
+    title: "Nos escribís",
+    body: "Por WhatsApp, con una foto de tu factura de luz y, si podés, una del techo. Con eso ya nos hacemos una idea.",
     hour: "Amanecer",
   },
   {
-    title: "Voy a ver tu techo",
-    body: "Mido el lugar, miro hacia dónde da, qué sombras tiene y cómo está la instalación eléctrica.",
+    title: "Vamos a ver tu techo",
+    body: "Medimos el lugar, miramos hacia dónde da, qué sombras tiene y cómo está la instalación eléctrica.",
     hour: "Mañana",
   },
   {
-    title: "Te paso el presupuesto",
-    body: "Con el equipo que va, la cantidad de paneles o los litros del termotanque.",
+    title: "Te pasamos el presupuesto",
+    body: "Con el equipo que va y la cantidad de paneles, o lo que necesita la pileta.",
     hour: "Mediodía",
   },
   {
-    title: "Instalo",
-    body: "Monto, conecto y pruebo. Antes de irme te muestro cómo funciona y qué mirar para saber que anda bien.",
+    title: "Instalamos",
+    body: "Montamos, conectamos y probamos. Antes de irnos te mostramos cómo funciona y qué mirar para saber que anda bien.",
     hour: "Tarde",
   },
   {
-    title: "Vuelvo",
-    body: "Para el mantenimiento y la limpieza. Si algo no anda, me escribís a mí.",
+    title: "Volvemos",
+    body: "Para el mantenimiento y la limpieza. Si algo no anda, nos escribís y lo resolvemos.",
     hour: "Noche",
   },
 ] as const;
 
 /**
- * La foto del hero, a pantalla completa: Matías junto a los paneles. `pos` es el encuadre en
- * escritorio y `posMobile` en celular, donde la pantalla angosta recorta los costados.
+ * La foto del hero, a pantalla completa: paneles sobre el techo de un galpón al atardecer, con el sol a la derecha
+ * (lejos del titular). No es una obra propia: es de Nuno Marques en Unsplash (unsplash.com/photos/0GbrjL3vZF4,
+ * licencia Unsplash, uso comercial libre), espejada; por eso vive fuera de trabajos/ y no entra en la grilla de obras.
+ * `pos` es el encuadre en escritorio y `posMobile` en celular, donde la pantalla angosta recorta los costados.
  */
 export const heroPhoto = {
-  src: "/pibe/trabajos/bases-hormigon.jpg",
-  alt: "Matías con casco, con el pulgar arriba, junto a una fila de paneles solares apoyados sobre bases de hormigón en el pasto.",
-  pos: "50% 58%",
-  posMobile: "80% 50%",
+  src: "/pibe/hero-atardecer.jpg",
+  alt: "Paneles solares sobre el techo de chapa de un galpón al atardecer, con el sol bajo sobre el horizonte.",
+  pos: "50% 50%",
+  posMobile: "97% 50%",
 } as const;
 
-/** Matías trabajando: va en "Quién te instala". */
+/** Un instalador trabajando: va en "Quiénes somos". */
 export const portrait = {
   src: "/pibe/matias.jpg",
-  alt: "Matías conectando la caja de protecciones debajo de un inversor, en la pared de una casa.",
+  alt: "Instalador conectando la caja de protecciones debajo de un inversor, en la pared de una casa.",
 } as const;
 
 /**
- * Las fotos de trabajos de Matías, en public/pibe/trabajos/. El mosaico (.pa-works en
- * pibe.css) las reparte en orden: la primera grande y las otras cuatro de a dos a su lado.
- * `what` es lo que se ve en la foto; `place` es el barrio, que confirma Matías.
- * `pos` corre el encuadre cuando la celda recorta la foto.
+ * Fichas de las fotos de trabajos. El visor de "Ver todas las fotos" (components/pibe/works-reel.tsx)
+ * muestra TODAS las fotos que haya en public/pibe/trabajos/, ordenadas por el número del nombre
+ * (foto_1, foto_2…): alcanza con soltar el archivo ahí. Una foto con ficha lleva su leyenda (`what`)
+ * y su `alt`; una sin ficha sale con una leyenda genérica. `place` es la localidad: cuando se
+ * carga, se suma a la leyenda.
  */
-export const works: { src: string; kind: ServiceId; what: string; place: string | null; alt: string; pos?: string }[] = [
+export const works: { src: string; what: string; place: string | null; alt: string }[] = [
   {
-    src: "/pibe/trabajos/galpon-colectivos.jpg",
-    kind: "paneles",
-    what: "Paneles en el techo de un galpón de colectivos",
+    src: "/pibe/trabajos/foto_1.jpeg",
+    what: "Tres filas de paneles en el campo, vistas desde el drone",
     place: null,
-    alt: "Matías con casco y arnés sobre un techo de chapa cubierto de paneles, con colectivos estacionados abajo.",
-    pos: "50% 62%",
+    alt: "Vista aérea de una casa en el monte con tres filas de paneles solares sobre el pasto y uno sobre el techo de chapa.",
   },
   {
-    src: "/pibe/trabajos/casa-pileta.jpg",
-    kind: "paneles",
+    src: "/pibe/trabajos/fot_3.jpeg",
+    what: "Paneles sobre el techo de chapa de un galpón",
+    place: null,
+    alt: "Fila de paneles sobre un techo de chapa a dos aguas, con un tanque de agua y árboles alrededor.",
+  },
+  {
+    src: "/pibe/trabajos/fot_4.jpeg",
+    what: "Pileta en el jardín de una casa",
+    place: null,
+    alt: "Pileta en el jardín de una casa, con un equipo instalado al costado y agua de fondo.",
+  },
+  {
+    src: "/pibe/trabajos/foto_4.jpeg",
+    what: "Tablero de protecciones armado en obra",
+    place: null,
+    alt: "Tablero de protecciones abierto en plena obra, junto a una caja de herramientas.",
+  },
+  {
+    src: "/pibe/trabajos/foto_5.jpeg",
+    what: "En el campo, entre filas de paneles",
+    place: null,
+    alt: "Instalador con casco y anteojos de sol, delante de filas de paneles sobre el pasto.",
+  },
+  {
+    src: "/pibe/trabajos/foto_6.jpeg",
+    what: "Con arnés, sobre un techo de paneles",
+    place: null,
+    alt: "Instalador con arnés amarillo sobre un techo cubierto de paneles.",
+  },
+  {
+    src: "/pibe/trabajos/foto_7.jpeg",
+    what: "Inversor y baterías en la sala técnica de una casa",
+    place: null,
+    alt: "Inversor blanco junto a un rack de baterías, en la sala técnica de una casa.",
+  },
+  {
+    src: "/pibe/trabajos/foto_8.jpeg",
+    what: "Sala técnica con inversor, baterías y tablero",
+    place: null,
+    alt: "Sala con piso de ladrillo, un inversor, un rack de baterías y cajas de protecciones en la pared.",
+  },
+  {
+    src: "/pibe/trabajos/foto_9.jpeg",
+    what: "Conexión de tres inversores en la pared",
+    place: null,
+    alt: "Técnico conectando tres inversores azules montados en una pared blanca.",
+  },
+  {
+    src: "/pibe/trabajos/foto_10.jpeg",
+    what: "Una larga fila de paneles en una terraza",
+    place: null,
+    alt: "Larga fila de paneles sobre una terraza blanca, con árboles y cielo nublado de fondo.",
+  },
+  {
+    src: "/pibe/trabajos/fot_15.jpg",
     what: "Paneles sobre tejas, en una casa con pileta",
     place: null,
     alt: "Casa con pileta y una fila de paneles sobre el techo de tejas negras.",
-    pos: "50% 66%",
   },
   {
-    src: "/pibe/trabajos/casa-chapa.jpg",
-    kind: "paneles",
-    what: "Paneles sobre chapa, en una casa",
+    src: "/pibe/trabajos/foto_11.jpeg",
+    what: "Paneles sobre chapa negra, en una casa de campo",
     place: null,
-    alt: "Fila de paneles sobre un techo de chapa, con casas y árboles alrededor y el cielo nublado.",
-    pos: "50% 92%",
+    alt: "Paneles sobre un techo de chapa negra, con campo y casas a lo lejos.",
   },
   {
-    src: "/pibe/trabajos/estacionamiento.jpg",
-    kind: "paneles",
+    src: "/pibe/trabajos/foto_12.jpeg",
+    what: "Inversor y protecciones en una oficina",
+    place: null,
+    alt: "Vista desde arriba de una oficina con un inversor y cajas de protecciones en la pared.",
+  },
+  {
+    src: "/pibe/trabajos/foto_13.jpeg",
+    what: "Paneles sobre el techo de un local, en la ciudad",
+    place: null,
+    alt: "Paneles sobre el techo de chapa de un local, con la calle y autos abajo.",
+  },
+  {
+    src: "/pibe/trabajos/foto_14.jpeg",
+    what: "Tres filas de paneles en una terraza, vistas desde el drone",
+    place: null,
+    alt: "Vista aérea de una terraza en la ciudad con tres filas de paneles.",
+  },
+  {
+    src: "/pibe/trabajos/foto_16.jpg",
     what: "Techo de paneles para un estacionamiento",
     place: null,
     alt: "Estructura azul con un techo de paneles que da sombra a una fila de autos estacionados.",
-    pos: "50% 52%",
   },
   {
-    src: "/pibe/trabajos/terraza-termotanques.jpg",
-    kind: "termotanque",
-    what: "Termotanques solares y paneles en una terraza",
+    src: "/pibe/trabajos/foto_17.jpg",
+    what: "Paneles sobre bases de hormigón, en el pasto",
+    place: null,
+    alt: "Instalador con casco, con el pulgar arriba, junto a una fila de paneles solares apoyados sobre bases de hormigón en el pasto.",
+  },
+  {
+    src: "/pibe/trabajos/foto_18.jpg",
+    what: "Paneles y termotanques solares en una terraza",
     place: null,
     alt: "Vista desde arriba de una terraza con colectores de tubos para agua caliente y una larga fila de paneles.",
-    pos: "50% 55%",
+  },
+  {
+    src: "/pibe/trabajos/foto_19.jpg",
+    what: "Paneles en el techo de un galpón de colectivos",
+    place: null,
+    alt: "Instalador con casco y arnés sobre un techo de chapa cubierto de paneles, con colectivos estacionados abajo.",
+  },
+  {
+    src: "/pibe/trabajos/foto_20.jpg",
+    what: "Paneles sobre chapa, en una casa",
+    place: null,
+    alt: "Fila de paneles sobre un techo de chapa, con casas y árboles alrededor y el cielo nublado.",
+  },
+  {
+    src: "/pibe/trabajos/foto_21.jpg",
+    what: "Conexión de protecciones bajo un inversor",
+    place: null,
+    alt: "Instalador conectando la caja de protecciones debajo de un inversor, en la pared de una casa.",
   },
 ];
 
 /**
- * Idea para mostrar precios. Las filas son de ejemplo: los rangos de paneles y litros son
- * referencias de tamaño, y el precio lo carga Matías (`price`).
+ * Las obras de la grilla de Trabajos, en su orden: la primera va grande y la última, ancha.
+ * `pos` es el encuadre en su celda; leyenda y alt salen de `works`.
  */
-export const priceRows: { service: ServiceId; title: string; size: string; price: string | null }[] = [
-  { service: "paneles", title: "Casa chica", size: "4 a 6 paneles", price: null },
-  { service: "paneles", title: "Casa de familia", size: "7 a 10 paneles", price: null },
-  { service: "paneles", title: "Comercio", size: "A medida", price: null },
-  { service: "termotanque", title: "Termotanque solar", size: "150 a 300 litros", price: null },
-  { service: "mantenimiento", title: "Mantenimiento", size: "Por visita", price: null },
-  { service: "limpieza", title: "Limpieza de paneles", size: "Por panel o por visita", price: null },
+export const featuredWorks: { src: string; pos?: string }[] = [
+  { src: "/pibe/trabajos/foto_19.jpg", pos: "50% 58%" },
+  { src: "/pibe/trabajos/foto_20.jpg", pos: "50% 60%" },
+  { src: "/pibe/trabajos/foto_18.jpg" },
+  { src: "/pibe/trabajos/foto_17.jpg", pos: "45% 60%" },
+  { src: "/pibe/trabajos/foto_8.jpeg", pos: "50% 55%" },
+  { src: "/pibe/trabajos/fot_3.jpeg", pos: "50% 62%" },
+  { src: "/pibe/trabajos/foto_11.jpeg", pos: "50% 60%" },
+  { src: "/pibe/trabajos/foto_1.jpeg", pos: "50% 62%" },
 ];
 
-/** Formas de pago a confirmar con Matías. */
-export const payments: { label: string; confirmed: boolean }[] = [
-  { label: "Efectivo", confirmed: false },
-  { label: "Transferencia", confirmed: false },
-  { label: "Tarjeta en cuotas", confirmed: false },
-  { label: "Mercado Pago", confirmed: false },
-];
+/** La foto de "Para empresas": el techo de paneles de un estacionamiento. */
+export const businessPhoto = {
+  src: "/pibe/trabajos/foto_16.jpg",
+  alt: "Estructura azul con un techo de paneles que da sombra a una fila de autos estacionados.",
+} as const;
 
-/** Preguntas de quien no es técnico. Las respuestas son generales del rubro, sin promesas de ahorro. */
+/**
+ * Para empresas: lo que cambia cuando el techo es de un comercio, un galpón o una industria.
+ * Son generalidades del rubro, sin cifras ni promesas de ahorro.
+ */
+export const business = [
+  {
+    title: "Estudio de consumo",
+    body: "Miramos las facturas de los últimos meses y en qué horario consume la empresa, para dimensionar el equipo a lo que usa de día.",
+  },
+  {
+    title: "Techos grandes y estructuras",
+    body: "Chapa de galpón, losa o estructuras nuevas, como un techo de paneles para el estacionamiento que además da sombra.",
+  },
+  {
+    title: "Conexión a la red",
+    body: "Equipos conectados a la red bajo la Ley 27.424 de generación distribuida o el régimen de cada provincia. El trámite depende de cada distribuidora.",
+  },
+  {
+    title: "Mantenimiento programado",
+    body: "Revisión y limpieza con fecha, para que el equipo no pierda rendimiento sin que nadie lo note.",
+  },
+] as const;
+
+/** Preguntas de quien no es técnico. Las respuestas son generales del rubro, sin precios ni promesas de ahorro. */
 export const faqs = [
   {
+    q: "¿Cuánto sale?",
+    a: "Depende de cuánta energía usás, de cómo es el techo y del equipo que haga falta, por eso no hay un precio de lista. Con una foto de tu factura y del techo ya podemos orientarte, y después de ver el lugar te pasamos el presupuesto con el equipo y la cantidad de paneles.",
+  },
+  {
     q: "¿Mi techo sirve?",
-    a: "En Buenos Aires lo ideal es que los paneles miren al norte y no les den sombra edificios, árboles ni tanques durante el mediodía. Sirven la losa, la chapa y la teja. Lo confirmo cuando voy a verlo.",
+    a: "En Buenos Aires lo ideal es que los paneles miren al norte y no les den sombra edificios, árboles ni tanques durante el mediodía. Sirven la losa, la chapa y la teja. Lo confirmamos cuando vamos a verlo.",
+  },
+  {
+    q: "¿Qué me instalan?",
+    a: "Los paneles, que pasan la luz del sol a electricidad; el inversor, que la convierte en la que usa la casa o la empresa y muestra cuánto se genera; la estructura, que sostiene los paneles con la inclinación justa sobre chapa, teja, losa o el suelo, y un tablero con las protecciones. Si querés tener luz durante los cortes, se suman baterías.",
   },
   {
     q: "¿Funcionan si está nublado?",
@@ -215,19 +408,31 @@ export const faqs = [
   },
   {
     q: "¿Qué pasa si se corta la luz?",
-    a: "Un equipo conectado a la red se apaga en el corte, por seguridad de quienes trabajan en la línea. Si querés tener luz durante un corte, hacen falta baterías.",
+    a: "Un equipo de paneles conectado a la red se apaga en el corte, por seguridad de quienes trabajan en la línea. Para tener luz durante un corte hacen falta baterías. Y no hace falta tener paneles: un sistema de respaldo, con un inversor y una batería que se cargan de la red, mantiene andando lo que conectes.",
   },
   {
     q: "¿Puedo inyectar a la red lo que no uso?",
-    a: "La Ley 27.424 de generación distribuida permite conectar el equipo a la red y que te reconozcan lo que inyectás. El trámite depende de tu distribuidora.",
+    a: "Sí, con la Ley 27.424 de generación distribuida, a la que adhiere la Provincia de Buenos Aires, o con el régimen de tu provincia: conectás el equipo a la red y te reconocen lo que inyectás. Las condiciones y el trámite dependen de tu provincia y tu distribuidora.",
   },
   {
     q: "¿Cada cuánto hay que limpiar los paneles?",
     a: "Depende del polvo, el hollín y los árboles de la zona. En la ciudad, revisarlos y limpiarlos un par de veces por año suele alcanzar. Si ves que el equipo genera menos que antes, es momento de mirarlos.",
   },
   {
-    q: "¿Un termotanque solar reemplaza al de gas?",
-    a: "Puede trabajar solo o antes del termotanque que ya tenés: el agua llega precalentada y el de gas o eléctrico prende menos. En invierno o en días nublados sigue ayudando el otro.",
+    q: "¿Bomba de calor o colectores solares?",
+    a: "La bomba de calor calienta con cualquier clima y de noche, y gasta electricidad. Los colectores solares no gastan para calentar, pero necesitan sol y un lugar donde ponerlos. Depende de cuándo usás la pileta y del lugar que tengas: lo vemos en la visita.",
+  },
+  {
+    q: "¿La pileta se puede usar en invierno?",
+    a: "Una bomba de calor alarga mucho la temporada; los colectores solares templan el agua en primavera y otoño. En pleno invierno una pileta descubierta pierde mucho calor, así que lo vemos caso por caso. Con cualquiera de los dos, una cobertura térmica ayuda a que no pierda de noche el calor que juntó de día.",
+  },
+  {
+    q: "¿Instalan termotanques solares?",
+    a: "Sí. Si querés agua caliente con el sol para la casa, contanos cuántos viven y te decimos qué equipo va.",
+  },
+  {
+    q: "¿Hasta dónde van?",
+    a: "A todo el país. Tenemos base en la Provincia de Buenos Aires y llegamos a cualquier punto de Argentina: contanos dónde es y lo organizamos.",
   },
 ];
 
@@ -241,10 +446,188 @@ export const calc = {
   panelW: 550,
   /** Superficie de un panel de referencia, en m². */
   panelM2: 2.6,
-  /** Litros de agua caliente por persona por día. */
-  litersPerPerson: 50,
-  tankSizes: [150, 200, 250, 300],
+  /** Consumos de referencia para quien no tiene la factura a mano, en kWh por mes. */
+  presets: [
+    { label: "Casa chica", kwh: 200 },
+    { label: "Casa mediana", kwh: 350 },
+    { label: "Casa grande", kwh: 600 },
+  ],
 } as const;
+
+export type SystemId = "ongrid" | "hibrido" | "offgrid" | "movil";
+
+/**
+ * Los cuatro sistemas fotovoltaicos que diseña, vende e instala Soltech (confirmados por el
+ * cliente, 27 oct. 2026), en el selector de components/pibe/systems.tsx. `need` es cómo lo dice
+ * quien no es técnico; `name`, cómo se llama en el rubro. `chain` es el recorrido de la energía,
+ * `kit` lo que lleva, y `traits` las tres marcas que los distinguen en la hoja de datos.
+ */
+export const systems: {
+  id: SystemId;
+  need: string;
+  name: string;
+  tag: string;
+  body: string;
+  chain: string[];
+  kit: string[];
+  traits: { red: boolean; baterias: boolean; sinRed: boolean };
+  ask: string;
+  more?: { label: string; href: string };
+}[] = [
+  {
+    id: "ongrid",
+    need: "Tengo red y quiero pagar menos",
+    name: "On-grid",
+    tag: "Conectado a la red",
+    body: "Generás tu propia energía y le pedís menos a la red: de día, la casa o la empresa usa primero la del sol. Lo que no usás se puede inyectar a la red con la ley de generación distribuida (la 27.424 o la de tu provincia).",
+    chain: ["Sol", "Paneles", "Inversor", "Casa y red"],
+    kit: ["Paneles", "Inversor on-grid", "Estructura", "Tablero de protecciones"],
+    traits: { red: true, baterias: false, sinRed: false },
+    ask: "Quiero consultar por un sistema on-grid, conectado a la red, para pagar menos luz.",
+  },
+  {
+    id: "hibrido",
+    need: "Tengo red, pero se corta seguido",
+    name: "Híbrido",
+    tag: "Ahorro y respaldo",
+    body: "Ahorrás como con un on-grid y además tenés baterías: cuando se corta la luz, la casa sigue andando. De día el sol carga las baterías, y si falta, las carga la red.",
+    chain: ["Sol", "Paneles", "Inversor", "Baterías y casa"],
+    kit: ["Paneles", "Inversor híbrido", "Baterías", "Tablero de protecciones"],
+    traits: { red: true, baterias: true, sinRed: true },
+    ask: "Quiero consultar por un sistema híbrido, con baterías para los cortes de luz.",
+    more: { label: "¿Solo baterías, sin paneles?", href: "#respaldo" },
+  },
+  {
+    id: "offgrid",
+    need: "No llega la red: campo, quinta o lugar aislado",
+    name: "Off-grid",
+    tag: "Autonomía total",
+    body: "Donde no hay red, el sistema es la red: los paneles cargan las baterías de día y la casa usa esa energía a toda hora. Se dimensiona con cuidado, porque no hay una red de reserva.",
+    chain: ["Sol", "Paneles", "Inversor y baterías", "Casa"],
+    kit: ["Paneles", "Inversor off-grid", "Baterías", "Estructura"],
+    traits: { red: false, baterias: true, sinRed: true },
+    ask: "Quiero consultar por un sistema off-grid, para un lugar sin red.",
+  },
+  {
+    id: "movil",
+    need: "Va sobre ruedas: casa rodante, motorhome o vehículo",
+    name: "Móvil",
+    tag: "Energía en la ruta",
+    body: "Paneles en el techo del vehículo y una batería, para tener energía en la ruta o donde estaciones: luces, heladera y cargar el celular, sin depender de un enchufe.",
+    chain: ["Sol", "Panel", "Regulador y batería", "Vehículo"],
+    kit: ["Paneles para techo", "Regulador de carga", "Batería", "Inversor, si necesitás 220 V"],
+    traits: { red: false, baterias: true, sinRed: true },
+    ask: "Quiero consultar por un sistema solar para una casa rodante, motorhome o vehículo.",
+  },
+];
+
+/** Lo que dice cada marca de la hoja de datos de un sistema. */
+export const systemTraits = [
+  { key: "red", label: "Usa la red" },
+  { key: "baterias", label: "Lleva baterías" },
+  { key: "sinRed", label: "Anda sin red" },
+] as const;
+
+/**
+ * Sistemas de respaldo (components/pibe/backup.tsx): inversor y batería, sin paneles. Lo que
+ * sigue andando depende de lo que se conecte y de la batería: no se promete una duración.
+ */
+export const backup = {
+  photo: {
+    src: "/pibe/trabajos/foto_7.jpeg",
+    alt: "Inversor blanco junto a un rack de baterías, en la sala técnica de una casa.",
+    caption: "Inversor y baterías en la sala técnica de una casa. Obra nuestra.",
+  },
+  /** Lo que suele conectarse al respaldo. */
+  keeps: ["Heladera", "Luces", "Wifi", "Bomba de agua", "Alarma"],
+  facts: [
+    {
+      title: "No hacen falta paneles",
+      body: "Es un equipo aparte: sirve aunque no tengas lugar en el techo, o para empezar por ahí.",
+    },
+    {
+      title: "Vos elegís qué sigue andando",
+      body: "Conectamos al respaldo los circuitos que importan. Cuánto dura depende de la batería y de lo que tengas conectado.",
+    },
+    {
+      title: "Paneles cuando quieras",
+      body: "Con un inversor híbrido, más adelante sumás paneles y la batería también se carga con el sol.",
+    },
+  ],
+  ask: "Quiero consultar por un sistema de respaldo con batería para los cortes de luz.",
+} as const;
+
+/**
+ * Climatización de piscinas (components/pibe/pools.tsx). Los meses van de julio a junio, para que
+ * el verano quede en el medio. Las temporadas son orientativas, para una pileta descubierta en
+ * Buenos Aires con cobertura térmica de noche: el cliente puede corregirlas acá.
+ */
+export const poolMonths = ["Jul", "Ago", "Sep", "Oct", "Nov", "Dic", "Ene", "Feb", "Mar", "Abr", "May", "Jun"];
+export const poolMonthNames = [
+  "julio",
+  "agosto",
+  "septiembre",
+  "octubre",
+  "noviembre",
+  "diciembre",
+  "enero",
+  "febrero",
+  "marzo",
+  "abril",
+  "mayo",
+  "junio",
+];
+
+/** Cada temporada, como índices de `poolMonths` (desde y hasta, inclusive). La primera es la base. */
+export const poolSeasons = [
+  { id: "sin", label: "Sin climatizar", from: 5, to: 8 },
+  { id: "solar", label: "Colectores solares", from: 3, to: 9 },
+  { id: "bomba", label: "Bomba de calor", from: 2, to: 10 },
+] as const;
+
+/** La foto de la sección: la bomba de calor de una obra, al costado de la pileta. */
+export const poolPhoto = {
+  src: "/pibe/trabajos/fot_4.jpeg",
+  alt: "Pileta en el jardín de una casa, con una bomba de calor instalada al costado.",
+  caption: "Bomba de calor junto a una pileta. Obra nuestra.",
+} as const;
+
+export type PoolMethodId = "bomba" | "solar";
+
+/** Las dos formas de templar la pileta, lado a lado, con las mismas filas para comparar. */
+export const poolMethods: {
+  id: PoolMethodId;
+  title: string;
+  chain: [string, string, string];
+  body: string;
+  facts: { k: string; v: string }[];
+  ask: string;
+}[] = [
+  {
+    id: "bomba",
+    title: "Bomba de calor",
+    chain: ["Aire", "Bomba de calor", "Agua templada"],
+    body: "Funciona como un aire acondicionado en modo calor: toma el calor del aire y se lo pasa al agua que sale del filtro. Calienta de día y de noche, con sol o nublado, y mantiene la temperatura que elijas.",
+    facts: [
+      { k: "Calienta", v: "Con cualquier clima, de día y de noche" },
+      { k: "Gasta", v: "Electricidad; con paneles solares, menos" },
+      { k: "Va", v: "Al lado de la pileta, al aire libre" },
+    ],
+    ask: "Quiero consultar por una bomba de calor para mi pileta.",
+  },
+  {
+    id: "solar",
+    title: "Colectores solares",
+    chain: ["Sol", "Colectores", "Agua templada"],
+    body: "El agua del filtro pasa por colectores al sol, en un techo o junto a la pileta, y vuelve más tibia. Calentarla no gasta gas ni electricidad: el agua la mueve la misma bomba del filtro.",
+    facts: [
+      { k: "Calienta", v: "Con sol" },
+      { k: "Gasta", v: "Nada más que la bomba del filtro" },
+      { k: "Va", v: "En un techo o un lugar al sol, cerca de la pileta" },
+    ],
+    ask: "Quiero consultar por climatización solar para mi pileta.",
+  },
+];
 
 /** Evento con el que la calculadora y los servicios precargan el formulario de contacto. */
 export const PREFILL_EVENT = "pibe:prefill";
@@ -255,125 +638,12 @@ export function prefillContact(detail: ContactPrefill) {
   document.getElementById("contacto")?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-/**
- * Los equipos en 3D (components/pibe/equipos.tsx). Cada punto numerado va en el espacio
- * del modelo (metros aprox.) y dice qué hace la pieza y, si toca, qué reviso o limpio.
- * `confirmed: false`: falta que Matías diga si lo instala; el sitio lo marca a confirmar.
- */
-export type EquipoId = "paneles" | "atmosferico" | "presurizado";
-
-export const equipos: {
-  id: EquipoId;
-  label: string;
-  /** En celular la pestaña va en dos renglones: `kicker` chico arriba y `tab` abajo. */
-  kicker: string;
-  tab: string;
-  short: string;
-  servicio: string;
-  ask: string;
-  confirmed: boolean;
-  specs: string[];
-  /** `back`: la pieza está atrás; al elegirla el equipo se da vuelta. Su punto solo se ve de atrás, y los de adelante, de frente. */
-  parts: { pos: [number, number, number]; title: string; body: string; back?: boolean }[];
-}[] = [
-  {
-    id: "paneles",
-    label: "Paneles solares",
-    kicker: "Paneles",
-    tab: "Solares",
-    short: "Electricidad del sol",
-    servicio: "Paneles solares",
-    ask: "Quiero consultar por paneles solares.",
-    confirmed: true,
-    specs: ["Casas, PH y terrazas", "Locales y comercios", "Inversor y tablero"],
-    parts: [
-      {
-        pos: [-0.5, 0.8, 0.19],
-        title: "Celdas",
-        body: "Pasan la luz del sol a electricidad. Mientras más derecho les pega el sol, más generan.",
-      },
-      {
-        pos: [0.6, 0.46, 0.78],
-        title: "Vidrio",
-        body: "Acá se juntan el polvo, el hollín y las hojas, y un vidrio sucio genera menos. Es lo que limpio.",
-      },
-      {
-        pos: [-1.03, 0.31, 0.99],
-        title: "Marco de aluminio",
-        body: "Protege el vidrio y fija el panel a la estructura. En el mantenimiento reviso que siga firme.",
-      },
-      {
-        pos: [0.53, 0.72, -0.08],
-        title: "Caja de conexión",
-        body: "Atrás del panel. De acá sale el cable al inversor; reviso que las conexiones estén sanas.",
-        back: true,
-      },
-    ],
-  },
-  {
-    id: "atmosferico",
-    label: "Termotanque atmosférico",
-    kicker: "Termotanque",
-    tab: "Atmosférico",
-    short: "Tubos de vacío, sin presión",
-    servicio: "Termotanques solares",
-    ask: "Quiero consultar por un termotanque solar atmosférico.",
-    confirmed: true,
-    specs: ["De 150 a 300 litros", "Para casas con tanque de reserva en altura", "En techo o terraza"],
-    parts: [
-      {
-        pos: [0.62, 1.66, -0.36],
-        title: "Tanque",
-        body: "Guarda el agua que se calienta. Los litros los elijo según cuántos viven en la casa.",
-      },
-      {
-        pos: [0.18, 0.72, 0.42],
-        title: "Tubos de vacío",
-        body: "Toman el calor del sol y se lo pasan al agua. El vacío entre los dos vidrios no deja que se escape.",
-      },
-      {
-        pos: [-1.04, 0.5, -0.36],
-        title: "Estructura",
-        body: "Le da la inclinación justa y lo sostiene firme en el techo o la terraza.",
-      },
-    ],
-  },
-  {
-    id: "presurizado",
-    label: "Termotanque presurizado",
-    kicker: "Termotanque",
-    tab: "Presurizado",
-    short: "Heat pipe, aguanta heladas",
-    servicio: "Termotanques solares",
-    ask: "Quiero consultar por un termotanque solar presurizado.",
-    confirmed: false,
-    specs: ["Trabaja con la presión de la red o con bomba", "Aguanta heladas", "Se suma a tu termotanque o caldera"],
-    parts: [
-      {
-        pos: [0.5, 1.4, -0.24],
-        title: "Cabezal",
-        body: "Los tubos le pasan el calor al agua acá arriba, sin que el agua baje por los tubos.",
-      },
-      {
-        pos: [-0.25, 0.7, 0.42],
-        title: "Tubos heat pipe",
-        body: "Cada tubo lleva el calor por un caño sellado. Por eso no se rompe con las heladas.",
-      },
-      {
-        pos: [-1.24, 0.9, -0.25],
-        title: "Conexión al agua",
-        body: "Entra el agua fría y sale la caliente hacia tu termotanque o caldera de siempre.",
-      },
-    ],
-  },
-];
-
 /** Enlaces directos a WhatsApp e Instagram. Sin usuario de Instagram, lleva a los canales del contacto. */
 export const social = {
   whatsapp: {
     label: "WhatsApp",
-    hint: "Escribime por WhatsApp",
-    href: waLink(`Hola ${pibe.firstName}, te escribo desde la página de ${pibe.name}.`),
+    hint: "Escribinos por WhatsApp",
+    href: waLink(`Hola, les escribo desde la página de ${pibe.name}.`),
     missing: !pibe.whatsapp,
   },
   instagram: {
@@ -385,13 +655,11 @@ export const social = {
 } as const;
 
 /**
- * Marcas reconocidas del rubro, con su logo original (public/pibe/marcas/, de Wikimedia
- * Commons). Son una propuesta: quedan las que Matías instala de verdad. No lo hacen
- * instalador oficial de ninguna; para decir eso hace falta que la marca lo certifique.
+ * Marcas que Soltech instala (confirmadas, octubre 2026), en "Quiénes somos" y en la franja del
+ * hero. Logos originales en public/pibe/marcas/: de Wikimedia Commons o del sitio de cada marca. No la hacen
+ * instaladora oficial de ninguna; para decir eso hace falta que la marca lo certifique.
  * `rem`: alto del logo, para que todos pesen parecido a la vista.
  */
-export const brandsConfirmed = false;
-
 export const brands: { group: string; items: { name: string; src: string; w: number; h: number; rem: number }[] }[] = [
   {
     group: "Paneles",
@@ -399,16 +667,21 @@ export const brands: { group: string; items: { name: string; src: string; w: num
       { name: "JA Solar", src: "/pibe/marcas/ja-solar.svg", w: 453, h: 80, rem: 1.55 },
       { name: "Jinko Solar", src: "/pibe/marcas/jinko-solar.png", w: 146, h: 59, rem: 2.6 },
       { name: "Trina Solar", src: "/pibe/marcas/trina-solar.svg", w: 251, h: 58, rem: 1.9 },
-      { name: "Canadian Solar", src: "/pibe/marcas/canadian-solar.png", w: 435, h: 65, rem: 1.45 },
     ],
   },
   {
-    group: "Inversores y baterías",
+    group: "Inversores",
     items: [
       { name: "Huawei", src: "/pibe/marcas/huawei.svg", w: 576, h: 98, rem: 1.35 },
       { name: "Fronius", src: "/pibe/marcas/fronius.png", w: 500, h: 250, rem: 2.6 },
-      { name: "SMA", src: "/pibe/marcas/sma.svg", w: 600, h: 380, rem: 2.9 },
-      { name: "Victron Energy", src: "/pibe/marcas/victron-energy.svg", w: 261, h: 50, rem: 1.7 },
+      { name: "Deye", src: "/pibe/marcas/deye.png", w: 140, h: 54, rem: 2.3 },
+    ],
+  },
+  {
+    group: "Baterías",
+    items: [
+      { name: "Pylontech", src: "/pibe/marcas/pylontech.svg", w: 219, h: 44, rem: 1.85 },
+      { name: "Dyness", src: "/pibe/marcas/dyness.svg", w: 139, h: 21, rem: 1.35 },
     ],
   },
 ];

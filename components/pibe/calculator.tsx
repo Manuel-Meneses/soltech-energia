@@ -1,8 +1,9 @@
 "use client";
 
 import { useId, useState } from "react";
-import { ArrowRightIcon, MinusIcon, PlusIcon } from "@phosphor-icons/react";
-import { calc, pibe, prefillContact } from "@/lib/pibe";
+import { ArrowRightIcon } from "@phosphor-icons/react";
+import { calc, prefillContact, sunSite } from "@/lib/pibe";
+import { trackConversion } from "@/lib/track";
 
 const covers = [
   { value: 0.5, label: "50%" },
@@ -10,45 +11,79 @@ const covers = [
   { value: 1, label: "100%" },
 ];
 
+type Period = "mes" | "bim";
+
+/** El control sigue a la factura: una bimestral trae el doble de kWh que una mensual. */
+const ranges: Record<Period, { min: number; max: number; step: number }> = {
+  mes: { min: 100, max: 1500, step: 10 },
+  bim: { min: 200, max: 3000, step: 20 },
+};
+
 /** Lugares del techo: alcanzan para 1.500 kWh por mes (el máximo del control). */
 const ROOF_SLOTS = 30;
 
 const fmt = (n: number, d = 0) => n.toLocaleString("es-AR", { minimumFractionDigits: d, maximumFractionDigits: d });
 
 /** La cuenta, con los supuestos de lib/pibe.ts a la vista. */
-function estimate(kwh: number, cover: number, people: number) {
+function estimate(kwh: number, cover: number) {
   const perKwp = 30 * calc.sunHours * calc.performance; // kWh por mes que da 1 kWp
   const kwp = (kwh * cover) / perKwp;
   const panels = Math.max(1, Math.ceil((kwp * 1000) / calc.panelW));
   const realKwp = (panels * calc.panelW) / 1000;
-  const liters = people * calc.litersPerPerson;
-  const tank = calc.tankSizes.find((t) => t >= liters) ?? calc.tankSizes[calc.tankSizes.length - 1];
   return {
     panels,
     kwp: realKwp,
     m2: Math.ceil(panels * calc.panelM2),
     monthly: Math.round(realKwp * perKwp),
-    tank,
   };
 }
 
 /**
- * ¿Cuántos paneles necesitás? El vecino pone su consumo y la página arma el módulo: los
- * paneles aparecen de a uno sobre el techo. Es una estimación orientativa, y lo dice.
- * "Mandarle estos números" precarga el formulario con la cuenta.
+ * ¿Cuántos paneles necesitás? El vecino escribe el consumo tal como dice su factura (mensual o
+ * bimestral) o elige una casa parecida, y la página arma el módulo: los paneles aparecen de a uno
+ * sobre el techo. Es una estimación orientativa, y lo dice. El botón precarga el formulario con
+ * la cuenta.
  */
 export function Calculator() {
   const id = useId();
-  const [kwh, setKwh] = useState(300);
+  const [period, setPeriod] = useState<Period>("mes");
+  const [bill, setBill] = useState(300);
+  const [draft, setDraft] = useState<string | null>(null);
   const [cover, setCover] = useState(1);
-  const [people, setPeople] = useState(3);
-  const r = estimate(kwh, cover, people);
 
-  const send = () =>
+  const range = ranges[period];
+  const clamp = (n: number) => Math.min(range.max, Math.max(range.min, Math.round(n)));
+  const monthly = period === "bim" ? bill / 2 : bill;
+  const r = estimate(monthly, cover);
+
+  function changePeriod(next: Period) {
+    if (next === period) return;
+    setBill((b) => (next === "bim" ? b * 2 : Math.max(ranges.mes.min, Math.round(b / 20) * 10)));
+    setPeriod(next);
+    setDraft(null);
+  }
+
+  function pickPreset(kwh: number) {
+    setBill(period === "bim" ? kwh * 2 : kwh);
+    setDraft(null);
+  }
+
+  function send() {
+    trackConversion("calculadora_enviada", { kwh: monthly, paneles: r.panels });
     prefillContact({
       servicio: "Paneles solares",
-      mensaje: `Hice la cuenta en la página: consumo ${fmt(kwh)} kWh por mes y quiero cubrir el ${Math.round(cover * 100)}%. Me dio ${r.panels} paneles (${fmt(r.kwp, 1)} kWp) y unos ${r.m2} m² de techo. ¿Me pasás un presupuesto?`,
+      mensaje: `Hice la cuenta en la página: mi factura ${period === "bim" ? "bimestral" : "mensual"} dice ${fmt(bill)} kWh y quiero cubrir el ${Math.round(cover * 100)}%. Me dio ${r.panels} paneles (${fmt(r.kwp, 1)} kWp) y unos ${r.m2} m² de techo. ¿Me pasan un presupuesto?`,
     });
+  }
+
+  function sendBigBill() {
+    trackConversion("calculadora_enviada", { kwh: monthly, paneles: "a medida" });
+    prefillContact({
+      servicio: "Paneles solares",
+      lugar: "Empresa",
+      mensaje: "Consumimos más de 1.500 kWh por mes. Les mando la factura para que calculen el equipo.",
+    });
+  }
 
   return (
     <section id="calculadora" aria-labelledby="pa-calc-title" className="pa-paper">
@@ -58,43 +93,96 @@ export function Calculator() {
             ¿Cuántos paneles necesitás?
           </h2>
           <p className="max-w-[46ch] text-lg leading-relaxed text-[var(--pa-muted)] lg:col-span-5">
-            Buscá en tu factura de luz el consumo en kWh y movelo acá. Si tu factura es bimestral, dividilo por dos.
+            Buscá en tu factura de luz el consumo en kWh y escribilo acá, o elegí una casa parecida a la tuya.
           </p>
         </div>
 
         <div className="pa-calc mt-14 grid lg:grid-cols-12">
           {/* Entradas */}
           <div className="pa-calc-in lg:col-span-5">
-            <div>
-              <div className="flex items-baseline justify-between gap-4">
-                <label htmlFor={`${id}-kwh`} className="font-semibold">
-                  Consumo por mes
+            <fieldset>
+              <legend className="font-semibold">Tu factura es</legend>
+              <div className="mt-3 grid max-w-xs grid-cols-2 gap-2">
+                {(["mes", "bim"] as const).map((p) => (
+                  <label key={p} className="pa-choice">
+                    <input
+                      type="radio"
+                      name={`${id}-period`}
+                      checked={period === p}
+                      onChange={() => changePeriod(p)}
+                      className="sr-only"
+                    />
+                    {p === "mes" ? "Mensual" : "Bimestral"}
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+
+            <div className="mt-9">
+              <div className="flex flex-wrap items-end justify-between gap-x-4 gap-y-2">
+                <label id={`${id}-kwh-label`} htmlFor={`${id}-kwh`} className="font-semibold">
+                  Consumo {period === "bim" ? "del bimestre" : "del mes"}
                 </label>
-                <span className="pa-display pa-num text-[clamp(1.75rem,3vw,2.5rem)]">
-                  {fmt(kwh)}
-                  <span className="ml-1.5 text-[0.5em] text-[var(--pa-muted)]">kWh</span>
+                <span className="pa-kwh">
+                  <input
+                    id={`${id}-kwh`}
+                    type="number"
+                    inputMode="numeric"
+                    min={range.min}
+                    max={range.max}
+                    step={range.step}
+                    value={draft ?? String(bill)}
+                    onChange={(e) => {
+                      setDraft(e.target.value);
+                      const n = Number(e.target.value);
+                      if (e.target.value !== "" && Number.isFinite(n)) setBill(clamp(n));
+                    }}
+                    onBlur={() => setDraft(null)}
+                    className="pa-kwh-input pa-num"
+                  />
+                  <span className="text-[var(--pa-muted)]">kWh</span>
                 </span>
               </div>
               <input
-                id={`${id}-kwh`}
                 type="range"
-                min={100}
-                max={1500}
-                step={10}
-                value={kwh}
-                onChange={(e) => setKwh(Number(e.target.value))}
-                aria-valuetext={`${fmt(kwh)} kWh por mes`}
-                className="pa-range mt-5"
-                style={{ ["--fill" as string]: `${((kwh - 100) / 1400) * 100}%` }}
+                min={range.min}
+                max={range.max}
+                step={range.step}
+                value={bill}
+                onChange={(e) => {
+                  setBill(Number(e.target.value));
+                  setDraft(null);
+                }}
+                aria-labelledby={`${id}-kwh-label`}
+                aria-valuetext={`${fmt(bill)} kWh ${period === "bim" ? "por bimestre" : "por mes"}`}
+                className="pa-range mt-4"
+                style={{ ["--fill" as string]: `${((bill - range.min) / (range.max - range.min)) * 100}%` }}
               />
-              <div className="mt-2 flex justify-between text-xs text-[var(--pa-muted)]">
-                <span>100</span>
-                <span>Casa chica ~200</span>
-                <span>1.500</span>
+              <div className="mt-1 flex justify-between text-xs text-[var(--pa-muted)]">
+                <span>{fmt(range.min)}</span>
+                <span>{fmt(range.max)}</span>
               </div>
             </div>
 
-            <fieldset className="mt-10">
+            <div className="mt-7">
+              <p className="text-sm text-[var(--pa-muted)]">¿No tenés la factura a mano?</p>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {calc.presets.map((p) => (
+                  <button
+                    key={p.label}
+                    type="button"
+                    onClick={() => pickPreset(p.kwh)}
+                    aria-pressed={monthly === p.kwh}
+                    className="pa-preset"
+                  >
+                    {p.label}
+                    <span className="pa-num text-[var(--pa-muted)]">~{p.kwh} kWh/mes</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <fieldset className="mt-9">
               <legend className="font-semibold">¿Qué parte del consumo querés cubrir con el sol?</legend>
               <div className="mt-3 grid grid-cols-3 gap-2">
                 {covers.map((c) => (
@@ -112,22 +200,13 @@ export function Calculator() {
               </div>
             </fieldset>
 
-            <div className="mt-10">
-              <label htmlFor={`${id}-people`} className="font-semibold">
-                Personas en la casa <span className="font-normal text-[var(--pa-muted)]">(para el termotanque)</span>
-              </label>
-              <div className="pa-stepper mt-3">
-                <button type="button" onClick={() => setPeople((n) => Math.max(1, n - 1))} aria-label="Una persona menos">
-                  <MinusIcon size={18} weight="bold" aria-hidden="true" />
-                </button>
-                <output id={`${id}-people`} className="pa-num" aria-live="polite">
-                  {people}
-                </output>
-                <button type="button" onClick={() => setPeople((n) => Math.min(10, n + 1))} aria-label="Una persona más">
-                  <PlusIcon size={18} weight="bold" aria-hidden="true" />
-                </button>
-              </div>
-            </div>
+            <p className="pa-calc-big">
+              ¿Más de 1.500 kWh por mes? Es común en comercios y galpones.{" "}
+              <button type="button" onClick={sendBigBill} className="pa-link font-semibold">
+                Mandanos la factura
+              </button>{" "}
+              y lo calculamos a medida.
+            </p>
           </div>
 
           {/* Resultado: el techo con sus paneles */}
@@ -150,7 +229,7 @@ export function Calculator() {
                 <dd className="pa-display pa-num">{r.panels}</dd>
               </div>
               <div>
-                <dt>de potencia</dt>
+                <dt>de potencia instalada</dt>
                 <dd className="pa-display pa-num">
                   {fmt(r.kwp, 1)}
                   <small>kWp</small>
@@ -172,22 +251,17 @@ export function Calculator() {
               </div>
             </dl>
 
-            <p className="mt-6 border-t border-[var(--pa-dark-line)] pt-5 text-[var(--pa-on-dark-muted)]">
-              Y para el agua caliente de {people} {people === 1 ? "persona" : "personas"}: un termotanque solar de unos{" "}
-              <strong className="pa-num font-semibold text-[var(--pa-on-dark)]">{r.tank} litros</strong>.
-            </p>
-
-            <button type="button" onClick={send} className="pa-btn pa-btn-gold mt-8 w-full sm:w-auto">
-              Mandale estos números a {pibe.firstName}
+            <button type="button" onClick={send} className="pa-btn pa-btn-action mt-8 w-full sm:w-auto">
+              Pedí una visita con esta cuenta
               <ArrowRightIcon size={18} weight="bold" className="pa-arrow" aria-hidden="true" />
             </button>
           </div>
         </div>
 
-        <p className="mt-5 max-w-[80ch] text-sm leading-relaxed text-[var(--pa-muted)]">
-          Es una cuenta orientativa para {pibe.zone}: {fmt(calc.sunHours, 1)} horas de sol pico por día en promedio del año,{" "}
-          {Math.round((1 - calc.performance) * 100)}% de pérdidas, paneles de referencia de {calc.panelW} W y{" "}
-          {calc.litersPerPerson} litros de agua caliente por persona. El número final sale de ver tu techo.
+        <p className="mt-5 max-w-[72ch] text-sm leading-relaxed text-[var(--pa-muted)]">
+          Es una cuenta orientativa para {sunSite.name}: {fmt(calc.sunHours, 1)} horas de sol pico por día en promedio del año,{" "}
+          {Math.round((1 - calc.performance) * 100)}% de pérdidas y paneles de referencia de {calc.panelW} W. kWp es la
+          potencia de los paneles a pleno sol. El número final sale de ver tu techo.
         </p>
       </div>
     </section>

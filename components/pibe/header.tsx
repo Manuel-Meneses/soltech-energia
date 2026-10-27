@@ -3,12 +3,13 @@
 import { useEffect, useState } from "react";
 import { ArrowRightIcon, ListIcon, XIcon } from "@phosphor-icons/react";
 import { pibe, pibeCta, pibeLinks } from "@/lib/pibe";
+import { trackConversion } from "@/lib/track";
 import { Wordmark } from "./wordmark";
 
 /**
  * La barra es un módulo fotovoltaico: marco, celdas de vidrio azul noche
  * separadas por juntas y busbars tenues. La celda de la sección que estás viendo se enciende
- * en celeste; el pedido de visita es la celda dorada.
+ * en celeste; el pedido de visita es la celda clara, la única de papel.
  */
 export function PibeHeader() {
   const [solid, setSolid] = useState(false);
@@ -77,7 +78,11 @@ export function PibeHeader() {
           })}
         </nav>
 
-        <a href={pibeCta.href} className="pa-cell pa-cell-cta hidden sm:flex">
+        <a
+          href={pibeCta.href}
+          onClick={() => trackConversion("pedi_visita", { desde: "cabecera" })}
+          className="pa-cell pa-cell-cta hidden sm:flex"
+        >
           {pibeCta.label}
           <ArrowRightIcon size={16} weight="bold" className="pa-arrow" aria-hidden="true" />
         </a>

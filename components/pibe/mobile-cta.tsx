@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { ArrowRightIcon, InstagramLogoIcon, WhatsappLogoIcon } from "@phosphor-icons/react";
 import { pibeCta, social } from "@/lib/pibe";
+import { trackConversion } from "@/lib/track";
 
 /**
  * Lo que flota al costado derecho: WhatsApp arriba e Instagram abajo, cada uno en el color
@@ -37,15 +38,20 @@ export function PibeMobileCta() {
   return (
     <>
       <div className="pa-mobile-cta sm:hidden" data-shown={shown} inert={!shown}>
-        <a href={pibeCta.href} className="pa-mobile-cta-main">
+        <a href={pibeCta.href} onClick={() => trackConversion("pedi_visita", { desde: "barra" })} className="pa-mobile-cta-main">
           {pibeCta.label}
           <ArrowRightIcon size={18} weight="bold" aria-hidden="true" />
         </a>
       </div>
 
-      <ul className="pa-social" data-shown={shown} inert={!shown} aria-label="Escribime o seguime">
+      <ul className="pa-social" data-shown={shown} inert={!shown} aria-label="Escribinos o seguinos">
         <li>
-          <a href={social.whatsapp.href} {...external} className="pa-social-btn pa-social-wa">
+          <a
+            href={social.whatsapp.href}
+            {...external}
+            onClick={() => trackConversion("whatsapp", { desde: "flotante" })}
+            className="pa-social-btn pa-social-wa"
+          >
             <WhatsappLogoIcon size={28} weight="fill" aria-hidden="true" />
             <span className="pa-social-hint">{social.whatsapp.hint}</span>
             <span className="sr-only"> (se abre en otra pestaña)</span>
@@ -55,6 +61,7 @@ export function PibeMobileCta() {
           <a
             href={social.instagram.href}
             {...(social.instagram.missing ? {} : external)}
+            onClick={() => trackConversion("instagram", { desde: "flotante" })}
             className="pa-social-btn pa-social-ig"
           >
             <InstagramLogoIcon size={28} weight="bold" aria-hidden="true" />

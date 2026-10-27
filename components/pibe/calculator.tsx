@@ -221,8 +221,8 @@ export function Calculator() {
               <span className="pa-calc-save-label">Dejás de pagar por mes, aprox.</span>
               <span className="pa-display pa-num pa-calc-save-value">{money(r.saving)}</span>
               <span className="pa-calc-save-more">
-                {money(r.saving * 12)} por año · {money(r.saving * 12 * calc.lifeYears)} en {calc.lifeYears} años, a
-                precios de hoy
+                {money(r.saving * 12)} por año · {money(r.saving * 12 * calc.lifeYears)} en {calc.lifeYears} años, con
+                la tarifa de {calc.priceAsOf}
               </span>
             </p>
 
@@ -276,7 +276,8 @@ export function Calculator() {
         <p className="mt-5 max-w-[72ch] text-sm leading-relaxed text-[var(--pa-muted)]">
           Es una cuenta orientativa, no un presupuesto. Pasamos tu factura a kWh con un precio de referencia de $
           {fmt(calc.kwhPrice)} por kWh con impuestos (Edenor y Edesur, {calc.priceAsOf}) y ${fmt(calc.fixedCharge)} de
-          cargo fijo, que no baja. Para {sunSite.name}: {fmt(calc.sunHours, 1)} horas de sol pico por día en promedio del
+          cargo fijo, que no baja. La tarifa cambia seguido: si en tu factura el kWh sale distinto, cambia la cantidad de
+          paneles, y si la luz sube, lo que ahorrás sube con ella. Para {sunSite.name}: {fmt(calc.sunHours, 1)} horas de sol pico por día en promedio del
           año, {Math.round((1 - calc.performance) * 100)}% de pérdidas y paneles de {calc.panelW} W. La energía que
           sobra y va a la red se paga a otro precio, así que el número final sale de tu factura y de ver tu techo.
         </p>

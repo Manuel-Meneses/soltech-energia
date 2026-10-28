@@ -13,7 +13,8 @@ export function PibeFooter() {
       href: `https://instagram.com/${pibe.instagram}`,
       event: "instagram" as const,
     },
-    pibe.email && { label: "Email", value: pibe.email, href: mailLink()!, event: "email" as const },
+    pibe.email && { label: "Email", value: pibe.email, href: mailLink(pibe.email)!, event: "email" as const },
+    pibe.salesEmail && { label: "Ventas", value: pibe.salesEmail, href: mailLink(pibe.salesEmail)!, event: "email" as const },
   ].filter((c) => !!c);
 
   return (

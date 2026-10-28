@@ -74,7 +74,7 @@ export function PibeContact() {
     const first = Object.keys(found)[0];
     if (first) return document.getElementById(`${id}-${first}`)?.focus();
     const submitter = (e.nativeEvent as SubmitEvent).submitter as HTMLButtonElement | null;
-    const mail = submitter?.value === "mail" ? mailLink(`Consulta desde la página: ${f.servicio}`, message(f)) : null;
+    const mail = submitter?.value === "mail" ? mailLink(pibe.salesEmail, `Consulta desde la página: ${f.servicio}`, message(f)) : null;
     const via: Via = mail ? "mail" : "wa";
     const url = mail ?? waLink(message(f));
     trackConversion("formulario_enviado", { servicio: f.servicio, lugar: f.lugar || "sin decir", por: via });
@@ -158,7 +158,8 @@ export function PibeContact() {
       href: pibe.instagram ? `https://instagram.com/${pibe.instagram}` : null,
       event: "instagram",
     },
-    { icon: EnvelopeSimpleIcon, tone: "", label: "Email", value: pibe.email, href: mailLink(), event: "email" },
+    { icon: EnvelopeSimpleIcon, tone: "", label: "Email", value: pibe.email, href: mailLink(pibe.email), event: "email" },
+    { icon: EnvelopeSimpleIcon, tone: "", label: "Ventas", value: pibe.salesEmail, href: mailLink(pibe.salesEmail), event: "email" },
   ];
   const shownChannels = channels.filter((c) => c.value && c.href);
 
@@ -172,7 +173,7 @@ export function PibeContact() {
           </h2>
           <p className="mt-6 max-w-[38ch] text-lg leading-relaxed">
             Con tu nombre, tu localidad y qué necesitás alcanza para arrancar. Si tenés la factura de luz o una foto del
-            techo, mandala por WhatsApp{pibe.email ? " o adjuntala en el mail" : ""}.
+            techo, mandala por WhatsApp{pibe.salesEmail ? " o adjuntala en el mail" : ""}.
           </p>
 
           <ul className="pa-channels mt-10">
@@ -208,7 +209,7 @@ export function PibeContact() {
               <h3 className="pa-wide mt-6 text-2xl font-semibold">Tu mensaje está listo.</h3>
               {sent.via === "mail" ? (
                 <p className="mt-2 max-w-[44ch] text-[var(--pa-muted)]">
-                  Abrimos tu programa de mail con la consulta armada para {pibe.email}. Enviala y, si la tenés, adjuntá la
+                  Abrimos tu programa de mail con la consulta armada para {pibe.salesEmail}. Enviala y, si la tenés, adjuntá la
                   foto de la factura o del techo.
                 </p>
               ) : (
@@ -265,14 +266,14 @@ export function PibeContact() {
               </div>
               <div className="flex flex-col gap-4 sm:col-span-2 sm:flex-row sm:items-center sm:justify-between">
                 <p className="text-sm text-[var(--pa-muted)]">
-                  {pibe.email ? "Se abre WhatsApp o tu mail con el mensaje armado." : "Se abre WhatsApp con tu mensaje armado."}
+                  {pibe.salesEmail ? "Se abre WhatsApp o tu mail con el mensaje armado." : "Se abre WhatsApp con tu mensaje armado."}
                 </p>
                 <div className="flex flex-col gap-3 sm:flex-row-reverse">
                   <button type="submit" value="wa" className="pa-btn pa-btn-ink">
                     Enviar por WhatsApp
                     <ArrowRightIcon size={18} weight="bold" className="pa-arrow" aria-hidden="true" />
                   </button>
-                  {pibe.email && (
+                  {pibe.salesEmail && (
                     <button type="submit" value="mail" className="pa-btn pa-btn-line">
                       <EnvelopeSimpleIcon size={18} weight="bold" aria-hidden="true" />
                       Enviar por mail

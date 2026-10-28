@@ -22,7 +22,7 @@ Energía solar a tu medida: diseño, venta e instalación de sistemas fotovoltai
 ## Operating Context
 
 - **Zona:** todo el país, con base en la Provincia de Buenos Aires (confirmado por el cliente, 27 oct. 2026). No hay lista de partidos.
-- **Contacto:** WhatsApp (+54 9 11 6187-5709), Instagram (@matias.soltech) y mail (matias.moreira@soltech-energia.com). El formulario manda la consulta por WhatsApp (principal) o por mail (abre el programa de correo con asunto y texto armados). El teléfono para llamar está por llegar: con `phone` cargado en `lib/pibe.ts` aparece "Teléfono" en el contacto y el pie. El formulario no tiene backend: arma el mensaje y abre WhatsApp.
+- **Contacto:** WhatsApp (+54 9 11 6187-5709), Instagram (@matias.soltech) y mail (info@soltech-energia.com general, ventas@soltech-energia.com para consultas). El formulario manda la consulta por WhatsApp (principal) o por mail a ventas (abre el programa de correo con asunto y texto armados). El teléfono para llamar está por llegar: con `phone` cargado en `lib/pibe.ts` aparece "Teléfono" en el contacto y el pie. El formulario no tiene backend: arma el mensaje y abre WhatsApp.
 - **Dominio:** https://soltech-energia.com (confirmado el 27 oct. 2026). Con `domain` cargado en `lib/pibe.ts` el sitio se indexa: `metadataBase` en `app/layout.tsx`, canonical, `robots.txt` con sitemap y la URL e imagen del JSON-LD. Con `domain` en `null` vuelve a ser una vista previa (`noindex`, sin sitemap).
 - **Medición:** Vercel Analytics, con eventos propios de conversión (`lib/track.ts`): pedi_visita, whatsapp, instagram, email, llamada, formulario_enviado, calculadora_enviada, servicio_consultado. Los eventos propios solo se ven en los planes Pro o Enterprise de Vercel.
 
@@ -41,7 +41,7 @@ Energía solar a tu medida: diseño, venta e instalación de sistemas fotovoltai
 
 ## Evidence on Hand
 
-- Nombre, servicios, zona, WhatsApp, Instagram, "Electricista matriculado", "Más de 8 años", marcas (JA Solar, Jinko, Trina / Huawei, Fronius, Deye / Pylontech, Dyness).
+- Nombre, servicios, zona, WhatsApp, Instagram, "Electricista matriculado", "Más de 8 años", marcas (JA Solar, Jinko Solar, Trina Solar / Deye, Huawei, Growatt, Fronius / Pylontech, Dyness).
 - 21 fotos de obras propias, con leyenda en `works` de `lib/pibe.ts`. Sin barrio por foto.
 - **No van a llegar:** testimonios, garantía, visita sin cargo, plazos, fotos propias de pileta terminada. No planificar secciones que dependan de eso.
 - **Sin inventar:** no hay precios (el cliente no los publica), testimonios, garantía ni cifras de obras. Lo que falta vale `null` y no se muestra. La calculadora es una estimación orientativa con los supuestos a la vista.

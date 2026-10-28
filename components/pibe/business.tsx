@@ -35,7 +35,14 @@ export function Business() {
 
         <div className="mt-14 grid gap-10 lg:grid-cols-12 lg:gap-x-12">
           <figure className="pa-biz-photo lg:col-span-6">
-            <Image src={businessPhoto.src} alt={businessPhoto.alt} fill sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover" />
+            <Image
+              src={businessPhoto.src}
+              alt={businessPhoto.alt}
+              fill
+              sizes="(min-width: 1024px) 45vw, 100vw"
+              className="object-cover"
+              style={{ objectPosition: businessPhoto.pos }}
+            />
           </figure>
 
           <div className="lg:col-span-6">

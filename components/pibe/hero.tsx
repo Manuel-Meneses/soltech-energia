@@ -3,8 +3,11 @@ import { ArrowRightIcon, SealCheckIcon } from "@phosphor-icons/react/ssr";
 import { brands, heroPhoto, pibe, pibeCta, services } from "@/lib/pibe";
 import { TrackedLink } from "./tracked-link";
 
-/** Las dos primeras marcas de paneles y de inversores. */
-const topBrands = brands.slice(0, 2).flatMap((g) => g.items.slice(0, 2).map((b) => b.name));
+/** Las marcas de un grupo, en una frase: "Paneles JA Solar, Jinko Solar y Trina Solar". */
+const brandLine = (group: string) => {
+  const names = brands.find((g) => g.group === group)?.items.map((b) => b.name) ?? [];
+  return names.length > 0 && `${group} ${names.slice(0, -1).join(", ")}${names.length > 1 ? " y " : ""}${names.at(-1)}`;
+};
 
 /** La hoja del pie: cuatro servicios. Respaldo y piscinas saltan a su sección; limpieza queda en Servicios. */
 const sheet = services.filter((s) => s.id !== "limpieza");
@@ -13,7 +16,8 @@ const sheet = services.filter((s) => s.id !== "limpieza");
 const trust = [
   pibe.license && `Instalaciones con ${pibe.license.toLowerCase()}`,
   pibe.experience && `${pibe.experience} en el rubro`,
-  `Equipos ${topBrands.slice(0, -1).join(", ")} y ${topBrands.at(-1)}`,
+  brandLine("Inversores"),
+  brandLine("Paneles"),
 ].filter((t): t is string => !!t);
 
 /**

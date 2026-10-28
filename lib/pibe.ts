@@ -30,8 +30,10 @@ export const pibe = {
   phone: null as string | null,
   /** El mismo teléfono, como se lee. */
   phoneShown: null as string | null,
-  /** Mail de Matías. Aparece en el contacto y el pie, y el formulario puede mandar la consulta por acá. */
-  email: "matias.moreira@soltech-energia.com" as string | null,
+  /** Mail general. Aparece en el contacto y el pie. */
+  email: "info@soltech-energia.com" as string | null,
+  /** Mail de ventas. Aparece en el contacto y el pie, y el formulario manda la consulta por acá. */
+  salesEmail: "ventas@soltech-energia.com" as string | null,
   /**
    * Dirección del sitio publicado, con https y sin barra final (ej.: "https://soltechenergia.com.ar").
    * Con dominio, Google indexa el sitio, se arma el sitemap y las vistas previas al compartir usan la
@@ -50,13 +52,13 @@ export function waLink(text?: string) {
   return `https://wa.me/${pibe.whatsapp ?? ""}${q}`;
 }
 
-/** Enlace de mail con el asunto y el mensaje cargados; sin mail cargado no hay enlace. */
-export function mailLink(subject?: string, body?: string) {
-  if (!pibe.email) return null;
+/** Enlace de mail a `to` con el asunto y el mensaje cargados; sin dirección no hay enlace. */
+export function mailLink(to: string | null, subject?: string, body?: string) {
+  if (!to) return null;
   const q = [subject && `subject=${encodeURIComponent(subject)}`, body && `body=${encodeURIComponent(body.replace(/\n/g, "\r\n"))}`]
     .filter(Boolean)
     .join("&");
-  return `mailto:${pibe.email}${q ? `?${q}` : ""}`;
+  return `mailto:${to}${q ? `?${q}` : ""}`;
 }
 
 export const pibeCta = { label: "Pedí una visita", href: "#contacto" } as const;
@@ -129,7 +131,7 @@ export const services: {
     details: ["Bomba de calor", "Colectores solares", "Casas y clubes"],
     ask: "Quiero consultar por climatización de piscinas.",
     photo: {
-      src: "/pibe/trabajos/fot_15.jpg",
+      src: "/pibe/trabajos/foto_30.jpeg",
       alt: "Casa con pileta y una fila de paneles sobre el techo de tejas negras.",
       pos: "50% 72%",
     },
@@ -366,6 +368,7 @@ export const featuredWorks: { src: string; pos?: string }[] = [
 export const businessPhoto = {
   src: "/pibe/trabajos/foto_16.jpg",
   alt: "Estructura azul con un techo de paneles que da sombra a una fila de autos estacionados.",
+  pos: "50% 50%",
 } as const;
 
 /**
@@ -681,9 +684,10 @@ export const brands: { group: string; items: { name: string; src: string; w: num
   {
     group: "Inversores",
     items: [
-      { name: "Huawei", src: "/pibe/marcas/huawei.svg", w: 576, h: 98, rem: 1.35 },
-      { name: "Fronius", src: "/pibe/marcas/fronius.png", w: 500, h: 250, rem: 2.6 },
       { name: "Deye", src: "/pibe/marcas/deye.png", w: 140, h: 54, rem: 2.3 },
+      { name: "Huawei", src: "/pibe/marcas/huawei.svg", w: 576, h: 98, rem: 1.35 },
+      { name: "Growatt", src: "/pibe/marcas/growatt.png", w: 182, h: 31, rem: 1.35 },
+      { name: "Fronius", src: "/pibe/marcas/fronius.png", w: 500, h: 250, rem: 2.6 },
     ],
   },
   {

@@ -15,6 +15,7 @@ const TARGETS = [
   // Encabezado de cada sección: el título y la bajada de al lado.
   "main > section:not(#inicio):not(#contacto):not(#quien) > div:first-child > .grid:first-child > *",
   ".pa-works",
+  ".pa-video",
   ".pa-sys",
   ".pa-svc",
   ".pa-svc-extra",

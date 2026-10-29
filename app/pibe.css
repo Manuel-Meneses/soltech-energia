@@ -1961,6 +1961,95 @@ body:has(.pa) {
   }
 }
 
+/* ---------- Videos: una obra en movimiento ---------- */
+/* Un solo video a lo ancho del contenedor, en 16:9 (es de drone, apaisado) sobre el fondo de foto.
+   Antes de tocarlo, la portada lleva abajo a la izquierda una celda azul noche, unida al marco:
+   el play en sol, "Ver el video" y la duración. Al tocarla se va y quedan los controles. */
+.pa-video-frame {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-950);
+}
+.pa-video video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  background: var(--color-950);
+  transition: transform 700ms var(--pa-ease);
+}
+.pa-video-play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  cursor: pointer;
+  transition: opacity 260ms var(--pa-ease);
+}
+.pa-video-play:focus-visible {
+  outline-offset: -5px;
+  outline-color: var(--pa-sky);
+}
+.pa-video-play-dot,
+.pa-video-play-label {
+  display: flex;
+  align-items: center;
+  background: var(--pa-ink);
+  color: var(--pa-on-dark);
+}
+.pa-video-play-dot {
+  justify-content: center;
+  width: clamp(3.5rem, 7vw, 5.5rem);
+  aspect-ratio: 1;
+  color: var(--pa-sun);
+}
+.pa-video-play-dot svg {
+  transition: transform 260ms var(--pa-ease);
+}
+.pa-video-play-label {
+  gap: 0.9rem;
+  height: clamp(3.5rem, 7vw, 5.5rem);
+  margin-left: 2px;
+  padding-inline: 1.25rem 1.5rem;
+  font-weight: 600;
+  font-variation-settings: "wdth" 110;
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+}
+.pa-video-play-time {
+  padding-left: 0.9rem;
+  border-left: 1px solid var(--pa-dark-line);
+  color: var(--pa-on-dark-muted);
+  font-variant-numeric: tabular-nums;
+}
+@media (hover: hover) and (pointer: fine) {
+  .pa-video:not([data-started]) .pa-video-frame:hover video {
+    transform: scale(1.03);
+  }
+  .pa-video-play:hover .pa-video-play-dot svg {
+    transform: scale(1.12);
+  }
+}
+.pa-video-play:active .pa-video-play-dot svg {
+  transform: scale(0.94);
+}
+.pa-video[data-started] .pa-video-play {
+  opacity: 0;
+  pointer-events: none;
+}
+.pa-video-cap {
+  margin-top: 0.75rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pa-video video,
+  .pa-video-play,
+  .pa-video-play-dot svg {
+    transition: none;
+  }
+}
+
 /* ---------- Trabajos: la grilla de obras elegidas ---------- */
 /* Ocho fotos sin huecos, unidas por juntas de 2px: la primera ocupa un bloque de 2×2 y la
    última va a lo ancho. Cada una abre el visor en esa foto. */

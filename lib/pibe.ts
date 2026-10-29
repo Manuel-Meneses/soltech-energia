@@ -113,9 +113,9 @@ export const services: {
     id: "respaldo",
     title: "Sistemas de respaldo",
     short: "Luz en los cortes",
-    body: "Un inversor y una batería, sin paneles. Cuando se corta la luz, la casa o el local sigue andando con la batería; cuando vuelve, la batería se carga de la red.",
-    details: ["Inversor y batería", "No hacen falta paneles", "Paneles después, si querés"],
-    ask: "Quiero consultar por un sistema de respaldo con batería para los cortes de luz.",
+    body: "Un inversor y baterías, sin paneles. Cuando se corta la luz, la casa o el local sigue andando con las baterías; cuando vuelve, las baterías se cargan de la red.",
+    details: ["Inversor y baterías", "No hacen falta paneles", "Paneles después, si querés"],
+    ask: "Quiero consultar por un sistema de respaldo con baterías para los cortes de luz.",
     photo: {
       src: "/pibe/trabajos/foto_8.jpeg",
       alt: "Sala con piso de ladrillo, un inversor, un rack de baterías y cajas de protecciones en la pared.",
@@ -364,9 +364,19 @@ export const featuredWorks: { src: string; pos?: string }[] = [
   { src: "/pibe/trabajos/foto_1.jpeg", pos: "50% 62%" },
 ];
 
+/**
+ * El video de la sección Videos (components/pibe/videos.tsx): sale el primer archivo de
+ * public/pibe/videos/ (video_1.mp4), y una imagen con el mismo nombre (video_1.jpg) va de portada.
+ * La duración se ve en el botón de play; sin leyenda cargada, el video sale sin texto.
+ */
+export const video: { caption: string | null; duration: string | null } = {
+  caption: null,
+  duration: "1:00",
+};
+
 /** La foto de "Para empresas": el techo de paneles de un estacionamiento. */
 export const businessPhoto = {
-  src: "/pibe/trabajos/foto_16.jpg",
+  src: "/pibe/trabajos/foto_18.jpg",
   alt: "Estructura azul con un techo de paneles que da sombra a una fila de autos estacionados.",
   pos: "50% 50%",
 } as const;
@@ -414,7 +424,7 @@ export const faqs = [
   },
   {
     q: "¿Qué pasa si se corta la luz?",
-    a: "Un equipo de paneles conectado a la red se apaga en el corte, por seguridad de quienes trabajan en la línea. Para tener luz durante un corte hacen falta baterías. Y no hace falta tener paneles: un sistema de respaldo, con un inversor y una batería que se cargan de la red, mantiene andando lo que conectes.",
+    a: "Un equipo de paneles conectado a la red se apaga en el corte, por seguridad de quienes trabajan en la línea. Para tener luz durante un corte hacen falta baterías. Y no hace falta tener paneles: un sistema de respaldo, con un inversor y baterías que se cargan de la red, mantiene andando lo que conectes.",
   },
   {
     q: "¿Puedo inyectar a la red lo que no uso?",
@@ -541,8 +551,8 @@ export const systemTraits = [
 ] as const;
 
 /**
- * Sistemas de respaldo (components/pibe/backup.tsx): inversor y batería, sin paneles. Lo que
- * sigue andando depende de lo que se conecte y de la batería: no se promete una duración.
+ * Sistemas de respaldo (components/pibe/backup.tsx): inversor y baterías, sin paneles. Lo que
+ * sigue andando depende de lo que se conecte y de las baterías: no se promete una duración.
  */
 export const backup = {
   photo: {
@@ -559,14 +569,14 @@ export const backup = {
     },
     {
       title: "Vos elegís qué sigue andando",
-      body: "Conectamos al respaldo los circuitos que importan. Cuánto dura depende de la batería y de lo que tengas conectado.",
+      body: "Conectamos al respaldo los circuitos que importan. Cuánto dura depende de las baterías y de lo que tengas conectado.",
     },
     {
       title: "Paneles cuando quieras",
-      body: "Con un inversor híbrido, más adelante sumás paneles y la batería también se carga con el sol.",
+      body: "Con un inversor híbrido, más adelante sumás paneles y las baterías también se cargan con el sol.",
     },
   ],
-  ask: "Quiero consultar por un sistema de respaldo con batería para los cortes de luz.",
+  ask: "Quiero consultar por un sistema de respaldo con baterías para los cortes de luz.",
 } as const;
 
 /**

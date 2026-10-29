@@ -23,7 +23,7 @@ const winDelay = (house: number, win: number) => ((house * 7 + win * 13) % 9) * 
 const batteries = brands.find((g) => g.group === "Baterías")?.items.map((b) => b.name) ?? [];
 
 /**
- * Sistemas de respaldo: un inversor y una batería, sin paneles. La cuadra se apaga y tu casa
+ * Sistemas de respaldo: un inversor y baterías, sin paneles. La cuadra se apaga y tu casa
  * sigue con luz. La primera vez que la escena entra en pantalla, el corte pasa solo (salvo con
  * movimiento reducido); después lo maneja el botón. El texto de estado se anuncia a lectores de
  * pantalla y la escena es decorativa. El cable y la batería solo se animan mientras se ven.
@@ -81,8 +81,8 @@ export function Backup() {
             Se corta la luz. Tu casa sigue.
           </h2>
           <p className="max-w-[46ch] text-lg leading-relaxed text-[var(--pa-muted)] lg:col-span-5">
-            Un sistema de respaldo es un inversor y una batería, sin paneles. Mientras hay luz, la batería se carga de
-            la red; cuando se corta, la casa pasa a la batería sola.
+            Un sistema de respaldo es un inversor y baterías, sin paneles. Mientras hay luz, las baterías se cargan de
+            la red; cuando se corta, la casa pasa a las baterías sola.
           </p>
         </div>
 
@@ -97,7 +97,7 @@ export function Backup() {
             <div className="pa-bk-top">
               <p className="pa-bk-status" aria-live="polite">
                 <span className="pa-bk-dot" aria-hidden="true" />
-                {on ? "Hay luz en la cuadra. La batería se carga de la red." : "Se cortó la luz. Tu casa sigue con la batería."}
+                {on ? "Hay luz en la cuadra. Las baterías se cargan de la red." : "Se cortó la luz. Tu casa sigue con las baterías."}
               </p>
               <button type="button" aria-pressed={!on} onClick={toggle} className="pa-btn pa-btn-action pa-bk-switch">
                 {on ? (

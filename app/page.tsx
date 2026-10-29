@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { PibeHeader } from "@/components/pibe/header";
 import { PibeHero } from "@/components/pibe/hero";
 import { Works } from "@/components/pibe/works";
+import { Videos } from "@/components/pibe/videos";
 import { Services } from "@/components/pibe/services";
 import { Backup } from "@/components/pibe/backup";
 import { Pools } from "@/components/pibe/pools";
@@ -68,7 +69,7 @@ export default function PibeHome() {
       <PibeHeader />
       {/* El orden lleva a quien llega con la factura en la mano hasta el WhatsApp:
           1. Qué gano y por qué confiar: el hero, con un solo botón.
-          2. La prueba antes de pedir nada: obras propias.
+          2. La prueba antes de pedir nada: obras propias, en fotos y en un video.
           3. Qué hacen: qué sistema va con tu lugar (on-grid, híbrido, off-grid, móvil) y los demás servicios.
           4. El respaldo para los cortes, con la cuadra que se apaga.
           5. La pileta: bomba de calor o colectores solares, mes a mes.
@@ -82,6 +83,7 @@ export default function PibeHome() {
       <main>
         <PibeHero />
         <Works />
+        <Videos />
         <Services />
         <Backup />
         <Pools />

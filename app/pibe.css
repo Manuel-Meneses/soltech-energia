@@ -2050,9 +2050,82 @@ body:has(.pa) {
   }
 }
 
-/* ---------- Trabajos: la grilla de obras elegidas ---------- */
-/* Ocho fotos sin huecos, unidas por juntas de 2px: la primera ocupa un bloque de 2×2 y la
-   última va a lo ancho. Cada una abre el visor en esa foto. */
+/* ---------- Trabajos: filtros y mosaico ---------- */
+/* Los filtros y el mosaico son un solo módulo, unido por juntas de 2px. Las celdas salen del
+   dibujo de works-reel.tsx, que suma justo para no dejar huecos con cualquier cantidad de fotos. */
+.pa-filters {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2px;
+  padding: 2px 2px 0;
+  background: var(--pa-ink);
+}
+@media (min-width: 768px) {
+  .pa-filters {
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    grid-template-columns: none;
+  }
+}
+.pa-filter {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  min-height: 3.25rem;
+  padding: 0.5rem 0.85rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-variation-settings: "wdth" 110;
+  text-align: left;
+  color: var(--pa-ink);
+  background: var(--pa-paper);
+  transition:
+    background-color 200ms var(--pa-ease),
+    color 200ms var(--pa-ease);
+}
+.pa-filter > span {
+  font-size: 0.8rem;
+  color: var(--pa-muted);
+  transition: color 200ms var(--pa-ease);
+}
+.pa-filter::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 3px;
+  background: var(--pa-sun);
+  opacity: 0;
+  transform: scaleX(0.4);
+  transform-origin: left;
+  transition:
+    opacity 200ms var(--pa-ease),
+    transform 320ms var(--pa-ease);
+}
+.pa-filter[aria-pressed="true"] {
+  color: var(--pa-on-dark);
+  background: var(--pa-ink);
+}
+.pa-filter[aria-pressed="true"] > span {
+  color: var(--pa-on-dark-muted);
+}
+.pa-filter[aria-pressed="true"]::after {
+  opacity: 1;
+  transform: none;
+}
+.pa-filter:focus-visible {
+  z-index: 1;
+  outline-offset: -4px;
+}
+.pa-filter[aria-pressed="true"]:focus-visible {
+  outline-color: var(--pa-sky);
+}
+@media (hover: hover) and (pointer: fine) {
+  .pa-filter[aria-pressed="false"]:hover {
+    background: var(--pa-paper-2);
+  }
+}
 .pa-works {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2061,17 +2134,31 @@ body:has(.pa) {
   padding: 2px;
   background: var(--pa-ink);
 }
-.pa-works-cell:first-child {
+.pa-tile-g,
+.pa-tile-p {
   grid-column: span 2;
   grid-row: span 2;
 }
-.pa-works-cell:last-child {
+.pa-tile-a {
   grid-column: span 2;
 }
 @media (min-width: 768px) {
   .pa-works {
     grid-template-columns: repeat(4, minmax(0, 1fr));
     grid-auto-rows: clamp(11rem, 17vw, 16.5rem);
+  }
+  .pa-tile-p {
+    grid-column: span 4;
+  }
+}
+/* Al filtrar o abrir más, las fotos suben en tanda. Parten de un estado visible por si la animación no corre. */
+.pa-tile-in {
+  animation: pa-tile-in 520ms var(--pa-ease) both;
+}
+@keyframes pa-tile-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
   }
 }
 .pa-works-btn {
@@ -2087,10 +2174,15 @@ body:has(.pa) {
 .pa-works-btn img {
   transition: transform 900ms var(--pa-ease);
 }
-/* La leyenda, sobre un degradé de azul noche (sin desenfoque). */
+/* La leyenda, sobre un degradé de azul noche (sin desenfoque). Una descripción larga se lee entera en el visor. */
 .pa-works-cap {
   position: absolute;
   inset: auto 0 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
   padding: 2.5rem 1rem 0.85rem;
   font-size: 0.875rem;
   font-weight: 600;
@@ -2130,60 +2222,202 @@ body:has(.pa) {
 }
 /* En el celular las celdas chicas no tienen lugar para la leyenda: la lleva el visor. */
 @media (max-width: 639px) {
-  .pa-works-cell:not(:first-child):not(:last-child) .pa-works-cap {
+  .pa-tile-c .pa-works-cap {
     display: none;
   }
 }
 
-/* El visor de todas las fotos: la foto entera sobre negro, sin recortes (las hay verticales y
-   apaisadas). Abajo, la barra con contador, leyenda y flechas, y la tira de miniaturas. Todo
-   pegado con juntas de 2px. El alto sale del ancho del visor (cqi), así la pista nunca queda
-   más angosta que el marco. */
-.pa-reel-works {
-  container-type: inline-size;
-  display: grid;
-  gap: 2px;
-  border: 2px solid var(--pa-ink);
+/* El visor a pantalla completa: la foto entera sobre negro, sin recortes (las hay verticales y
+   apaisadas). Al costado el panel con la descripción, y debajo de la foto, la tira de miniaturas;
+   en el celular el panel va abajo y se pasa con el dedo. Todo pegado con juntas de 2px. */
+html:has(.pa-lb[open]) {
+  overflow: hidden;
+}
+.pa-lb {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: var(--pa-on-dark);
   background: var(--pa-dark-line);
 }
-.pa-wr-track {
+.pa-lb[open] {
+  display: grid;
+  gap: 2px;
+  grid-template: minmax(0, 1fr) auto / minmax(0, 1fr);
+}
+.pa-lb::backdrop {
+  background: var(--color-950);
+}
+@media (min-width: 1024px) {
+  .pa-lb[open] {
+    grid-template: minmax(0, 1fr) auto / minmax(0, 1fr) clamp(21rem, 27vw, 27rem);
+  }
+  .pa-lb-panel {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+}
+.pa-lb-track {
   display: flex;
-  /* El visor entero (foto, barra y miniaturas) entra en una pantalla de notebook. */
-  height: min(68svh, 56.25cqi);
+  min-height: 0;
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
   background: var(--color-950);
 }
-.pa-wr-track::-webkit-scrollbar {
+.pa-lb-track::-webkit-scrollbar {
   display: none;
 }
-.pa-wr-track:focus-visible {
+.pa-lb-track:focus-visible {
   outline-offset: -4px;
 }
-.pa-wr-slide {
+.pa-lb-slide {
   position: relative;
   flex: 0 0 100%;
   margin: 0;
   scroll-snap-align: center;
   scroll-snap-stop: always;
 }
-@media (max-width: 639px) {
-  .pa-wr-track {
-    height: min(70svh, 100cqi);
+/* En el celular se pasa con el dedo, y ese alto es para la foto. */
+@media (max-width: 1023px) {
+  .pa-lb .pa-lb-thumbs {
+    display: none;
   }
 }
-.pa-wr-bar {
+.pa-lb-panel {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  gap: 2px;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  min-height: 0;
+  background: var(--pa-ink);
 }
-.pa-wr-bar > * {
+@media (max-width: 1023px) {
+  .pa-lb-panel {
+    max-height: 48dvh;
+  }
+}
+.pa-lb-top {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--pa-dark-line);
+}
+.pa-lb-top .pa-wr-count {
   display: flex;
   align-items: center;
+}
+.pa-lb-close {
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
   min-height: 3.5rem;
-  background: var(--pa-ink);
+  color: var(--pa-on-dark);
+  border-left: 1px solid var(--pa-dark-line);
+  transition: background-color 200ms var(--pa-ease);
+}
+.pa-lb-text {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 1.25rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pa-dark-line) var(--pa-ink);
+}
+@media (min-width: 1024px) {
+  .pa-lb-text {
+    padding: 2rem 1.5rem;
+  }
+}
+.pa-lb-kind {
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--pa-sun);
+}
+.pa-lb-desc {
+  max-width: 34ch;
+  margin-top: 0.6rem;
+  font-size: clamp(1.15rem, 1.6vw, 1.4rem);
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: pre-line;
+  text-wrap: pretty;
+}
+.pa-lb-pitch {
+  max-width: 34ch;
+  margin-top: 0.6rem;
+  line-height: 1.5;
+  color: var(--pa-on-dark-muted);
+}
+.pa-lb-foot {
+  display: grid;
+  gap: 2px;
+  grid-template-columns: auto minmax(0, 1fr);
+  background: var(--pa-dark-line);
+  border-top: 2px solid var(--pa-dark-line);
+}
+.pa-lb-arrows {
+  display: flex;
+  gap: 2px;
+}
+.pa-lb-arrows > button {
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  min-height: 3.5rem;
+  color: var(--pa-on-action);
+  background: var(--pa-action);
+  transition:
+    background-color 200ms var(--pa-ease),
+    transform 160ms var(--pa-ease);
+}
+.pa-lb-arrows > button:active {
+  transform: scale(0.94);
+}
+.pa-lb-cta {
+  height: auto;
+  min-height: 3.5rem;
+  padding-inline: 1rem;
+}
+@media (hover: hover) and (pointer: fine) {
+  .pa-lb-arrows > button:hover {
+    background: var(--pa-action-hover);
+  }
+  .pa-lb-close:hover {
+    background: var(--pa-ink-2);
+  }
+}
+/* La foto que pasa del mosaico al visor. El resto de la página solo cruza opacidad. */
+::view-transition-group(pa-obra) {
+  animation-duration: 460ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+::view-transition-old(pa-obra),
+::view-transition-new(pa-obra) {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 240ms;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pa-tile-in {
+    animation: none;
+  }
+  .pa-filter,
+  .pa-filter::after,
+  .pa-works-btn img,
+  .pa-lb-arrows > button {
+    transition: none;
+  }
 }
 .pa-wr-count {
   padding: 0 1.25rem;
@@ -2197,49 +2431,6 @@ body:has(.pa) {
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--pa-on-dark-muted);
-}
-.pa-wr-caption {
-  padding: 0.6rem 1.25rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  line-height: 1.4;
-  color: var(--pa-on-dark);
-}
-.pa-wr-arrows {
-  gap: 2px;
-  background: var(--pa-dark-line);
-}
-.pa-wr-arrows > button {
-  display: grid;
-  place-items: center;
-  width: 3.5rem;
-  height: 100%;
-  min-height: 3.5rem;
-  background: var(--pa-action);
-  color: var(--pa-on-action);
-  transition:
-    background-color 200ms var(--pa-ease),
-    transform 160ms var(--pa-ease);
-}
-.pa-wr-arrows > button:active {
-  transform: scale(0.94);
-}
-@media (hover: hover) and (pointer: fine) {
-  .pa-wr-arrows > button:hover {
-    background: var(--pa-action-hover);
-  }
-}
-@media (max-width: 639px) {
-  .pa-wr-bar {
-    grid-template-columns: auto minmax(0, 1fr);
-  }
-  .pa-wr-caption {
-    grid-column: 1 / -1;
-    grid-row: 2;
-  }
-  .pa-wr-arrows {
-    justify-content: flex-end;
-  }
 }
 /* La tira: todas las fotos en chico; la actual, encendida en celeste. */
 .pa-wr-thumbs {

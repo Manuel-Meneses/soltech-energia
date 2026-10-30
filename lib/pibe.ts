@@ -213,149 +213,284 @@ export const portrait = {
   alt: "Instalador conectando la caja de protecciones debajo de un inversor, en la pared de una casa.",
 } as const;
 
+/** Los filtros de la galería de Trabajos, y la lista desplegable de la columna "Tipo" de la planilla. */
+export const workKinds = ["Casas", "Empresas", "Campo", "Piscinas", "Equipos"] as const;
+export type WorkKind = (typeof workKinds)[number];
+
 /**
- * Fichas de las fotos de trabajos. El visor de "Ver todas las fotos" (components/pibe/works-reel.tsx)
- * muestra TODAS las fotos que haya en public/pibe/trabajos/, ordenadas por el número del nombre
- * (foto_1, foto_2…): alcanza con soltar el archivo ahí. Una foto con ficha lleva su leyenda (`what`)
- * y su `alt`; una sin ficha sale con una leyenda genérica. `place` es la localidad: cuando se
- * carga, se suma a la leyenda.
+ * Fichas de las fotos de public/pibe/trabajos/. Con la galería conectada a Drive (lib/galeria.ts)
+ * el cliente carga los textos en la planilla, y estas fichas solo completan las primeras filas de
+ * las fotos que suban con el mismo nombre de archivo. Sin Drive, son la galería. `ratio` es ancho
+ * sobre alto (apaisada 4:3 si no está).
  */
-export const works: { src: string; what: string; place: string | null; alt: string }[] = [
+export const works: { src: string; what: string; place: string | null; alt: string; kind: WorkKind; ratio?: number }[] = [
   {
     src: "/pibe/trabajos/foto_1.jpeg",
     what: "Tres filas de paneles en el campo, vistas desde el drone",
     place: null,
     alt: "Vista aérea de una casa en el monte con tres filas de paneles solares sobre el pasto y uno sobre el techo de chapa.",
+    kind: "Campo",
   },
   {
     src: "/pibe/trabajos/fot_3.jpeg",
     what: "Paneles sobre el techo de chapa de un galpón",
     place: null,
     alt: "Fila de paneles sobre un techo de chapa a dos aguas, con un tanque de agua y árboles alrededor.",
+    kind: "Empresas",
+    ratio: 0.75,
   },
   {
     src: "/pibe/trabajos/fot_4.jpeg",
     what: "Pileta en el jardín de una casa",
     place: null,
     alt: "Pileta en el jardín de una casa, con un equipo instalado al costado y agua de fondo.",
+    kind: "Piscinas",
+    ratio: 0.75,
   },
   {
     src: "/pibe/trabajos/foto_4.jpeg",
     what: "Tablero de protecciones armado en obra",
     place: null,
     alt: "Tablero de protecciones abierto en plena obra, junto a una caja de herramientas.",
+    kind: "Equipos",
+    ratio: 0.75,
   },
   {
     src: "/pibe/trabajos/foto_5.jpeg",
     what: "En el campo, entre filas de paneles",
     place: null,
     alt: "Instalador con casco y anteojos de sol, delante de filas de paneles sobre el pasto.",
+    kind: "Campo",
+    ratio: 0.75,
   },
   {
     src: "/pibe/trabajos/foto_6.jpeg",
     what: "Con arnés, sobre un techo de paneles",
     place: null,
     alt: "Instalador con arnés amarillo sobre un techo cubierto de paneles.",
+    kind: "Casas",
   },
   {
     src: "/pibe/trabajos/foto_7.jpeg",
     what: "Inversor y baterías en la sala técnica de una casa",
     place: null,
     alt: "Inversor blanco junto a un rack de baterías, en la sala técnica de una casa.",
+    kind: "Equipos",
+    ratio: 0.75,
   },
   {
     src: "/pibe/trabajos/foto_8.jpeg",
     what: "Sala técnica con inversor, baterías y tablero",
     place: null,
     alt: "Sala con piso de ladrillo, un inversor, un rack de baterías y cajas de protecciones en la pared.",
+    kind: "Equipos",
   },
   {
     src: "/pibe/trabajos/foto_9.jpeg",
     what: "Conexión de tres inversores en la pared",
     place: null,
     alt: "Técnico conectando tres inversores azules montados en una pared blanca.",
+    kind: "Equipos",
+    ratio: 0.75,
   },
   {
     src: "/pibe/trabajos/foto_10.jpeg",
     what: "Una larga fila de paneles en una terraza",
     place: null,
     alt: "Larga fila de paneles sobre una terraza blanca, con árboles y cielo nublado de fondo.",
+    kind: "Casas",
+    ratio: 0.75,
   },
   {
     src: "/pibe/trabajos/fot_15.jpg",
     what: "Paneles sobre tejas, en una casa con pileta",
     place: null,
     alt: "Casa con pileta y una fila de paneles sobre el techo de tejas negras.",
+    kind: "Casas",
+    ratio: 1,
   },
   {
     src: "/pibe/trabajos/foto_11.jpeg",
     what: "Paneles sobre chapa negra, en una casa de campo",
     place: null,
     alt: "Paneles sobre un techo de chapa negra, con campo y casas a lo lejos.",
+    kind: "Casas",
   },
   {
     src: "/pibe/trabajos/foto_12.jpeg",
     what: "Inversor y protecciones en una oficina",
     place: null,
     alt: "Vista desde arriba de una oficina con un inversor y cajas de protecciones en la pared.",
+    kind: "Equipos",
   },
   {
     src: "/pibe/trabajos/foto_13.jpeg",
     what: "Paneles sobre el techo de un local, en la ciudad",
     place: null,
     alt: "Paneles sobre el techo de chapa de un local, con la calle y autos abajo.",
+    kind: "Empresas",
   },
   {
     src: "/pibe/trabajos/foto_14.jpeg",
     what: "Tres filas de paneles en una terraza, vistas desde el drone",
     place: null,
     alt: "Vista aérea de una terraza en la ciudad con tres filas de paneles.",
+    kind: "Casas",
   },
   {
     src: "/pibe/trabajos/foto_16.jpg",
     what: "Techo de paneles para un estacionamiento",
     place: null,
     alt: "Estructura azul con un techo de paneles que da sombra a una fila de autos estacionados.",
+    kind: "Empresas",
+    ratio: 1,
   },
   {
     src: "/pibe/trabajos/foto_17.jpg",
     what: "Paneles sobre bases de hormigón, en el pasto",
     place: null,
     alt: "Instalador con casco, con el pulgar arriba, junto a una fila de paneles solares apoyados sobre bases de hormigón en el pasto.",
+    kind: "Empresas",
+    ratio: 1,
   },
   {
     src: "/pibe/trabajos/foto_18.jpg",
     what: "Paneles y termotanques solares en una terraza",
     place: null,
     alt: "Vista desde arriba de una terraza con colectores de tubos para agua caliente y una larga fila de paneles.",
+    kind: "Casas",
+    ratio: 1,
   },
   {
     src: "/pibe/trabajos/foto_19.jpg",
     what: "Paneles en el techo de un galpón de colectivos",
     place: null,
     alt: "Instalador con casco y arnés sobre un techo de chapa cubierto de paneles, con colectivos estacionados abajo.",
+    kind: "Empresas",
+    ratio: 0.8,
   },
   {
     src: "/pibe/trabajos/foto_20.jpg",
     what: "Paneles sobre chapa, en una casa",
     place: null,
     alt: "Fila de paneles sobre un techo de chapa, con casas y árboles alrededor y el cielo nublado.",
+    kind: "Casas",
+    ratio: 0.8,
   },
   {
     src: "/pibe/trabajos/foto_21.jpg",
     what: "Conexión de protecciones bajo un inversor",
     place: null,
     alt: "Instalador conectando la caja de protecciones debajo de un inversor, en la pared de una casa.",
+    kind: "Equipos",
+    ratio: 0.8,
+  },
+  {
+    src: "/pibe/trabajos/foto_22.jpeg",
+    what: "Bomba de calor junto a su tablero, al lado de un deck",
+    place: null,
+    alt: "Equipo de bomba de calor gris sobre una base, con un tablero en la pared negra de al lado.",
+    kind: "Piscinas",
+  },
+  {
+    src: "/pibe/trabajos/foto_23.jpeg",
+    what: "Bomba de calor sobre su base, al pie de un árbol",
+    place: null,
+    alt: "Bomba de calor negra sobre una base de ladrillos, junto al tronco de un árbol.",
+    kind: "Piscinas",
+    ratio: 0.75,
+  },
+  {
+    src: "/pibe/trabajos/foto_24.jpeg",
+    what: "Bomba de calor en el fondo de una casa",
+    place: null,
+    alt: "Bomba de calor negra junto a un cerco y un árbol grande, en el fondo de una casa.",
+    kind: "Piscinas",
+  },
+  {
+    src: "/pibe/trabajos/foto_25.jpeg",
+    what: "Bomba de calor sobre una ménsula en la pared",
+    place: null,
+    alt: "Bomba de calor montada en alto sobre una pared clara, con sus caños a la vista.",
+    kind: "Piscinas",
+    ratio: 0.75,
+  },
+  {
+    src: "/pibe/trabajos/foto_26.jpeg",
+    what: "Bomba de calor en alto, en el patio de una casa",
+    place: null,
+    alt: "Bomba de calor blanca montada en una pared de patio, sobre una caja de hormigón.",
+    kind: "Piscinas",
+    ratio: 0.75,
+  },
+  {
+    src: "/pibe/trabajos/foto_27.jpeg",
+    what: "Pileta en el patio de una casa",
+    place: null,
+    alt: "Pileta de agua turquesa en el patio de una casa, con cielo de nubes.",
+    kind: "Piscinas",
+    ratio: 0.75,
+  },
+  {
+    src: "/pibe/trabajos/foto_28.jpeg",
+    what: "Colectores solares para pileta sobre una terraza",
+    place: null,
+    alt: "Colectores solares negros tendidos sobre una terraza, con casas y edificios de fondo.",
+    kind: "Piscinas",
+  },
+  {
+    src: "/pibe/trabajos/foto_29.jpeg",
+    what: "Los mismos colectores, desde otro ángulo",
+    place: null,
+    alt: "Colectores solares negros sobre una terraza, vistos desde otro ángulo.",
+    kind: "Piscinas",
+  },
+  {
+    src: "/pibe/trabajos/foto_30.jpeg",
+    what: "Colectores solares para pileta en una terraza",
+    place: null,
+    alt: "Manto de colectores solares negros sobre una terraza, junto a un cerco verde.",
+    kind: "Piscinas",
+  },
+  {
+    src: "/pibe/trabajos/foto_31.jpeg",
+    what: "Filas de paneles sobre una terraza",
+    place: null,
+    alt: "Filas de paneles sobre una terraza clara, con casas y árboles de fondo.",
+    kind: "Casas",
+  },
+  {
+    src: "/pibe/trabajos/foto_32.jpeg",
+    what: "Paneles en una terraza, vistos desde arriba",
+    place: null,
+    alt: "Paneles sobre una terraza clara vistos desde lo alto, con un barrio y agua de fondo.",
+    kind: "Casas",
+    ratio: 0.75,
+  },
+  {
+    src: "/pibe/trabajos/foto_33.jpeg",
+    what: "Casa junto al agua, con paneles arriba y en la cochera",
+    place: null,
+    alt: "Vista aérea de una casa moderna junto a una laguna, con paneles en el techo.",
+    kind: "Casas",
+  },
+  {
+    src: "/pibe/trabajos/foto_34.jpeg",
+    what: "Paneles sobre un techo de chapa",
+    place: null,
+    alt: "Paneles sobre un techo de chapa, con el barrio y un cielo despejado de fondo.",
+    kind: "Casas",
+    ratio: 0.75,
   },
 ];
 
 /**
- * Las obras de la grilla de Trabajos, en su orden: la primera va grande y la última, ancha.
- * `pos` es el encuadre en su celda; leyenda y alt salen de `works`.
+ * Las obras que abren la galería, en su orden; las demás van después. `pos` es el encuadre en su
+ * celda; leyenda y alt salen de `works`.
  */
 export const featuredWorks: { src: string; pos?: string }[] = [
   { src: "/pibe/trabajos/foto_19.jpg", pos: "50% 58%" },
-  { src: "/pibe/trabajos/foto_20.jpg", pos: "50% 60%" },
+  { src: "/pibe/trabajos/foto_20.jpg", pos: "50% 88%" },
   { src: "/pibe/trabajos/foto_18.jpg" },
   { src: "/pibe/trabajos/foto_17.jpg", pos: "45% 60%" },
   { src: "/pibe/trabajos/foto_8.jpeg", pos: "50% 55%" },

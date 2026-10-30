@@ -19,6 +19,10 @@ import { pibe, services } from "@/lib/pibe";
 import { archivo } from "@/app/font";
 import "./pibe.css";
 
+/* La galería sale de Drive y la planilla (lib/galeria.ts): la página se rehace cada 5 minutos, y al
+   momento con el enlace "Traer fotos nuevas y publicar" de la planilla. */
+export const revalidate = 300;
+
 /* Sitio de Soltech Energía. Sin dominio cargado en lib/pibe.ts es una vista previa y no se indexa. */
 export const metadata: Metadata = {
   title: `${pibe.name} | Sistemas fotovoltaicos, baterías y climatización de piscinas en todo el país`,

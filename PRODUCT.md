@@ -30,7 +30,7 @@ Energía solar a tu medida: diseño, venta e instalación de sistemas fotovoltai
 
 - **Servicios:** sistemas fotovoltaicos de cuatro tipos (on-grid, híbrido con baterías, off-grid para lugares sin red y móvil para casas rodantes, motorhomes y vehículos), que se diseñan, venden e instalan; en el formulario van como "Paneles solares". Además: sistemas de respaldo (inversor y batería, sin paneles; se pueden sumar paneles después con un inversor híbrido), climatización de piscinas (bomba de calor o colectores solares), mantenimiento, limpieza de paneles. Termotanques solares: nombrados al pie de Servicios y en Preguntas, no como servicio propio.
 - **Piscinas:** confirmado por el cliente (26 oct. 2026): bomba de calor (la foto de obra la muestra) y colectores solares. Los meses de temporada de cada una (`poolSeasons` en `lib/pibe.ts`) son orientativos y están a la vista como tales; el cliente puede corregirlos.
-- **Stack:** Next.js 16 (App Router), Tailwind CSS v4, Phosphor Icons, `@vercel/analytics`. Las animaciones son CSS: no hay librería de animación. Los datos viven en `lib/pibe.ts`; las fotos de obras, en `public/pibe/trabajos/` (se leen solas).
+- **Stack:** Next.js 16 (App Router), Tailwind CSS v4, Phosphor Icons, `@vercel/analytics`. Las animaciones son CSS: no hay librería de animación. Los datos viven en `lib/pibe.ts`. La galería de Trabajos la maneja el cliente desde una carpeta de Google Drive y una planilla (`lib/galeria.ts`, ver README); sin configurar, salen las fotos de `public/pibe/trabajos/`.
 - **Restricciones:** liviano en celular, sin blur (`filter: blur`, `backdrop-filter` ni `placeholder="blur"`), solo `transform` y `opacity` en lo que se anima.
 
 ## Brand Commitments
@@ -42,7 +42,7 @@ Energía solar a tu medida: diseño, venta e instalación de sistemas fotovoltai
 ## Evidence on Hand
 
 - Nombre, servicios, zona, WhatsApp, Instagram, "Electricista matriculado", "Más de 8 años", marcas (JA Solar, Jinko Solar, Trina Solar / Deye, Huawei, Growatt, Fronius / Pylontech, Dyness).
-- 21 fotos de obras propias, con leyenda en `works` de `lib/pibe.ts`. Sin barrio por foto.
+- 34 fotos de obras propias, con ficha en `works` de `lib/pibe.ts` (tipo clasificado por nosotros a ojo; las descripciones definitivas las carga el cliente). Sin barrio por foto.
 - **No van a llegar:** testimonios, garantía, visita sin cargo, plazos, fotos propias de pileta terminada. No planificar secciones que dependan de eso.
 - **Sin inventar:** no hay precios (el cliente no los publica), testimonios, garantía ni cifras de obras. Lo que falta vale `null` y no se muestra. La calculadora es una estimación orientativa con los supuestos a la vista.
 

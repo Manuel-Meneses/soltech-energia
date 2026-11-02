@@ -5,7 +5,7 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, typ
 import { flushSync } from "react-dom";
 import { ArrowLeftIcon, ArrowRightIcon, ArrowUpRightIcon, ArrowsOutSimpleIcon, WhatsappLogoIcon, XIcon } from "@phosphor-icons/react";
 import type { GalleryPhoto } from "@/lib/galeria";
-import { pibe, waLink, workKinds, type WorkKind } from "@/lib/pibe";
+import { pibe, waLink } from "@/lib/pibe";
 import { TrackedLink } from "./tracked-link";
 
 const pad = (n: number) => String(n).padStart(2, "0");
@@ -96,32 +96,21 @@ function morph(from: HTMLElement | null | undefined, change: () => HTMLElement |
 }
 
 /**
- * La galería de Trabajos: filtros por tipo de obra pegados a un mosaico de fotos. Tocar una foto la
- * abre en el visor, con todas las de ese filtro para pasar.
+ * La galería de Trabajos: un mosaico de fotos. Tocar una foto la abre en el visor, con todas las
+ * demás para pasar.
  */
 export function WorksGallery({ photos, instagram }: { photos: GalleryPhoto[]; instagram: string | null }) {
-  const [kind, setKind] = useState<WorkKind | null>(null);
   const [expanded, setExpanded] = useState(false);
   const [open, setOpen] = useState<number | null>(null);
-  /** Las fotos entran animadas al filtrar o abrir más, nunca al cargar la página. */
+  /** Las fotos entran animadas al abrir más, nunca al cargar la página. */
   const [touched, setTouched] = useState(false);
   const root = useRef<HTMLDivElement>(null);
   const grid = useRef<HTMLUListElement>(null);
   const more = useRef<HTMLButtonElement>(null);
 
-  const kinds = useMemo(
-    () => workKinds.map((k) => ({ kind: k, count: photos.filter((p) => p.kind === k).length })).filter((k) => k.count > 0),
-    [photos],
-  );
-  const tiles = useMemo(() => arrange(kind ? photos.filter((p) => p.kind === kind) : photos), [photos, kind]);
+  const tiles = useMemo(() => arrange(photos), [photos]);
   const shown = expanded ? tiles : tiles.slice(0, FIRST);
-  const label = kind ? `${tiles.length} ${tiles.length === 1 ? "foto" : "fotos"} de ${kind}` : `${tiles.length} fotos`;
-
-  function filter(next: WorkKind | null) {
-    setKind(next);
-    setExpanded(false);
-    setTouched(true);
-  }
+  const label = `${tiles.length} fotos`;
 
   function toggleMore() {
     if (expanded) {
@@ -153,25 +142,13 @@ export function WorksGallery({ photos, instagram }: { photos: GalleryPhoto[]; in
 
   return (
     <div ref={root} className="mt-14 scroll-mt-2">
-      {kinds.length > 1 && (
-        <div className="pa-filters" role="group" aria-label="Filtrar las obras por tipo">
-          <button type="button" aria-pressed={kind === null} onClick={() => filter(null)} className="pa-filter">
-            Todas <span className="pa-num">{photos.length}</span>
-          </button>
-          {kinds.map((k) => (
-            <button key={k.kind} type="button" aria-pressed={kind === k.kind} onClick={() => filter(k.kind)} className="pa-filter">
-              {k.kind} <span className="pa-num">{k.count}</span>
-            </button>
-          ))}
-        </div>
-      )}
       <p className="sr-only" aria-live="polite">
         {touched ? `Se muestran ${shown.length} de ${label}.` : ""}
       </p>
 
-      <ul ref={grid} key={kind ?? "todas"} className="pa-works" aria-label={`Obras: ${label}`}>
+      <ul ref={grid} className="pa-works" aria-label={`Obras: ${label}`}>
         {shown.map(({ photo: p, slot }, i) => {
-          const enters = touched && (kind !== null || i >= FIRST || !expanded);
+          const enters = touched && (i >= FIRST || !expanded);
           const delay = i >= FIRST && expanded ? i - FIRST : i;
           return (
             <li
@@ -359,7 +336,6 @@ function WorksViewer({
         </div>
 
         <div className="pa-lb-text" aria-live="polite">
-          {photo.kind && <p className="pa-lb-kind">{photo.kind}</p>}
           {photo.description ? (
             <p className="pa-lb-desc">{photo.description}</p>
           ) : (

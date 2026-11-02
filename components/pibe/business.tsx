@@ -2,12 +2,12 @@
 
 import Image from "next/image";
 import { ArrowRightIcon } from "@phosphor-icons/react";
-import { business, businessPhoto, prefillContact } from "@/lib/pibe";
+import { business, businessPhotos, prefillContact } from "@/lib/pibe";
 import { trackConversion } from "@/lib/track";
 
 /**
- * Para empresas: el techo de un comercio, un galpón o una industria. Una obra para empresa a la
- * vista y, al lado, lo que cambia, en filas como una hoja de datos. El botón precarga el
+ * Para empresas: el techo de un comercio, un galpón o una industria. Cuatro obras para empresas
+ * en un recuadro de dos por dos, unidas por juntas como las celdas de un panel, y al lado lo que cambia, en filas como una hoja de datos. El botón precarga el
  * formulario con "Empresa" y baja hasta él.
  */
 export function Business() {
@@ -34,16 +34,20 @@ export function Business() {
         </div>
 
         <div className="mt-14 grid gap-10 lg:grid-cols-12 lg:gap-x-12">
-          <figure className="pa-biz-photo lg:col-span-6">
-            <Image
-              src={businessPhoto.src}
-              alt={businessPhoto.alt}
-              fill
-              sizes="(min-width: 1024px) 45vw, 100vw"
-              className="object-cover"
-              style={{ objectPosition: businessPhoto.pos }}
-            />
-          </figure>
+          <div className="pa-biz-photos lg:col-span-6">
+            {businessPhotos.map((p) => (
+              <figure key={p.src} className="pa-biz-photo">
+                <Image
+                  src={p.src}
+                  alt={p.alt}
+                  fill
+                  sizes="(min-width: 1024px) 22vw, 50vw"
+                  className="object-cover"
+                  style={{ objectPosition: p.pos }}
+                />
+              </figure>
+            ))}
+          </div>
 
           <div className="lg:col-span-6">
             <ul className="pa-biz">

@@ -41,7 +41,7 @@ export function Videos() {
             Mirá una obra de cerca.
           </h2>
           <p className="max-w-[46ch] text-lg leading-relaxed text-[var(--pa-muted)] lg:col-span-5">
-            Un minuto de drone sobre instalaciones nuestras: paneles sobre chapa y sobre losa, tal como quedaron.
+            Medio minuto de drone sobre obras nuestras: el equipo instalando paneles sobre chapa, y una casa con paneles en la losa y en el techo de la cochera.
           </p>
         </div>
 

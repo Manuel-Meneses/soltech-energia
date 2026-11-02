@@ -117,7 +117,7 @@ export const services: {
     details: ["Inversor y baterías", "No hacen falta paneles", "Paneles después, si querés"],
     ask: "Quiero consultar por un sistema de respaldo con baterías para los cortes de luz.",
     photo: {
-      src: "/pibe/trabajos/foto_8.jpeg",
+      src: "/pibe/trabajos/foto_7.jpeg",
       alt: "Sala con piso de ladrillo, un inversor, un rack de baterías y cajas de protecciones en la pared.",
       pos: "50% 52%",
     },
@@ -213,7 +213,7 @@ export const portrait = {
   alt: "Instalador conectando la caja de protecciones debajo de un inversor, en la pared de una casa.",
 } as const;
 
-/** Los filtros de la galería de Trabajos, y la lista desplegable de la columna "Tipo" de la planilla. */
+/** La lista desplegable de la columna "Tipo" de la planilla. La galería ya no muestra el tipo: solo arma el mensaje de WhatsApp del visor. */
 export const workKinds = ["Casas", "Empresas", "Campo", "Piscinas", "Equipos"] as const;
 export type WorkKind = (typeof workKinds)[number];
 
@@ -506,15 +506,61 @@ export const featuredWorks: { src: string; pos?: string }[] = [
  */
 export const video: { caption: string | null; duration: string | null } = {
   caption: null,
-  duration: "1:00",
+  duration: "0:25",
 };
 
-/** La foto de "Para empresas": el techo de paneles de un estacionamiento. */
-export const businessPhoto = {
-  src: "/pibe/trabajos/foto_18.jpg",
-  alt: "Estructura azul con un techo de paneles que da sombra a una fila de autos estacionados.",
-  pos: "50% 50%",
-} as const;
+/**
+ * Antes y después de una obra (components/pibe/before-after.tsx), debajo de la galería de
+ * Trabajos: el retrofit de Uribelarrea, con los datos que pasó el cliente. Las fotos van en
+ * public/pibe/antes-despues/ con los nombres antes.jpg y despues.jpg (también .jpeg, .png o
+ * .webp). Sin las dos fotos, el bloque no sale en el sitio publicado; en `next dev` se ven los
+ * marcos vacíos. `pos` encuadra la foto si se recorta mal (por ejemplo "50% 30%"). `servicio` es
+ * lo que queda elegido en el formulario al consultar.
+ */
+export const beforeAfter = {
+  title: "Retrofit de una instalación existente",
+  place: "Uribelarrea, Buenos Aires",
+  intro:
+    "Reemplazamos los inversores viejos por tecnología nueva y aprovechamos los mismos paneles solares.",
+  before: { alt: "Los inversores viejos de la instalación, antes del retrofit.", pos: undefined as string | undefined },
+  after: { alt: "La instalación con el inversor híbrido nuevo, después del retrofit.", pos: undefined as string | undefined },
+  /** La ficha de la obra: la cifra grande y, abajo, qué es. */
+  facts: [
+    { value: "21 kWp", label: "de potencia fotovoltaica" },
+    { value: "60 kW", label: "de inversor híbrido" },
+    { value: "40,9 kWh", label: "de almacenamiento en baterías de litio" },
+    { value: "Los mismos", label: "paneles solares de antes, aprovechados" },
+  ],
+  servicio: "Paneles solares",
+  ask: "Ya tengo paneles instalados y quiero consultar por cambiar los inversores, como en el retrofit de Uribelarrea.",
+};
+
+/**
+ * Las fotos de "Para empresas", en un recuadro de dos por dos: techos de comercios, galpones e
+ * industrias, en public/pibe/empresa/. `pos` encuadra cada foto dentro de su celda.
+ */
+export const businessPhotos = [
+  {
+    src: "/pibe/empresa/empresa-sol-1.jpeg",
+    alt: "Paneles solares a lo largo de un techo de chapa, sobre un local en un barrio con árboles.",
+    pos: "50% 72%",
+  },
+  {
+    src: "/pibe/empresa/empresa-sol-2.jpeg",
+    alt: "Dos hileras de paneles a cada lado de la cumbrera de un galpón, en las sierras al atardecer.",
+    pos: "50% 70%",
+  },
+  {
+    src: "/pibe/empresa/empresa-sol-3.jpeg",
+    alt: "Paneles sobre el techo de chapa y la losa de un predio industrial, entre naves negras.",
+    pos: "50% 72%",
+  },
+  {
+    src: "/pibe/empresa/empresa-sol-4.jpeg",
+    alt: "Filas de paneles sobre una cubierta industrial muy grande, con los edificios de la ciudad al fondo.",
+    pos: "50% 95%",
+  },
+] as const;
 
 /**
  * Para empresas: lo que cambia cuando el techo es de un comercio, un galpón o una industria.
@@ -636,7 +682,7 @@ export const systems: {
     need: "Tengo red y quiero pagar menos",
     name: "On-grid",
     tag: "Conectado a la red",
-    body: "Generás tu propia energía y le pedís menos a la red: de día, la casa o la empresa usa primero la del sol. Lo que no usás se puede inyectar a la red con la ley de generación distribuida (la 27.424 o la de tu provincia).",
+    body: "Generás tu propia energía y le pedís menos a la red: de día, la casa o la empresa usa primero la del sol.",
     chain: ["Sol", "Paneles", "Inversor", "Casa y red"],
     kit: ["Paneles", "Inversor on-grid", "Estructura", "Tablero de protecciones"],
     traits: { red: true, baterias: false, sinRed: false },

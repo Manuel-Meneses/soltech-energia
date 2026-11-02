@@ -2050,82 +2050,9 @@ body:has(.pa) {
   }
 }
 
-/* ---------- Trabajos: filtros y mosaico ---------- */
-/* Los filtros y el mosaico son un solo módulo, unido por juntas de 2px. Las celdas salen del
-   dibujo de works-reel.tsx, que suma justo para no dejar huecos con cualquier cantidad de fotos. */
-.pa-filters {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 2px;
-  padding: 2px 2px 0;
-  background: var(--pa-ink);
-}
-@media (min-width: 768px) {
-  .pa-filters {
-    grid-auto-flow: column;
-    grid-auto-columns: minmax(0, 1fr);
-    grid-template-columns: none;
-  }
-}
-.pa-filter {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-  min-height: 3.25rem;
-  padding: 0.5rem 0.85rem;
-  font-size: 0.95rem;
-  font-weight: 600;
-  font-variation-settings: "wdth" 110;
-  text-align: left;
-  color: var(--pa-ink);
-  background: var(--pa-paper);
-  transition:
-    background-color 200ms var(--pa-ease),
-    color 200ms var(--pa-ease);
-}
-.pa-filter > span {
-  font-size: 0.8rem;
-  color: var(--pa-muted);
-  transition: color 200ms var(--pa-ease);
-}
-.pa-filter::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 0;
-  height: 3px;
-  background: var(--pa-sun);
-  opacity: 0;
-  transform: scaleX(0.4);
-  transform-origin: left;
-  transition:
-    opacity 200ms var(--pa-ease),
-    transform 320ms var(--pa-ease);
-}
-.pa-filter[aria-pressed="true"] {
-  color: var(--pa-on-dark);
-  background: var(--pa-ink);
-}
-.pa-filter[aria-pressed="true"] > span {
-  color: var(--pa-on-dark-muted);
-}
-.pa-filter[aria-pressed="true"]::after {
-  opacity: 1;
-  transform: none;
-}
-.pa-filter:focus-visible {
-  z-index: 1;
-  outline-offset: -4px;
-}
-.pa-filter[aria-pressed="true"]:focus-visible {
-  outline-color: var(--pa-sky);
-}
-@media (hover: hover) and (pointer: fine) {
-  .pa-filter[aria-pressed="false"]:hover {
-    background: var(--pa-paper-2);
-  }
-}
+/* ---------- Trabajos: mosaico ---------- */
+/* Un solo módulo, unido por juntas de 2px. Las celdas salen del dibujo de works-reel.tsx, que
+   suma justo para no dejar huecos con cualquier cantidad de fotos. */
 .pa-works {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2334,15 +2261,8 @@ html:has(.pa-lb[open]) {
     padding: 2rem 1.5rem;
   }
 }
-.pa-lb-kind {
-  font-size: 0.875rem;
-  font-weight: 600;
-  line-height: 1.3;
-  color: var(--pa-sun);
-}
 .pa-lb-desc {
   max-width: 34ch;
-  margin-top: 0.6rem;
   font-size: clamp(1.15rem, 1.6vw, 1.4rem);
   font-weight: 500;
   line-height: 1.4;
@@ -2351,7 +2271,6 @@ html:has(.pa-lb[open]) {
 }
 .pa-lb-pitch {
   max-width: 34ch;
-  margin-top: 0.6rem;
   line-height: 1.5;
   color: var(--pa-on-dark-muted);
 }
@@ -2412,8 +2331,6 @@ html:has(.pa-lb[open]) {
   .pa-tile-in {
     animation: none;
   }
-  .pa-filter,
-  .pa-filter::after,
   .pa-works-btn img,
   .pa-lb-arrows > button {
     transition: none;
@@ -2480,18 +2397,29 @@ html:has(.pa-lb[open]) {
 
 /* ---------- Para empresas ---------- */
 /* Una obra para empresa a la vista y, al lado, lo que cambia en filas con filete. */
+/* Cuatro fotos de dos por dos, con juntas de 2px como las celdas de un panel. En compu el
+   recuadro toma el alto de la lista de al lado. */
+.pa-biz-photos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+  gap: 2px;
+  padding: 2px;
+  background: var(--pa-dark-line);
+}
 .pa-biz-photo {
   position: relative;
   margin: 0;
   aspect-ratio: 4 / 3;
   overflow: hidden;
   background: var(--color-950);
-  border: 1px solid var(--pa-dark-line);
 }
 @media (min-width: 1024px) {
+  .pa-biz-photos {
+    min-height: 30rem;
+  }
   .pa-biz-photo {
     aspect-ratio: auto;
-    min-height: 30rem;
   }
 }
 .pa-biz {
@@ -2855,6 +2783,95 @@ html:has(.pa-lb[open]) {
   .pa-day-step:last-child {
     grid-column: span 2;
   }
+}
+
+/* ---------- Antes y después: debajo de la galería de Trabajos ---------- */
+/* Un filete lo separa de la galería. Las dos fotos van unidas por una junta de 2px, como las
+   celdas de un panel: lado a lado desde tablet, una arriba de la otra en celular. "Antes" lleva
+   la placa azul noche; "Después", la del sol. */
+.pa-ba {
+  padding-top: clamp(3rem, 6vw, 4.5rem);
+  border-top: 1px solid var(--pa-line);
+}
+.pa-ba-kicker {
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--pa-sun-deep);
+}
+.pa-ba-pair {
+  display: grid;
+  gap: 2px;
+  padding: 2px;
+  background: var(--pa-ink);
+}
+@media (min-width: 768px) {
+  .pa-ba-pair {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.pa-ba-photo {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  margin: 0;
+  overflow: hidden;
+  background: var(--color-950);
+}
+.pa-ba-tag {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0.6rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1;
+  font-variation-settings: "wdth" 118;
+  letter-spacing: 0.02em;
+  background: var(--pa-ink);
+  color: var(--pa-on-dark);
+}
+.pa-ba-tag[data-after] {
+  background: var(--pa-sun);
+  color: var(--pa-ink);
+}
+/* Solo en `next dev`, mientras falta la foto: el marco con el archivo que hay que subir. */
+.pa-ba-missing {
+  position: absolute;
+  inset: 1rem;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  border: 1px dashed var(--pa-dark-line);
+  font-size: 0.9rem;
+  text-align: center;
+  color: var(--pa-on-dark-muted);
+}
+.pa-ba-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem 1.5rem;
+}
+@media (min-width: 1024px) {
+  .pa-ba-facts {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2.5rem;
+  }
+}
+/* La cifra arriba y lo que es abajo; en el código, el rótulo va primero para los lectores de pantalla. */
+.pa-ba-fact {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--pa-line);
+}
+.pa-ba-value {
+  font-size: clamp(1.6rem, 2.5vw, 2.15rem);
+  font-weight: 600;
+  font-variation-settings: "wdth" 125;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--pa-ink);
 }
 
 }

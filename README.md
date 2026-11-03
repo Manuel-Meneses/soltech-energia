@@ -21,18 +21,23 @@ de `public/pibe/trabajos/` con las fichas de `lib/pibe.ts`.
 ### Para el cliente
 
 - **Sumar fotos:** soltarlas en la carpeta de Drive y tocar **Traer fotos nuevas y publicar**, en la
-  planilla. Aparece una fila por foto, con su miniatura: escribir la descripción y elegir el tipo.
+  planilla. Aparece una fila por foto, con su miniatura: escribir la descripción.
 - **Sacar una foto:** borrarla de Drive. Se va del sitio; su fila se borra al tocar el enlace.
 - **Cambiar el orden:** arrastrar las filas. Las primeras 8 son las que abren la galería.
 - **Cuándo se ve:** al tocar el enlace, enseguida; si no, solo, en unos 5 minutos.
 - **Fotos del iPhone:** tienen que estar en JPG. El enlace avisa cuáles están en HEIC.
+- **Columnas:** el sitio las reconoce por el título de la fila 1, así que se pueden mover o sumar
+  otras. No hay que cambiar los títulos **Descripción** ni **ID (no tocar)**, ni tocar los IDs: sin
+  esas columnas, el sitio deja la galería como estaba. La columna **Tipo** es opcional (Casas,
+  Empresas, Campo, Piscinas o Equipos): si está, arma el mensaje de WhatsApp de la foto.
 
 ### Configurarla (una sola vez)
 
 1. En [Google Cloud](https://console.cloud.google.com/), crear un proyecto, activar **Google Drive
    API** y **Google Sheets API**, crear una **cuenta de servicio** y bajar su clave en JSON.
 2. En Drive, crear una carpeta para la galería y subir las fotos de `public/pibe/trabajos/` con el
-   mismo nombre: así las filas nacen con su descripción, su tipo y su orden. Compartir la carpeta con
+   mismo nombre: así salen con el encuadre y el orden de siempre (la descripción se escribe en la
+   planilla). Compartir la carpeta con
    el mail de la cuenta de servicio, como **lector**.
 3. Crear una planilla vacía y compartirla con ese mail, como **editor**.
 4. Cargar en Vercel (Production) estas variables y volver a publicar:

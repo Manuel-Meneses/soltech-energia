@@ -48,7 +48,7 @@ export async function GET(request: Request) {
     after(() => fetch(url.origin, { cache: "no-store" }).catch(() => {}));
     const lines = [
       added.length > 0
-        ? `Agregamos ${plural(added.length, "foto nueva", "fotos nuevas")} a la planilla. Escribí su descripción y elegí el tipo; se publican solas a los pocos minutos.`
+        ? `Agregamos ${plural(added.length, "foto nueva", "fotos nuevas")} a la planilla. Escribí su descripción; se publica sola a los pocos minutos.`
         : "No hay fotos nuevas en la carpeta.",
       ...(removed > 0 ? [`Sacamos ${plural(removed, "fila", "filas")} de fotos que ya no están en Drive.`] : []),
       ...(skipped.length > 0

@@ -103,16 +103,46 @@ async function listFolder(init: RequestInit) {
   return files;
 }
 
-/** Las columnas de la planilla: A miniatura, B descripción, C tipo, D archivo, E id de Drive. */
-async function readRows(init: RequestInit): Promise<(Row & { row: number })[]> {
-  const res = await googleFetch(`${SHEETS}/values/${encodeURIComponent("A2:E")}`, init);
+/**
+ * Dónde está cada dato en la planilla. Se busca por el título de la fila 1, no por la posición:
+ * el cliente puede borrar, sumar o mover columnas (ya borró "Tipo") sin que el sitio deje de
+ * reconocer las fotos. -1 es una columna que no está.
+ */
+type Columns = { photo: number; description: number; kind: number; file: number; id: number };
+
+/** Las columnas de una planilla nueva, como las arma prepareSheet. */
+const FRESH_COLUMNS: Columns = { photo: 0, description: 1, kind: -1, file: 2, id: 3 };
+
+const plain = (s: string) => s.normalize("NFD").replace(/\p{M}/gu, "").toLocaleLowerCase("es").trim();
+
+function findColumns(header: string[]): Columns {
+  const titles = header.map(plain);
+  const at = (name: string) => titles.findIndex((t) => t === name || t.startsWith(`${name} `));
+  const cols = { photo: at("foto"), description: at("descripcion"), kind: at("tipo"), file: at("archivo"), id: at("id") };
+  // Sin las columnas del ID o de la descripción no se sabe qué texto va con qué foto: mejor
+  // cortar acá (la página sigue con la versión anterior) que mostrar fotos sin texto o, peor,
+  // volver a cargar todas las fotos como si fueran nuevas.
+  if (cols.id === -1 || cols.description === -1) {
+    throw new Error(`La planilla de la galería no tiene las columnas "Descripción" e "ID (no tocar)" en la fila 1 (tiene: ${header.join(" | ")})`);
+  }
+  return cols;
+}
+
+/** La fila de títulos y las filas de fotos. `row` es el índice de la fila, contando desde 0. */
+async function readSheet(init: RequestInit): Promise<{ cols: Columns | null; rows: (Row & { row: number })[] }> {
+  const res = await googleFetch(`${SHEETS}/values/${encodeURIComponent("A1:Z")}`, init);
   const { values = [] } = (await res.json()) as { values?: string[][] };
-  return values.map((v, i) => ({
+  const header = values[0] ?? [];
+  if (!header.some((t) => t.trim())) return { cols: null, rows: [] };
+  const cols = findColumns(header);
+  const cell = (v: string[], i: number) => (i === -1 ? "" : (v[i] ?? "").trim());
+  const rows = values.slice(1).map((v, i) => ({
     row: i + 1,
-    description: (v[1] ?? "").trim(),
-    kind: (v[2] ?? "").trim(),
-    id: (v[4] ?? "").trim(),
+    description: cell(v, cols.description),
+    kind: cell(v, cols.kind),
+    id: cell(v, cols.id),
   }));
+  return { cols, rows };
 }
 
 const photoSrc = (f: DriveFile) => `/api/galeria/foto/${f.id}/${f.md5Checksum ?? "0"}`;
@@ -137,7 +167,7 @@ function toPhoto(f: DriveFile, row?: Row): GalleryPhoto {
 }
 
 async function remoteGallery(): Promise<GalleryPhoto[]> {
-  const [files, rows] = await Promise.all([listFolder(CACHED), readRows(CACHED)]);
+  const [files, { rows }] = await Promise.all([listFolder(CACHED), readSheet(CACHED)]);
   const pending = new Map(files.filter((f) => SHOWABLE.test(f.mimeType)).map((f) => [f.id, f]));
   const photos: GalleryPhoto[] = [];
   for (const row of rows) {
@@ -197,21 +227,22 @@ function batchUpdate(requests: unknown[]) {
   });
 }
 
-function newRow(f: DriveFile, origin: string) {
+/**
+ * La fila de una foto nueva, con la miniatura, el nombre y el ID en sus columnas y la descripción
+ * vacía para que la escriba el cliente. No se completa con los textos de lib/pibe.ts: esos eran
+ * de las fotos del repo, y una foto nueva con el nombre de una vieja (foto_4.jpeg) se llevaba la
+ * descripción vieja a la planilla.
+ */
+function newRow(f: DriveFile, origin: string, cols: Columns) {
   const thumb = `${origin}/_next/image?url=${encodeURIComponent(photoSrc(f))}&w=256&q=75`;
-  const known = seed(f.name);
-  return {
-    values: [
-      { userEnteredValue: { formulaValue: `=IMAGE("${thumb}")` } },
-      text(known?.what ?? ""),
-      text(known?.kind ?? ""),
-      link(f.name, `https://drive.google.com/file/d/${f.id}/view`),
-      text(f.id),
-    ],
-  };
+  const values: Cell[] = Array.from({ length: Math.max(...Object.values(cols)) + 1 }, () => ({}));
+  if (cols.photo !== -1) values[cols.photo] = { userEnteredValue: { formulaValue: `=IMAGE("${thumb}")` } };
+  if (cols.file !== -1) values[cols.file] = link(f.name, `https://drive.google.com/file/d/${f.id}/view`);
+  values[cols.id] = text(f.id);
+  return { values };
 }
 
-/** La primera vez: títulos, enlace para actualizar, lista de tipos y columnas a medida. */
+/** La primera vez: títulos, enlace para actualizar y columnas a medida (ver FRESH_COLUMNS). */
 function prepareSheet(sheetId: number, updateUrl: string) {
   const title = (s: string): Cell => ({ userEnteredValue: { stringValue: s }, userEnteredFormat: { textFormat: { bold: true } } });
   const width = (startIndex: number, pixelSize: number) => ({
@@ -225,7 +256,7 @@ function prepareSheet(sheetId: number, updateUrl: string) {
     {
       updateCells: {
         start: { sheetId, rowIndex: 0, columnIndex: 0 },
-        rows: [{ values: [title("Foto"), title("Descripción"), title("Tipo"), title("Archivo"), title("ID (no tocar)"), {}, link("Traer fotos nuevas y publicar", updateUrl, true)] }],
+        rows: [{ values: [title("Foto"), title("Descripción"), title("Archivo"), title("ID (no tocar)"), {}, link("Traer fotos nuevas y publicar", updateUrl, true)] }],
         fields: CELL_FIELDS,
       },
     },
@@ -237,18 +268,11 @@ function prepareSheet(sheetId: number, updateUrl: string) {
         fields: "userEnteredFormat(wrapStrategy,verticalAlignment)",
       },
     },
-    {
-      setDataValidation: {
-        range: { sheetId, startRowIndex: 1, startColumnIndex: 2, endColumnIndex: 3 },
-        rule: { condition: { type: "ONE_OF_LIST", values: workKinds.map((userEnteredValue) => ({ userEnteredValue })) }, showCustomUi: true, strict: false },
-      },
-    },
     width(0, 150),
     width(1, 460),
-    width(2, 110),
-    width(3, 170),
-    width(6, 240),
-    { updateDimensionProperties: { range: { sheetId, dimension: "COLUMNS", startIndex: 4, endIndex: 5 }, properties: { hiddenByUser: true }, fields: "hiddenByUser" } },
+    width(2, 170),
+    width(5, 240),
+    { updateDimensionProperties: { range: { sheetId, dimension: "COLUMNS", startIndex: 3, endIndex: 4 }, properties: { hiddenByUser: true }, fields: "hiddenByUser" } },
   ]);
 }
 
@@ -269,11 +293,10 @@ export async function syncSheet(updateUrl: string): Promise<SyncResult> {
   const { sheets } = (await metaRes.json()) as { sheets: { properties: { sheetId: number; title: string } }[] };
   const { sheetId } = sheets[0].properties;
 
-  const headerRes = await googleFetch(`${SHEETS}/values/${encodeURIComponent("A1:A1")}`, FRESH);
-  const { values: header } = (await headerRes.json()) as { values?: string[][] };
-  if (!header?.[0]?.[0]) await prepareSheet(sheetId, updateUrl);
-
-  const rows = await readRows(FRESH);
+  const sheet = await readSheet(FRESH);
+  if (!sheet.cols) await prepareSheet(sheetId, updateUrl);
+  const { rows } = sheet;
+  const cols = sheet.cols ?? FRESH_COLUMNS;
   const inFolder = new Set(showable.map((f) => f.id));
   const inSheet = new Set(rows.map((r) => r.id));
 
@@ -282,7 +305,7 @@ export async function syncSheet(updateUrl: string): Promise<SyncResult> {
   const fresh = showable.filter((f) => !inSheet.has(f.id)).sort((a, b) => seedRank(a.name) - seedRank(b.name));
   const requests = [
     ...gone.map((r) => ({ deleteDimension: { range: { sheetId, dimension: "ROWS", startIndex: r.row, endIndex: r.row + 1 } } })),
-    ...(fresh.length > 0 ? [{ appendCells: { sheetId, rows: fresh.map((f) => newRow(f, origin)), fields: CELL_FIELDS } }] : []),
+    ...(fresh.length > 0 ? [{ appendCells: { sheetId, rows: fresh.map((f) => newRow(f, origin, cols)), fields: CELL_FIELDS } }] : []),
     ...(fresh.length > 0
       ? [{ updateDimensionProperties: { range: { sheetId, dimension: "ROWS", startIndex: 1, endIndex: rows.length - gone.length + fresh.length + 1 }, properties: { pixelSize: 110 }, fields: "pixelSize" } }]
       : []),
